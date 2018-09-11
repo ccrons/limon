@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.limon.manage.dao.ProductTypeDao">
+    <select id="getProductTypeList" parameterType="java.util.Map" resultType="com.limon.manage.model.ProductType">
+		select * from product_type where isdel = 0 and pid=${pid}
+			<if test="stypename != null and stypename !=''">  
+				and typename like CONCAT('%',#{stypename},'%') 
+			</if> 
+			order by sort asc
+		limit #{pageStart} , #{pageSize}
+    </select>
+    <select id="getProductTypeListCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+		select count(*) from product_type where isdel = 0 and pid=${pid}
+			<if test="stypename != null and stypename !=''">  
+				and typename like CONCAT('%',#{stypename},'%') 
+			</if> 
+	</select>
+    <select id="getProductTypeListAll" resultType="com.limon.manage.model.ProductType">
+		select * from product_type where isdel=0 order by sort
+    </select>
+    <select id="getProductType" parameterType="java.lang.String" resultType="com.limon.manage.model.ProductType">
+		select * from product_type where id=#{id}
+    </select>
+    <select id="getIsUseProductType" parameterType="java.util.Map" resultType="java.lang.Integer">
+		select count(*) from product_type where isdel=0
+		<if test="typename != null and typename !=''">  
+			and typename =#{typename}
+		</if> 
+		<if test="id != null and id !=''">  
+			and id !=#{id} 
+		</if> 
+    </select>
+    <insert id="productTypeAdd" parameterType="com.limon.manage.model.ProductType">
+		insert into product_type(typename,pid,sort)values(#{typename},#{pid},#{sort})
+    </insert>
+    <update id="productTypeUpdate" parameterType="com.limon.manage.model.ProductType">
+		update product_type set typename=#{typename},pid=#{pid},sort=#{sort} where id=#{id}
+    </update>
+    <update id="productTypeDel" parameterType="java.lang.String">
+		update product_type set isdel=1 where id=#{id}
+    </update>
+    <select id="getProductTypeListByPid" parameterType="java.util.Map" resultType="com.limon.manage.model.ProductType">
+		select * from product_type where isdel=0 and pid=#{pid}
+    </select>
+</mapper>

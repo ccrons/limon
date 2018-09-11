@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.limon.http.dao.GetFavGoodsDao">
+	<select id="getFavGoods" parameterType="java.util.Map" resultType="com.limon.http.model.FavGoods">
+		select a.productid as id,a.storeid as sid,c.name,b.saleprice as price,c.imgurl,c.sprice as oprice,c.status as type,c.isrec from app_favourite a left join store_product b on a.productid=b.productid and a.storeid=b.storeid left join product_info c on b.productid=c.id where a.appuserid=#{userid}
+    </select>
+    <select id="getFavGoodsCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+		select count(*) from app_favourite where appuserid=#{userid}
+    </select>
+</mapper>

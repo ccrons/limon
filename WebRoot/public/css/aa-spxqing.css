@@ -1,0 +1,204 @@
+body, html,input{font-family:"微软雅黑" !important;}
+
+
+/*商品信息*/
+.xq-xx{
+    width: 100%;
+    padding: 4% 4% 0 4%;
+    border-top: 1px solid #E5E5E5;
+}
+.xq-xx>p{
+    font-size: 1.7rem;
+}
+.xq-xx ul{
+    display: flex;
+    justify-content: space-between;
+    color: #A9A9A9;
+    margin: 2% 0;
+}
+.xq-xx ul li .lv{
+    color: #96D849;
+    font-size: 1.7rem;
+}
+
+/*承诺*/
+.xq-cn{
+    padding: 3% 2%;
+    background: #F8F8F8;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #E0E0E0;
+    margin-bottom: 0;
+}
+
+.xq-cn li img{
+    display: inline-block;
+}
+
+.xq-cn li .duih{
+    width: 10%;
+}
+.xq-cn li .duih1{
+    width: 19%;
+}
+.xq-cn li .duih2{
+    width: 30%;
+}
+.jthui{
+    color:#A2A2A2 ;
+}
+
+.xq-hui{
+    height: 1px;
+    background: #EEEEEE;
+    width: 100%;
+}
+
+.xq-xz{
+    padding:3% 2%;
+    border-bottom: 1px solid #E4E4E4;
+    display: flex;
+    justify-content: space-between;
+}
+
+
+/*图片详情*/
+.xq-tpxq{
+    width: 100%;
+}
+.xq-tpxq img{
+    width: 100%;
+}
+
+/*底部导航*/
+.table-fivedh{
+    border-top:1px solid #727272;
+    width: 100%;
+    text-align: center;
+    color: #727272;
+    vertical-align: middle;
+    position: fixed;
+    bottom:0px;
+    z-index:999;
+    background-color:white;
+}
+.table-fivedh img{
+    width: 33%;
+}
+.table-fivedh td{
+    border: 1px solid #CBCBCB;
+    border-bottom: none;
+}
+
+.table-fivedh td:nth-child(4){
+    width: 25%;
+    border: 1px solid #7CCF0B;
+    color: white;
+}
+.table-fivedh td:nth-child(5){
+    width: 25%;
+    border: 1px solid #FF5000;
+    color: white;
+}
+.table-fivedh td:hover{
+    color: #58A801;
+}
+
+.addgwc{
+    width: 100%;
+    padding: 15% 0;
+    background: #7CCF0B;
+    border-radius:1px;
+    border: none;
+}
+.ljgm{
+    width: 100%;
+    padding: 15% 0;
+    background: #FF5000;
+    border-radius:1px;
+    border: none;
+}
+
+/*详情2页-选择口味*/
+.xqb-xtu{
+    width: 100%;
+    padding:2% 2% 10% 2%;
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    background: white;
+    margin-top: -20%;
+    z-index: 999;
+}
+.xqb-xtu .xqb-tua{
+    width: 35%;
+    border: 1px solid #F2F2F2;
+    border-radius: 5px;
+    position: absolute;
+    bottom: 20%;
+    z-index: 998;
+}
+.xqb-xtu .xqb-tua img{
+    width: 100%;
+}
+
+.xqb-xtu .xqb-tub{
+    width: 6%;
+}
+.xqb-xtu .xqb-tub img{
+    width: 100%;
+}
+
+.xqb-xtu .xqb-zi .lv{
+    display: inline-block;
+    color: #96D849;
+    font-size: 1.7rem;
+    margin: 25% 0;
+}
+.xqb-xtu .xqb-zi{
+    margin-left: 40%;
+}
+.xqb-xtu .xqb-zi p{
+}
+
+/*味道分类*/
+.xqb-fl{
+    padding: 2% 0;
+    margin: 2%;
+    border-top: 1px solid #F3F3F3;
+    z-index: 9999;
+}
+
+.xqb-fl>p{
+    color: #3D4C56;
+    font-size: 1.5rem;
+}
+.xqb-fl .xqb-kw{
+    padding: 2%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.xqb-fl .xqb-kw .kwei{
+    background: #F5F5F5;
+    border: none;
+    padding: 6% 14%;
+    color: #616161;
+    border-radius: 5px;
+}
+
+.xqb-qd{
+    width: 100%;
+    background: #7CCF0B;
+}
+.xqb-qd .xqb-qda{
+    width: 100%;
+    border: none;
+    color: white;
+    background: #7CCF0B;
+    padding: 3% 0;
+    position: absolute;
+    bottom: 0;
+    font-size: 1.6rem;
+}

@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.limon.manage.dao.PriceStatisticsDao">
+   <select id="getStoreInfoList" parameterType="java.util.Map" resultType="com.limon.store.model.StoreInfo">
+		SELECT * FROM store_info a LEFT JOIN ( SELECT b.storeid ,SUM(b.orderprice) as allprice,SUM(b.orderprice-b.sendprice) as allorderprice,SUM(b.sendprice) as allsendprice FROM order_info b WHERE b.isdel=0 AND b.status=3 
+		
+		<if test="stime != null and stime !=''">  
+			and substring(b.createtime,1,10) <![CDATA[>=]]> #{stime} 
+		</if>
+		<if test="etime != null and etime !=''">  
+			and substring(b.createtime,1,10) <![CDATA[<=]]> #{etime} 
+		</if>
+		<if test="paytype != null and paytype !=''">  
+			<if test="paytype==1 or paytype==2"> 
+				and (b.paytype = 1 or b.paytype = 2)
+			</if>
+			<if test="paytype==3"> 
+				and b.paytype = 3
+			</if>
+		</if>
+		
+		GROUP BY b.storeid ) c ON c.storeid = a.id
+		where a.isdel=0
+		<if test="sstorename != null and sstorename !=''">  
+			and a.storename like CONCAT('%',#{sstorename},'%') 
+		</if> 
+		<if test="provincecode != null and provincecode !=''">  
+			and a.provincecode=#{provincecode} 
+		</if>
+		<if test="citycode != null and citycode !=''">  
+			and a.citycode=#{citycode} 
+		</if>
+		<if test="countycode != null and countycode !=''">  
+			and a.countycode=#{countycode} 
+		</if>
+		<if test="isself != null and isself !=''">  
+			and a.isself=#{isself} 
+		</if>
+		order by allprice desc
+		limit #{pageStart} , #{pageSize}
+    </select>
+    <select id="getStoreInfoListCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+		SELECT count(*) FROM store_info a LEFT JOIN ( SELECT b.storeid ,SUM(b.orderprice) as allprice,SUM(b.orderprice-b.sendprice) as allorderprice,SUM(b.sendprice) as allsendprice FROM order_info b WHERE b.isdel=0 AND b.status=3 
+		
+		<if test="stime != null and stime !=''">  
+			and substring(b.createtime,1,10) <![CDATA[>=]]> #{stime} 
+		</if>
+		<if test="etime != null and etime !=''">  
+			and substring(b.createtime,1,10) <![CDATA[<=]]> #{etime} 
+		</if>
+		<if test="paytype != null and paytype !=''">  
+			<if test="paytype==1 or paytype==2"> 
+				and (b.paytype = 1 or b.paytype = 2)
+			</if>
+			<if test="paytype==3"> 
+				and b.paytype = 3
+			</if>
+		</if>
+		
+		GROUP BY b.storeid ) c ON c.storeid = a.id
+		where a.isdel=0
+		<if test="sstorename != null and sstorename !=''">  
+			and a.storename like CONCAT('%',#{sstorename},'%') 
+		</if> 
+		<if test="provincecode != null and provincecode !=''">  
+			and a.provincecode=#{provincecode} 
+		</if>
+		<if test="citycode != null and citycode !=''">  
+			and a.citycode=#{citycode} 
+		</if>
+		<if test="countycode != null and countycode !=''">  
+			and a.countycode=#{countycode} 
+		</if>
+		<if test="isself != null and isself !=''">  
+			and a.isself=#{isself} 
+		</if>
+    </select>
+    <select id="getStoreInfoListCountPrice" parameterType="java.util.Map" resultType="com.limon.store.model.StoreInfo">
+		SELECT SUM(b.orderprice) AS allprice,SUM(b.orderprice-b.sendprice) AS allorderprice,SUM(b.sendprice) AS allsendprice FROM store_info a,order_info b WHERE a.id=b.storeid AND a.isdel=0 AND b.isdel=0 AND  b.status=3
+		<if test="sstorename != null and sstorename !=''">  
+			and a.storename like CONCAT('%',#{sstorename},'%') 
+		</if> 
+		<if test="provincecode != null and provincecode !=''">  
+			and a.provincecode=#{provincecode} 
+		</if>
+		<if test="citycode != null and citycode !=''">  
+			and a.citycode=#{citycode} 
+		</if>
+		<if test="countycode != null and countycode !=''">  
+			and a.countycode=#{countycode} 
+		</if>
+		<if test="stime != null and stime !=''">  
+			and substring(b.createtime,1,10) <![CDATA[>=]]> #{stime} 
+		</if>
+		<if test="etime != null and etime !=''">  
+			and substring(b.createtime,1,10) <![CDATA[<=]]> #{etime} 
+		</if>
+		<if test="isself != null and isself !=''">  
+			and a.isself=#{isself} 
+		</if>
+		<if test="paytype != null and paytype !=''">  
+			<if test="paytype==1 or paytype==2"> 
+				and (b.paytype = 1 or b.paytype = 2)
+			</if>
+			<if test="paytype==3"> 
+				and b.paytype = 3
+			</if>
+		</if>
+    </select>
+     <select id="getStoreOrderList" parameterType="java.util.Map" resultType="com.limon.store.model.OrderInfo">
+		SELECT * FROM order_info WHERE isdel=0 AND status=3 and storeid=#{storeid}
+		<if test="sstorename != null and sstorename !=''">  
+			and storename like CONCAT('%',#{sstorename},'%') 
+		</if> 
+		<if test="provincecode != null and provincecode !=''">  
+			and provincecode=#{provincecode} 
+		</if>
+		<if test="citycode != null and citycode !=''">  
+			and citycode=#{citycode} 
+		</if>
+		<if test="countycode != null and countycode !=''">  
+			and countycode=#{countycode} 
+		</if>
+		<if test="stime != null and stime !=''">  
+			and substring(createtime,1,10) <![CDATA[>=]]> #{stime} 
+		</if>
+		<if test="etime != null and etime !=''">  
+			and substring(createtime,1,10) <![CDATA[<=]]> #{etime} 
+		</if>
+		<if test="isself != null and isself !=''">  
+			and a.isself=#{isself} 
+		</if>
+		<if test="paytype != null and paytype !=''">  
+			<if test="paytype==1 or paytype==2"> 
+				and (paytype = 1 or paytype = 2)
+			</if>
+			<if test="paytype==3"> 
+				and paytype = 3
+			</if>
+		</if>
+    </select>
+    
+    <select id="getStoreStoreCashList" parameterType="java.util.Map" resultType="com.limon.manage.model.StoreCash">
+		SELECT a.storename,b.* FROM store_cash b left join store_info a on a.id=b.storeid WHERE a.isdel=0 and a.isopen=1
+		<if test="stime != null and stime !=''">  
+			and substring(b.createtime,1,10) <![CDATA[>=]]> #{stime} 
+		</if>
+		<if test="etime != null and etime !=''">  
+			and substring(b.createtime,1,10) <![CDATA[<=]]> #{etime} 
+		</if>
+		<if test="sstorename != null and sstorename !=''">  
+			and a.storename like CONCAT('%',#{sstorename},'%') 
+		</if> 
+		<if test="provincecode != null and provincecode !=''">  
+			and a.provincecode=#{provincecode} 
+		</if>
+		<if test="citycode != null and citycode !=''">  
+			and a.citycode=#{citycode} 
+		</if>
+		<if test="countycode != null and countycode !=''">  
+			and a.countycode=#{countycode} 
+		</if>
+		order by b.createtime desc
+		limit #{pageStart} , #{pageSize}
+    </select>
+    
+    <select id="getStoreStoreCashListCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+		SELECT count(*) FROM store_cash b left join store_info a on a.id=b.storeid WHERE a.isdel=0 and a.isopen=1
+		<if test="stime != null and stime !=''">  
+			and substring(b.createtime,1,10) <![CDATA[>=]]> #{stime} 
+		</if>
+		<if test="etime != null and etime !=''">  
+			and substring(b.createtime,1,10) <![CDATA[<=]]> #{etime} 
+		</if>
+		<if test="sstorename != null and sstorename !=''">  
+			and a.storename like CONCAT('%',#{sstorename},'%') 
+		</if> 
+		<if test="provincecode != null and provincecode !=''">  
+			and a.provincecode=#{provincecode} 
+		</if>
+		<if test="citycode != null and citycode !=''">  
+			and a.citycode=#{citycode} 
+		</if>
+		<if test="countycode != null and countycode !=''">  
+			and a.countycode=#{countycode} 
+		</if>
+    </select>
+    
+    <insert id="saveStoreCash" parameterType="java.util.Map">
+		insert into store_cash(storeid,createtime,cashnum,cashtype,cashaccount,cashtime,cashstatus)values(#{storeid},#{createtime},#{cashnum},#{cashtype},#{cashaccount},#{cashtime},#{cashstatus});
+    </insert>
+    <update id="updateStoreCashAccount" parameterType="java.util.Map">
+		update store_cash set cashaccount=#{cashaccount},cashtype=#{cashtype} where id=#{id}
+    </update>
+    <update id="updateStoreCashStatus" parameterType="java.util.Map">
+		update store_cash set cashstatus=#{cashstatus} where id=#{id}
+    </update>
+    <select id="getCashByStoreidAndTime" parameterType="java.util.Map" resultType="java.lang.Integer">
+		SELECT count(*) FROM store_cash WHERE storeid=#{storeid} and cashtime=#{cashtime}
+    </select>
+    
+</mapper>

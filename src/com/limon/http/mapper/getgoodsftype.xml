@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.limon.http.dao.GetGoodsFTypeDao">
+	<select id="getStoreProductType" parameterType="java.util.Map" resultType="com.limon.http.model.ProductType">
+		select distinct d.id,d.typename from store_product a left join product_info b on a.productid=b.id left join  product_type c on b.type=c.id  left join product_type d on c.pid=d.id where a.storeid=#{storeid} and c.isdel=0 group by c.typename order by d.sort asc
+    </select>
+</mapper>

@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>个人中心</title>
+    <!-- BOOTSTRAP CORE STYLE CSS -->
+
+    <link href="${basePath}/public/css/bootstrap.min.css" rel="stylesheet">
+    <link href="${basePath}/public/css/bootstrap-theme.min.css" rel="stylesheet">
+
+    <link href="${basePath}/public/css/bootstrap.css" rel="stylesheet" />
+    <!-- FONT AWESOME CSS -->
+    <link href="${basePath}/public/css/font-awesome.min.css" rel="stylesheet" />
+    <!-- FLEXSLIDER CSS -->
+    <link href="${basePath}/public/css/flexslider.css" rel="stylesheet" />
+
+    <!-- BOOTSTRAP CORE STYLE CSS -->
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <!-- CUSTOM STYLE CSS -->
+    <link href="${basePath}/public/css/index.css" rel="stylesheet" />
+    <link href="${basePath}/public/css/setting.css" rel="stylesheet" />
+    <!-- Google	Fonts -->
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,300' rel='stylesheet' type='text/css' />
+</head>
+<body>
+
+
+<!--头像-->
+<div class="editmy-tx">
+
+    <a href="#"><img src="${user.headimg}" alt="" class="img-circle mint"></a>
+    <!--<img src="${basePath}/public/img/grzx/gr_a3.png" alt="" style="width: 5%;" class="dengji">-->
+
+    <p>${user.nickname}</p>
+</div>
+<div class="sett-hui"></div>
+
+<!--购物信息-->
+<table class="tab-hw">
+    <tr>
+        <td>
+            <i class="gs-i">${wpaycount}</i>
+            <a href="orderlist?ostatus=0"><img src="${basePath}/public/img/grzx/gr_dfk.png" alt="">
+            <p>待付款</p></a>
+        </td>
+        <td>
+            <i class="gs-i2">${wsendcount}</i>
+            <a href="orderlist?ostatus=1"><img src="${basePath}/public/img/grzx/gr_dfk.png" alt="">
+            <p>待发货</p></a>
+        </td>
+        <td>
+            <i class="gs-i3">${wreceivecount}</i>
+            <a href="orderlist?ostatus=2"><img src="${basePath}/public/img/grzx/gr_dfk1.png" alt="">
+            <p>待收货</p></a>
+        </td>
+        <td>
+            <i class="gs-i4">${overcount}</i>
+            <a href="orderlist?ostatus=3"><img src="${basePath}/public/img/grzx/gr_dfk2.png" alt="" style="width: 30%;">
+            <p>已完成</p></a>
+        </td>
+        <td>
+            <i class="gs-i5">${cancelcount}</i>
+            <a href="orderlist?ostatus=3"><img src="${basePath}/public/img/grzx/gr_dfk3.png" alt="">
+            <p>退款/售后</p></a>
+        </td>
+    </tr>
+</table>
+<div class="sett-hui"></div>
+<!--中部信息-->
+<table class="qrorder-tablea1">
+    <tr>
+        <td>
+        	<a href="orderlist">
+            <img src="${basePath}/public/img/grzx/gr_b2.png" alt="">&nbsp;
+            <span>我的订单</span>
+            </a>
+        </td>
+        <td class="qrorder-quan1">
+        	<a href="orderlist">
+            <span class="glyphicon glyphicon-menu-right jthui"></span>
+            </a>
+        </td>
+    </tr>
+    </a>
+    <tr>
+        <td>
+            <a href="favlist">
+            <img src="${basePath}/public/img/grzx/gr_b1.png" alt="">&nbsp;
+            <span>我的收藏</span>
+            </a>
+        </td>
+        <td class="qrorder-quan1">
+            <a href="favlist">
+            <span class="glyphicon glyphicon-menu-right jthui"></span>
+            </a>
+        </td>
+    </tr>
+
+    <tr>
+        <td>
+            <a href="addrlist">
+            <img src="${basePath}/public/img/grzx/gr_b3.png" alt="">&nbsp;
+            <span>收货地址</span>
+            </a>
+        </td>
+        <td class="qrorder-quan1">
+            <a href="addrlist">
+            <span class="glyphicon glyphicon-menu-right jthui"></span>
+            </a>
+        </td>
+    </tr>
+</table>
+
+<!--意见反馈-->
+<div class="sett-hui"></div>
+
+<table class="qrorder-tablea1">
+    <tr>
+        <td>
+            <a href="feedback">
+            <img src="${basePath}/public/img/grzx/gr_b5.png" alt="">&nbsp;
+            <span>意见反馈</span>
+            </a>
+        </td>
+        <td class="qrorder-quan1">
+            <a href="feedback">
+            <span class="glyphicon glyphicon-menu-right jthui"></span>
+            </a>
+        </td>
+    </tr>
+
+</table>
+<table  class="qrorder-tablea1">
+	<!-- 
+    <tr>
+        <td>
+            <a href=""><img src="${basePath}/public/img/grzx/gr_b6.png" alt="" style="width: 11%"></a>&nbsp;
+            <span>在线客服</span>
+        </td>
+        <td class="zi">
+            <span>周一至周日08:00-22:00</span>
+        </td>
+    </tr>
+    -->
+    <tr>
+        <td>
+            <img src="${basePath}/public/img/grzx/gr_b7.png" alt="" >&nbsp;
+            <a href="tel:400-888-8888"><span>客服电话400-888-8888</span></a>
+        </td>
+        <td class="zi">
+            <span>周一至周日08:00-22:00</span>
+        </td>
+    </tr>
+</table>
+
+<div style="margin-bottom: 18%;"></div>
+
+<!--底部导航-->
+<table class="table-five">
+    <tr>
+        <td>
+            <a href="index"><img src="${basePath}/public/img/index/di_a1n.png" alt="" onmouseover="this.src='${basePath}/public/img/index/sy_a11.png'" onmouseout="this.src='${basePath}/public/img/index/di_a1n.png'"></a>
+            <p>首页</p>
+        </td>
+        <td>
+            <a href="goodslist"><img src="${basePath}/public/img/index/di_a2.png" alt="" onmouseover="this.src='${basePath}/public/img/index/sy_a121.png'" onmouseout="this.src='${basePath}/public/img/index/di_a2.png'"></a>
+            <p>商品</p>
+        </td>
+        <td>
+            <i class="sl-ia">${cartnum}</i>
+            <a href="cartlist"><img src="${basePath}/public/img/index/di_a3.png" alt="" onmouseover="this.src='${basePath}/public/img/index/sy_a131.png'" onmouseout="this.src='${basePath}/public/img/index/di_a3.png'"></a>
+            <p>购物车</p>
+        </td>
+        <td>
+            <a href="person"><img src="${basePath}/public/img/index/di_a4n.png" alt="" onmouseover="this.src='${basePath}/public/img/index/sy_a141.png'" onmouseout="this.src='${basePath}/public/img/index/di_a4n.png'"></a>
+            <p>我的</p>
+        </td>
+    </tr>
+</table>
+<!--底部导航 end-->
+
+
+
+
+
+<!--  Jquery Core Script -->
+<script src="${basePath}/public/js/jquery-1.10.2.js"></script>
+<!--  Core Bootstrap Script -->
+<script src="${basePath}/public/js/bootstrap.js"></script>
+<!--  Flexslider Scripts -->
+<script src="${basePath}/public/js/jquery.flexslider.js"></script>
+<!--  Scrolling Reveal Script -->
+<script src="${basePath}/public/js/scrollReveal.js"></script>
+<!--  Scroll Scripts -->
+<script src="${basePath}/public/js/jquery.easing.min.js"></script>
+<!--  Custom Scripts -->
+<script src="${basePath}/public/js/custom.js"></script>
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="${basePath}/public/js/jquery-1.12.4.min.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="${basePath}/public/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.limon.manage.dao.SysPushDao">
+   <select id="getPushList" parameterType="java.util.Map" resultType="com.limon.manage.model.SysPush">
+		select * from sys_push where 1=1
+		<if test="content != null and content !=''">  
+			and content like CONCAT('%',#{content},'%') 
+		</if> 
+		<if test="stime != null and stime !=''">  
+			and createtime <![CDATA[>]]> #{stime}
+		</if> 
+		<if test="etime != null and etime !=''">  
+			and createtime <![CDATA[<]]> #{etime}
+		</if> 
+		order by createtime desc
+		limit #{pageStart} , #{pageSize}
+    </select>
+    <select id="getPushListCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+		select count(*) from sys_push where 1=1
+		<if test="content != null and content !=''">  
+			and content like CONCAT('%',#{content},'%') 
+		</if> 
+		<if test="stime != null and stime !=''">  
+			and createtime <![CDATA[>]]> #{stime}
+		</if> 
+		<if test="etime != null and etime !=''">  
+			and createtime <![CDATA[<]]> #{etime}
+		</if> 
+    </select>
+    <select id="getSysPushById" parameterType="java.lang.String" resultType="com.limon.manage.model.SysPush">
+		select * from sys_push where id=#{id}
+    </select>
+    <insert id="sysPushAdd" parameterType="com.limon.manage.model.SysPush">
+		insert into sys_push(content,ptype,alias,createtime)values(#{content},#{ptype},#{alias},#{createtime})
+    </insert>
+    <delete id="sysPushDel" parameterType="java.lang.String">
+		delete from sys_push where id=#{id}
+    </delete>
+    <select id="getStoreId" parameterType="java.lang.String" resultType="java.lang.String">
+		select id from store_info
+    </select>
+    <select id="getAppuserId" parameterType="java.lang.String" resultType="java.lang.String">
+		select userid from app_shopaddr where 1=1
+		<if test="province != null and province !=''">  
+			and province=#{province} 
+		</if> 
+		<if test="city != null and city !=''">  
+			and city=#{city} 
+		</if> 
+		<if test="county != null and county !=''">  
+			and county=#{county} 
+		</if> 
+		group by userid 
+    </select>
+    
+    <select id="getStoresId" parameterType="java.lang.String" resultType="java.lang.String">
+		select id from store_info where 1=1
+		<if test="provincecode != null and provincecode !=''">  
+			and provincecode=#{provincecode} 
+		</if> 
+		<if test="citycode != null and citycode !=''">  
+			and citycode=#{citycode} 
+		</if> 
+		<if test="countycode != null and countycode !=''">  
+			and countycode=#{countycode} 
+		</if> 
+		<if test="sid != null and sid !=''">  
+			and id=#{sid} 
+		</if> 
+		and isdel=0
+    </select>
+    
+    <select id="getProvinceByProvcode" parameterType="java.lang.String" resultType="java.lang.String">
+		select provname from area_province where provcode=#{provcode}
+    </select>
+    <select id="getCityByCitycode" parameterType="java.lang.String" resultType="java.lang.String">
+		select cityname from area_city where citycode=#{citycode}
+    </select>
+    <select id="getCountyByCountycode" parameterType="java.lang.String" resultType="java.lang.String">
+		select countyname from area_county where countycode=#{countycode}
+    </select>
+    <select id="getStoreBycountycode" parameterType="java.lang.String" resultType="com.limon.store.model.StoreInfo">
+		select * from store_info where countycode=#{countycode}
+    </select>
+</mapper>

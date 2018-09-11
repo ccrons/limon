@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.limon.store.dao.StoreInfoDao">
+    <select id="getStoreByUserNameAndPassword" parameterType="java.util.Map" resultType="com.limon.store.model.StoreInfo">
+		select a.*,c.id as roleid,c.rolename
+		from store_info a left join store_role b on a.id=b.storeid 
+		left join sys_role c on b.roleid=c.id 
+		where a.username=#{username} and a.password=#{password} and a.isopen=1 and a.isdel=0
+    </select>
+    <update id="updatePassword" parameterType="java.util.Map">
+		update store_info set password=#{newpassword} where id=#{userid}
+	</update>
+	<select id="getStoreInfoList" parameterType="java.util.Map" resultType="com.limon.store.model.StoreInfo">
+		select a.*,b.provname as provname,c.cityname,d.countyname from store_info a left join area_province b on a.provincecode=b.provcode left join area_city c on a.citycode=c.citycode left join area_county d on a.countycode=d.countycode where isdel=0
+		<if test="storename != null and storename !=''">  
+			and a.storename like CONCAT('%',#{storename},'%') 
+		</if>
+		<if test="citycode != null and citycode !=''">  
+			and a.citycode = #{citycode}
+		</if>
+		<if test="provincecode != null and provincecode !=''">  
+			and a.provincecode = #{provincecode}
+		</if>
+		<if test="countycode != null and countycode !=''">  
+			and a.countycode = #{countycode} 
+		</if>
+		<if test="isopen != null and isopen !=''">  
+			and a.isopen = #{isopen} 
+		</if>
+		order by a.createtime desc
+		limit #{pageStart} , #{pageSize}
+    </select>
+    <select id="getStoreInfoListCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+		select count(*) from store_info where isdel=0
+			<if test="storename != null and storename !=''">  
+				and storename like CONCAT('%',#{storename},'%') 
+			</if>
+			<if test="citycode != null and citycode !=''">  
+				and citycode = #{citycode}
+			</if>
+			<if test="provincecode != null and provincecode !=''">  
+				and provincecode = #{provincecode}
+			</if>
+			<if test="countycode != null and countycode !=''">  
+				and countycode = #{countycode} 
+			</if>
+			<if test="isopen != null and isopen !=''">  
+				and isopen = #{isopen} 
+			</if>
+    </select>
+    <select id="getStoreInfoById" parameterType="java.lang.String" resultType="com.limon.store.model.StoreInfo">
+		select a.*,b.provname as provname,c.cityname,d.countyname from store_info a left join area_province b on a.provincecode=b.provcode left join area_city c on a.citycode=c.citycode left join area_county d on a.countycode=d.countycode where a.isdel=0 and a.id=#{id}
+    </select>
+    <select id="getIsUsedStroeName" parameterType="java.lang.String" resultType="java.lang.Integer">
+		select count(*) from store_info where storename=#{storename} and isdel=0
+    </select>
+    <select id="getIsUsedStroeUserName" parameterType="java.lang.String" resultType="java.lang.Integer">
+		select count(*) from store_info where username=#{username} and isdel=0
+    </select>
+    <insert id="addStoreInfo" parameterType="com.limon.store.model.StoreInfo" useGeneratedKeys="true" keyProperty="id">
+    	insert into store_info(storename,username,password,contact,mobile,storemobile,createtime,bussiness_stime,bussiness_etime,send_stime,send_etime,startprice,sendprice,distance,provincecode,citycode,countycode,address,lat,lng,isopen,isself)values(#{storename},#{username},#{password},#{contact},#{mobile},#{storemobile},#{createtime},#{bussiness_stime},#{bussiness_etime},#{send_stime},#{send_etime},#{startprice},#{sendprice},#{distance},#{provincecode},#{citycode},#{countycode},#{address},#{lat},#{lng},#{isopen},#{isself})
+    </insert>
+    <insert id="addStoreRole" parameterType="java.util.Map">
+		insert into store_role(storeid,roleid)values(#{storeid},#{roleid});
+    </insert>
+    <insert id="delStoreRole" parameterType="java.util.Map">
+		delete from store_role where storeid=#{storeid}
+    </insert>
+    <select id="getStoreRole" parameterType="java.util.Map" resultType="java.lang.Integer">
+		select count(*) from store_role where storeid=#{storeid} and roleid=#{roleid}
+    </select>
+    <update id="updateStoreInfo" parameterType="com.limon.store.model.StoreInfo">
+		update store_info set storename=#{storename},contact=#{contact},mobile=#{mobile},storemobile=#{storemobile},bussiness_stime=#{bussiness_stime},bussiness_etime=#{bussiness_etime},send_stime=#{send_stime},send_etime=#{send_etime},startprice=#{startprice},sendprice=#{sendprice},distance=#{distance},provincecode=#{provincecode},citycode=#{citycode},countycode=#{countycode},address=#{address},lat=#{lat},lng=#{lng},isopen=#{isopen},isself=#{isself} where id=#{id}
+    </update>
+    <update id="updateStoreInfoStatus" parameterType="com.limon.store.model.StoreInfo">
+		update store_info set isopen=#{cisopen} where id=#{id}
+    </update>
+    <update id="delStoreInfoById" parameterType="com.limon.store.model.StoreInfo">
+		update store_info set isdel=1 where id=#{id}
+    </update>
+    <update id="StoreEdit" parameterType="java.util.Map">
+		update store_info set contact=#{contact},mobile=#{mobile},storemobile=#{storemobile},provincecode=#{provincecode},citycode=#{citycode},countycode=#{countycode},address=#{address},startprice=#{startprice},sendprice=#{sendprice},distance=#{distance},bussiness_stime=#{bussiness_stime},bussiness_etime=#{bussiness_etime},send_stime=#{send_stime},send_etime=#{send_etime},cashaccount=#{cashaccount}
+		<if test="password != null and password !=''">  
+				, password = #{password} 
+		</if>
+		where id=#{id}
+    </update>
+    <select id="getStoreInfoListAll" resultType="com.limon.store.model.StoreInfo">
+		select * from store_info where isdel=0
+    </select>
+     <select id="getStoreInfoListOpen" resultType="com.limon.store.model.StoreInfo">
+		select * from store_info where isdel=0 and isopen=1
+    </select>
+</mapper>

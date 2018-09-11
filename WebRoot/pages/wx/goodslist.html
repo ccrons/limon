@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>分类</title>
+    <!-- BOOTSTRAP CORE STYLE CSS -->
+
+    <link href="${basePath}/public/css/bootstrap.min.css" rel="stylesheet">
+    <link href="${basePath}/public/css/bootstrap-theme.min.css" rel="stylesheet">
+
+    <link href="${basePath}/public/css/bootstrap.css" rel="stylesheet" />
+
+    <!-- CUSTOM STYLE CSS -->
+    <link href="${basePath}/public/css/head.css" rel="stylesheet" />
+
+    <link href="${basePath}/public/css/aa-class.css" rel="stylesheet" />
+    <!-- Google	Fonts -->
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,300' rel='stylesheet' type='text/css' />
+    <!-- BOOTSTRAP CORE STYLE CSS -->
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+</head>
+<body>
+
+<!--查找-->
+<table class="sousuo">
+    <tr>
+        <td>
+            <form action="goodslist" id="searchform" method="post">
+            <input type="text" name="searchkey" value="${searchkey}" class="index-ssk" placeholder="寻找你爱吃的零食">
+            <a href="javascript:tosearch();"><img src="${basePath}/public/img/index/search_2.png" alt="" style="width: 8%;"></a>
+            </form>
+        </td>
+    </tr>
+</table>
+
+<hr class="xian">
+<!--左边-->
+<ul class="zuo-dh">
+    <#list ptlist as pt>
+    <li <#if pt.typename != "搜索结果">onclick="getgoods(${pt.id});"</#if>>${pt.typename}</li>
+    </#list>
+</ul>
+
+<!--右边-->
+<div class="you-zt">
+    <div class="tua"><a href=""><img src="${basePath}/public/img/grzx/fl_a1.jpg" alt=""></a></div>
+    <#if searchkey?if_exists>
+	    <#if slist?size gt 0>
+	    	<p>搜索结果</p>
+	    <#else>
+	    	<p>对不起,没有找到商品</p>	
+		</#if>
+    <#else>
+    	<p>为您推荐</p>
+    </#if>
+    
+    <!--商品-->
+    <div id=goodstypediv>
+    <table class="r-taba">
+    	<tr> 
+		<#list slist as goods>
+  		<td>
+  			<a href="${goods.infourl}" style="text-decoration:none;color:#000000;">
+            <img src="${goods.imgurl}" alt="">
+                <p>${goods.name}</p>
+                <p><span class=" hong"><i>￥</i>${goods.price}</span> <span>规格：${goods.specifications}</span></p>
+        	</a>
+        </td>
+        <#if (goods_index+1)%2==0>
+	    </tr>
+	    <tr>
+	    </#if>
+	</#list>
+    </table>
+	</div>
+    <div style="margin-bottom: 20%;"></div>
+</div>
+
+
+
+
+<!--底部导航-->
+<table class="table-five">
+    <tr>
+        <td>
+            <a href="index"><img src="${basePath}/public/img/index/di_a1n.png" alt="" onmouseover="this.src='${basePath}/public/img/index/sy_a11.png'" onmouseout="this.src='${basePath}/public/img/index/di_a1n.png'"></a>
+            <p>首页</p>
+        </td>
+        <td>
+            <a href="goodslist"><img src="${basePath}/public/img/index/di_a2n.png" alt="" onmouseover="this.src='${basePath}/public/img/index/sy_a121.png'" onmouseout="this.src='${basePath}/public/img/index/di_a2n.png'"></a>
+            <p>商品</p>
+        </td>
+        <td>
+            <i class="sl-ia">${cartnum}</i>
+            <a href="cartlist"><img src="${basePath}/public/img/index/di_a3.png" alt="" onmouseover="this.src='${basePath}/public/img/index/sy_a131.png'" onmouseout="this.src='${basePath}/public/img/index/di_a3.png'"></a>
+            <p>购物车</p>
+        </td>
+        <td>
+            <a href="person"><img src="${basePath}/public/img/index/di_a4.png" alt="" onmouseover="this.src='${basePath}/public/img/index/sy_a141.png'" onmouseout="this.src='${basePath}/public/img/index/di_a4.png'"></a>
+            <p>我的</p>
+        </td>
+    </tr>
+</table>
+
+
+<!--  Jquery Core Script -->
+<script src="${basePath}/public/js/jquery-1.10.2.js"></script>
+<!--  Core Bootstrap Script -->
+<script src="${basePath}/public/js/bootstrap.js"></script>
+<!--  Flexslider Scripts -->
+<script src="${basePath}/public/js/jquery.flexslider.js"></script>
+<!--  Scrolling Reveal Script -->
+<script src="${basePath}/public/js/scrollReveal.js"></script>
+<!--  Scroll Scripts -->
+<script src="${basePath}/public/js/jquery.easing.min.js"></script>
+<!--  Custom Scripts -->
+<script src="${basePath}/public/js/custom.js"></script>
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="${basePath}/public/js/jquery-1.12.4.min.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="${basePath}/public/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+function tosearch(){
+	$("#searchform").submit();
+}
+function getgoods(typeid){
+	$.ajax({
+           type: "post",
+           contentType: "application/json",
+           url: "ajaxgoodslist?typeid=" + typeid,
+           data: "{}",
+           success: function (result) {
+               $("#goodstypediv").html(result);
+           }
+    })
+}
+</script>
+</body>
+</html>

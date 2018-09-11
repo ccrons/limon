@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.limon.wx.dao.UserInfoDao">
+    <select id="getUserInfoByUserName" parameterType="java.util.Map" resultType="com.limon.wx.model.UserInfo">
+		select * from app_user where username=#{username}
+    </select>
+    <select id="getUserByID" parameterType="java.lang.Integer" resultType="com.limon.wx.model.UserInfo">
+		select * from app_user where id = #{userid}
+    </select>
+	<insert id="insertUserInfo" parameterType="java.util.Map" >     
+		insert into app_user(username,password,mobile,createtime,nickname,headimg)
+		values(#{username},#{password},#{mobile},NOW(),#{nickname},#{headimg})
+    </insert>
+    <update id="updateUserInfo" parameterType="java.util.Map">
+		update app_user set  nickname = #{nickname} ,headimg=#{headimg} where  id = #{userid}
+    </update>
+    <!-- 保存用户的token -->
+    <update id="updateWXToken" parameterType="java.util.Map">
+		update wx_token  set access_token = #{access_token},
+		refresh_token = #{refresh_token},expires_in = #{expires_in},generated_time =  NOW()  
+		where userid = #{userid}
+    </update>
+    <insert id="insertWXToken" parameterType="java.util.Map">
+		insert into wx_token(userid, access_token, refresh_token, expires_in,generated_time)
+		values(#{userid}, #{access_token}, #{refresh_token}, #{expires_in},NOW())
+    </insert>
+    <select id="findWXToken" parameterType="java.util.Map" resultType="java.lang.Integer">
+		select count(*) as count from wx_token where userid=#{userid} 
+    </select>
+</mapper>

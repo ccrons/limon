@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.limon.http.dao.GetShopInfoDao">
+	<select id="getShopById" parameterType="java.lang.Integer" resultType="com.limon.http.model.Shop">
+		SELECT store_info.* FROM store_info where isdel=0 and isopen=1 and id=#{storeid}
+    </select>
+</mapper>

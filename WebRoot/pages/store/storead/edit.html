@@ -1,0 +1,154 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport"
+	content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<!--[if lt IE 9]>
+<script type="text/javascript" src="${basePath}/lib/html5.js"></script>
+<script type="text/javascript" src="${basePath}/lib/respond.min.js"></script>
+<script type="text/javascript" src="${basePath}/lib/PIE_IE678.js"></script>
+<![endif]-->
+<link href="${basePath}/css/H-ui.min.css" rel="stylesheet"
+	type="text/css" />
+<link href="${basePath}/css/H-ui.admin.css" rel="stylesheet"
+	type="text/css" />
+<link rel="stylesheet" href="${basePath}/lib/kindeditor-4.1.10/themes/default/default.css" />
+<link href="${basePath}/css/style.css" rel="stylesheet" type="text/css" />
+<link href="${basePath}/lib/font-awesome/font-awesome.min.css"
+	rel="stylesheet" type="text/css" />
+<!--[if IE 7]>
+<link href="${basePath}/lib/font-awesome/font-awesome-ie7.min.css" rel="stylesheet" type="text/css" />
+<![endif]-->
+<link href="${basePath}/lib/iconfont/iconfont.css" rel="stylesheet"
+	type="text/css" />
+<!--[if IE 6]>
+<script type="text/javascript" src="${basePath}/lib/DD_belatedPNG_0.0.8a-min.js" ></script>
+<script>DD_belatedPNG.fix('*');</script>
+<![endif]-->
+<title>${pageTitle}</title>
+</head>
+<body>
+	<div class="pd-20">
+		<div class="Huiform">
+			<form class="Huiform" action="save" method="post"
+				id="form-article-class" enctype="multipart/form-data">
+				<input name="id" type="hidden" value="${storead.id}">
+				<table class="table table-border table-bordered table-bg">
+					<tbody>
+						<tr>
+							<th class="text-r" width="100px">广告名称：</th>
+							<td><div class="formControls col-6">
+									<input class="input-text" style="width:360px" type="text"
+										value="${storead.adname}" placeholder="输入广告名称"
+										name="adname" id="class-val" datatype="*"
+										nullmsg="广告名称不能为空" maxlength="100">
+								</div>
+								<div class="col-4"></div></td>
+						</tr>
+						<tr>
+							<th class="text-r" width="100px">广告缩略图：</th>
+							<td><#if storead.imgurl!=""> <img name="imgurl_url"
+								id="imgurl_url" style="display: " class="avatar size-XXXL"
+								src="${basePath}/${storead.imgurl}">
+								<button type="button" style="display: "
+									class="btn btn-danger radius" id="imgurl_button"
+									name="imgurl_button" onclick="picDel('imgurl')">删除</button> <br>
+								</#if> <input name="imgurl" id="imgurl" type="hidden"
+								value="<#if storead.imgurl!="">1</#if>"> <span
+								class="btn-upload form-group" id="imgurl_file"
+								name="imgurl_file"<#if
+									storead.imgurl!="">style="display:none "</#if> > <input
+									class="input-text upload-url radius" type="text"
+									name="uploadfile0" id="uploadfile0" readonly="readonly"><a
+									href="javascript:void();" class="btn btn-primary radius"><i
+										class="iconfont">&#xf0020;</i> 浏览文件</a> <input type="file"
+									multiple name="file0" class="input-file"
+									accept="image/jpeg,image/png">
+							</span>
+
+							</td>
+						</tr>
+						<tr>
+							<th class="text-r" width="100px">广告内容：</th>
+							<td>
+								<div class="formControls col-11">
+									<textarea id="adcontent" style="width:100%;height:300px;" name="adcontent">${storead.adcontent}</textarea>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<th></th>
+							<td><button type="submit" class="btn btn-success radius"
+									id="" name="">
+									<i class="icon-save"></i> 保存
+								</button></td>
+						</tr>
+					</tbody>
+				</table>
+
+			</form>
+		</div>
+	</div>
+	<script type="text/javascript" src="${basePath}/lib/jquery.min.js"></script>
+	<script type="text/javascript"
+		src="${basePath}/lib/Validform_v5.3.2.js"></script>
+	<script charset="utf-8" src="${basePath}/lib/kindeditor-4.1.10/kindeditor-all.js"></script>
+	<script charset="utf-8" src="${basePath}/lib/kindeditor-4.1.10/lang/zh_CN.js"></script>
+	<script type="text/javascript" src="${basePath}/js/H-ui.js"></script>
+	<script type="text/javascript" src="${basePath}/js/H-ui.admin.js"></script>
+	<script type="text/javascript" src="${basePath}/js/H-ui.admin.doc.js"></script>
+	<script>
+		$("#form-article-class").Validform({
+			tiptype:2
+		});
+		<#if rs?if_exists>
+			function parentSubmit(){
+				parent.document.getElementById('searchform').submit();
+			}
+			<#if rs == "1">
+				parent.layer.msg('修改成功',2,9);
+				setInterval(parentSubmit, 2000);
+			<#else>	
+				parent.layer.msg('修改失败,系统异常',2,8);
+				setInterval(parentSubmit, 2000);
+			</#if>
+		</#if>
+		var editor;
+		KindEditor.ready(function(K) {
+			editor = K.create('textarea[name="adcontent"]', {
+				resizeType : 0,
+				allowPreviewEmoticons : false,
+				width : '400px',
+				height : '300px', 
+				uploadJson : 'upload',
+                allowFileManager : true,
+				items : [
+					'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold', 'italic', 'underline',
+					'removeformat', '|', 'justifyleft', 'justifycenter', 'justifyright', 'insertorderedlist',
+					'insertunorderedlist', '|', 'emoticons', 'link','wordpaste','plainpaste','quickformat','|','multiimage','image']
+			});
+		});
+		function picDel(id) {
+			if (id != "imgurl") {
+				$("#upfiletr").show();
+				$("#" + id).val("");
+				$("#" + id + "_url").hide();
+				$("#" + id + "_button").hide();
+				$("#" + id + "_url").attr("src", "");
+				$("#file_upload").uploadify("settings", "uploadLimit",
+						++uploadLimit);
+			} else {
+				$("#" + id).val("");
+				$("#" + id + "_url").hide();
+				$("#" + id + "_button").hide();
+				$("#" + id + "_url").attr("src", "");
+				$("#" + id + "_file").show();
+			}
+		}
+	</script>
+</body>
+</html>

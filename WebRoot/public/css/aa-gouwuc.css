@@ -1,0 +1,100 @@
+
+body, html,input{font-family:"微软雅黑" !important;}
+.jsxx{
+    width: 100%;
+    padding: 4%;
+    border-bottom: 1px solid #E2E2E3;
+    margin: 0;
+    background: white;
+}
+.jsxx .tu{
+    width: 30%;
+}
+.jsxx .tu img{
+    border: 1px solid #E9E9E9;
+}
+.jsxx .tua{
+    width: 60%;
+    padding-left: 3%;
+}
+.jsxx .tua .hong{
+    color: #F92425;
+}
+.jsxx>li{
+    float: left;
+}
+.jsxx li .ming{
+    display: inline-block;
+}
+.jsxx img{
+
+    width: 100%;
+}
+.jsxx .you{
+    float: right;
+    padding-top: 10%;
+    width: 6%;
+}
+
+/*清除浮动*/
+.clearfloat:after{
+    display:block;
+    clear:both;content:"";
+    visibility:hidden;
+    height:0;
+}
+.clearfloat{
+    zoom:1;
+}
+
+/*结算*/
+.zje{
+    background: white;
+    width: 100%;
+    padding: 3% 4%;
+    border-bottom: 1px solid #EEEEEE;
+    border-top: 1px solid #EEEEEE;
+    position: fixed;
+    bottom:51px;
+    z-index:999;
+}
+.zje p{
+    margin: 2% 0;
+    display: inline-block;
+    font-size: 1.1em;
+    font-weight: bolder;
+}
+.zje i{
+    color: #FF4338;
+}
+
+.zje .tjdd-an{
+    background: #F34B48;
+    padding: 2% 5% ;
+    border: none;
+    border-radius: 5px;
+    color: #F7EDEC;
+    float: right;
+}
+
+.duan{
+    width: 60%;
+    margin-top: 12%;
+}
+@media (min-width: 768px) and (max-width: 1024px){.duan{margin-top: 30%;}}
+
+.shoum{
+    width: 100%;
+    text-align: right;
+    padding:1% 4% 2% 4% ;
+    background: white;
+    border-top: 1px solid #E0E0E0;
+    position: fixed;
+    bottom:105px;
+    z-index:999;
+}
+.hui{
+    width: 100%;
+    margin: 39% 0;
+    z-index:999;
+}

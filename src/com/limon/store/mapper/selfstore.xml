@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.limon.store.dao.SelfStoreDao">
+	<select id="getSaleInfoList" parameterType="java.util.Map" resultType="com.limon.store.model.StoreDiscount">
+		select a.id,a.storeid,a.productid,b.name as productname,a.discount,c.saleprice from store_discount a left join product_info b on a.productid=b.id left join store_product c on a.productid=c.productid where a.storeid=#{storeid}
+		order by id desc
+		limit #{pageStart} , #{pageSize}
+    </select>
+    <select id="getSaleInfoListCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+		select count(*) from store_discount where storeid=#{storeid}
+    </select>
+    <select id="getSaleInfoById" parameterType="java.lang.String" resultType="com.limon.store.model.StoreDiscount">
+		select a.id,a.storeid,a.productid,b.name as productname,a.discount,c.saleprice from store_discount a left join product_info b on a.productid=b.id left join store_product c on a.productid=c.productid where a.id=#{id}
+    </select>
+    <insert id="addSaleInfo" parameterType="com.limon.store.model.StoreDiscount" useGeneratedKeys="true" keyProperty="id">
+    	insert into store_discount(storeid,productid,discount)values(#{storeid},#{productid},#{discount})
+    </insert>
+    <update id="updateSaleInfo" parameterType="com.limon.store.model.StoreDiscount">
+		update store_discount set productid=#{productid},discount=#{discount} where id=#{id}
+    </update>
+    <delete id="delSaleInfoById" parameterType="com.limon.store.model.StoreDiscount">
+		delete from store_discount where id=#{id}
+    </delete>
+    
+    <select id="getAdInfoList" parameterType="java.util.Map" resultType="com.limon.store.model.StoreAdInfo">
+		select a.id,a.storeid,a.productid,b.name as productname,a.adinfo,a.adurl,c.saleprice from store_adinfo a left join product_info b on a.productid=b.id left join store_product c on b.id=c.productid where a.storeid=#{storeid}
+		order by id desc
+		limit #{pageStart} , #{pageSize}
+    </select>
+    <select id="getAdInfoListCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+		select count(*) from store_adinfo where storeid=#{storeid}
+    </select>
+    <select id="getAdInfoById" parameterType="java.lang.String" resultType="com.limon.store.model.StoreAdInfo">
+		select a.id,a.storeid,a.productid,b.name as productname,a.adinfo,a.adurl,c.saleprice from store_adinfo a left join product_info b on a.productid=b.id left join store_product c on b.id=c.productid where a.id=#{id}
+    </select>
+    <insert id="addAdInfo" parameterType="com.limon.store.model.StoreAdInfo" useGeneratedKeys="true" keyProperty="id">
+    	insert into store_adinfo(storeid,productid,adinfo,adurl)values(#{storeid},#{productid},#{adinfo},#{adurl})
+    </insert>
+    <update id="updateAdInfo" parameterType="com.limon.store.model.StoreAdInfo">
+		update store_adinfo set productid=#{productid},adinfo=#{adinfo},adurl=#{adurl} where id=#{id}
+    </update>
+    <delete id="delAdInfoById" parameterType="com.limon.store.model.StoreAdInfo">
+		delete from store_adinfo where id=#{id}
+    </delete>
+</mapper>

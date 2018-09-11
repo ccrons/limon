@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.limon.manage.dao.SysVersionDao">
+   <select id="getVersionList" parameterType="java.util.Map" resultType="com.limon.manage.model.SysVersion">
+		select * from sys_version where isdel=0
+		<if test="version != null and version !=''">  
+			and version like CONCAT('%',#{version},'%') 
+		</if> 
+		<if test="os != null and os !=''">  
+			and os=#{os} 
+		</if>
+		<if test="stime != null and stime !=''">  
+			and createtime <![CDATA[>]]> #{stime}
+		</if> 
+		<if test="etime != null and etime !=''">  
+			and createtime <![CDATA[<]]> #{etime}
+		</if> 
+		order by createtime desc
+		limit #{pageStart} , #{pageSize}
+    </select>
+    <select id="getVersionListCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+		select count(*) from sys_version  where isdel=0
+		<if test="version != null and version !=''">  
+			and version like CONCAT('%',#{version},'%') 
+		</if> 
+		<if test="os != null and os !=''">  
+			and os=#{os} 
+		</if> 
+		<if test="stime != null and stime !=''">  
+			and createtime <![CDATA[>]]> #{stime}
+		</if> 
+		<if test="etime != null and etime !=''">  
+			and createtime <![CDATA[<]]> #{etime}
+		</if> 
+    </select>
+    <select id="getSysVersionById" parameterType="java.lang.String" resultType="com.limon.manage.model.SysVersion">
+		select * from sys_version where id=#{id} and isdel=0
+    </select>
+    <insert id="sysVersionAdd" parameterType="com.limon.manage.model.SysVersion">
+		insert into sys_version(version,description,app_path,os,type,createtime)values(#{version},#{description},#{app_path},#{os},#{type},#{createtime})
+    </insert>
+    <update id="sysVersionUpdate" parameterType="com.limon.manage.model.SysVersion">
+		update sys_version set version=#{version},description=#{description},app_path=#{app_path},os=#{os},type=#{type} where id=#{id}
+    </update>
+    <update id="sysVersionUpdateStatus" parameterType="com.limon.manage.model.SysVersion">
+		update sys_version set isopen=#{isopen} where id=#{id}
+    </update>
+    <delete id="sysVersionDel" parameterType="java.lang.String">
+		update sys_version set isdel=1 where id=#{id}
+    </delete>
+</mapper>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.limon.http.dao.GetNearShopDao">
+	<select id="getNearShop" parameterType="java.util.Map" resultType="com.limon.http.model.Shop">
+		SELECT store_info.*,ROUND(6378.138*2*ASIN(SQRT(POW(SIN((#{userlat}*PI()/180-lat*PI()/180)/2),2)+COS(#{userlat}*PI()/180)*COS(lat*PI()/180)*POW(SIN((#{userlng}*PI()/180-lng*PI()/180)/2),2)))*1000) AS nodedistance
+		FROM store_info where isdel=0 and isopen=1 and ROUND(6378.138*2*ASIN(SQRT(POW(SIN((#{userlat}*PI()/180-lat*PI()/180)/2),2)+COS(#{userlat}*PI()/180)*COS(lat*PI()/180)*POW(SIN((#{userlng}*PI()/180-lng*PI()/180)/2),2)))*1000) <![CDATA[<]]> #{radius}
+		ORDER BY nodedistance ASC
+    </select>
+</mapper>

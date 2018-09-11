@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>合作加盟</title>
+<link rel="stylesheet" type="text/css" href="css/Similar.css">
+<!--[if lt IE 9]><script src="js/html5.js"></script><![endif]-->
+<script type='text/javascript' src='js/jquery-1.7.2.min.js'></script>
+<script type='text/javascript' src='js/common.js'></script>
+<script type='text/javascript' src='js/slider.js'></script>
+<script type="text/javascript">
+$(document).ready(function(){
+  var $backgrounds = $(".header-content").find(".parallax-bg"),
+      LAYER_OFFSET = 30,
+      PRLX_SPEED = 1500,
+      $slider;
+  
+  $slider = $("#slider").tlrkSlider({
+    autoStart: true,
+    animationStart: function(ev, slider, step){
+      var max_steps = this.framesCount; 
+      $backgrounds.each(function(idx, el){
+        var pos = (step * (100 / max_steps)) + (LAYER_OFFSET * idx);
+        $(this).animate({"backgroundPosition": pos + "% 0"}, PRLX_SPEED);
+      });
+    },
+    elements: {
+      "img": {delay: 10},
+      "h2": {delay: 500},
+      ".copy": {delay: 800},
+      ".button": {delay: 1000}
+    }
+  });
+  
+/*  $(".header-content").hover(function(){
+	  $(this).find(".slider-prev, .slider-next").show();
+},
+      function(){$(this).find(".slider-prev, .slider-next").hide();}
+    )
+    .find(".slider-prev").click(function(){$slider.tlrkSlider("go", "prev"); return false; }).end()
+    .find(".slider-next").click(function(){$slider.tlrkSlider("go", "next"); return false; });*/
+
+});
+</script>
+</head>
+
+<body>
+<div id="nav">
+  <ul>
+    <div id="nav_logo"><a href="index.html"><img src="img/logo.png" width="200" height="50"></a></div>
+    <li><a >合作咨询热线 : 010-59434119</a></li>
+    <li><a href="about.html">关于我们</a></li>
+    <li><a href="#">新闻中心</a></li>
+    <li class="Violet"><a href="join.html">合作加盟</a></li>
+    <li><a href="service.html">产品与服务</a></li>
+    <li><a href="index.html">首页</a></li>
+  </ul>
+</div>
+<div class="header-content home Join_content">
+  <div class="parallax-bg" id="slider-wrap">
+    <div class="slider parallax-bg" id="slider">
+      <div class="slider-sections sandbox">
+        <section class="first"> <img alt="Kendo UI" src="img/j_b.png" width="1200" height="386" class="Join_content_gg"/>
+        </section>
+      </div>
+    </div>
+    <!--<a class="slider-prev" href="javascript: void(0)">?</a> <a class="slider-next" href="javascript: void(0)">?</a>--> </div>
+</div>
+<div id="main">
+  <div id="Service" class="Join">
+    <div class="Service_bt">平台合作方式</div>
+    <div class="About_bt">社区便利店 + 生活服务 + 邻里圈</div>
+    <div class="Join_ul">
+    	<ul>
+        	<li>
+            	<div><img src="img/hz_01.png" width="200" height="200"></div>
+                <h3>城市代理合作</h3>
+                <p>我们面向全国各省市诚招代理5000+社区百万用户共同选择</p>
+                <div class="Join_button"><a href="#">点击下载申请表</a></div>
+            </li>
+        	<li>
+            	<div><img src="img/hz_02.png" width="200" height="200"></div>
+                <h3>物业入驻</h3>
+                <p>物业管理更高效，助力品牌发展提高业主满意度，扩展收入</p>
+                <div class="Join_button"><a href="#">点击下载申请表</a></div>
+            </li>
+        	<li>
+            	<div><img src="img/hz_03.png" width="200" height="200"></div>
+                <h3>产品供应</h3>
+                <p>从厂家直达消费者，减少中间环节，让利消费者</p>
+                <div class="Join_button"><a href="#">点击下载申请表</a></div>
+            </li>
+        	<li class="Join_ul_list">
+            	<div><img src="img/hz_04.png" width="200" height="200"></div>
+                <h3>广告合作</h3>
+                <p>在帮助企业宣传品牌的同时，还帮助企业销售产品</p>
+                <div class="Join_button"><a href="#">点击下载申请表</a></div>
+            </li>
+        </ul>
+    </div>
+  
+</div>
+
+  <div id="Service" class="Join2">
+    <div class="Service_bt">流程审核</div>
+    <div class="Join2_ul">
+    	<ul>
+        	<li>
+            	<div><img src="img/tj_01.png" width="132" height="132"></div>
+                <p>按照申报材料要求提供相应信息，并填合作申请表，以电子邮件、传真或邮寄的方式发送公司招商处。</p>
+            </li>
+            <div class="Join2_ul_jt"><img src="img/jt.png" width="143" height="23"></div>
+            <li>
+            	<div><img src="img/tj_02.png" width="132" height="132"></div>
+                <p>公司招商处收到邮件以后会对相关资质做出评估。</p>
+            </li>
+            <div class="Join2_ul_jt"><img src="img/jt.png" width="143" height="23"></div>
+            <li>
+            	<div><img src="img/tj_03.png" width="132" height="132"></div>
+                <p>我们会安排相关负责人进行后续接洽考察。</p>
+            </li>
+        </ul>
+    </div>
+    <div class="Join3_ul">
+    	<ul>
+        	<li>
+            	<div class="Join3_ul_li"><img src="img/tb_01.png" width="64" height="64">电话沟通</div>
+                <p>010-59434119</p>
+            </li>
+            <li>
+            	<div class="Join3_ul_li"><img src="img/tb_02.png" width="64" height="64">邮件咨询</div>
+                <p>ningmengshequ@sina.com</p>
+            </li>
+            <li>
+            	<div class="Join3_ul_li"><img src="img/tb_03.jpg" width="64" height="64">欢迎来访</div>
+                <p>北京市朝阳区雨霖大厦608室</p>
+            </li>
+        </ul>
+    </div>
+  
+</div>
+</div>
+<div id="footer">
+  <div class="footer_lixi">
+    <div class="footer_lixi_b"><ul><li><img src="img/d1.png" width="186" height="56"></li><li><img src="img/d2.png" width="284" height="56"></li></ul></div>
+  </div>
+  <div class="footer_about">
+    <p>京ICP备15042741号-1</p>
+    <p>Copyright &copy; 2017 北京榴莲时代网络科技有限公司 All rights reserved.</p>
+  </div>
+</div>
+</body>
+</html>

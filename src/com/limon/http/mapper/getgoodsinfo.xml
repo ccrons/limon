@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.limon.http.dao.GetGoodsInfoDao">
+	<select id="getGoodsInfo" parameterType="java.util.Map" resultType="com.limon.http.model.GoodsInfo">
+		select b.id,c.brandname as brand,b.unit,b.pic1,b.pic2,b.pic3,b.pic4,b.pic5,a.saleprice as price,b.sprice as oprice,b.status as type,b.isrec,b.isofficial from store_product a left join product_info b on a.productid=b.id left join product_brand c on b.brand=c.id where a.productid=#{productid} and a.storeid=#{storeid} and a.isdel=0
+    </select>
+    <select id="getIsFav" parameterType="java.util.Map" resultType="java.lang.Integer">
+		select count(*) from app_favourite where productid=#{productid} and storeid=#{storeid} and appuserid=#{userid}
+    </select>
+    <select id="getTimeLimitProduct" parameterType="java.lang.Integer" resultType="java.lang.String">
+		select tltime from timelimit where productid=#{sid}
+    </select>
+</mapper>

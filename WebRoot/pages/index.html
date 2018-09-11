@@ -1,0 +1,160 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+<meta http-equiv="Pragma" content="no-cache" />
+<meta http-equiv="Expires" content="0" />
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<LINK rel="Bookmark" href="/favicon.ico" >
+<LINK rel="Shortcut Icon" href="/favicon.ico" />
+<!--[if lt IE 9]>
+<script type="text/javascript" src="lib/html5.js"></script>
+<script type="text/javascript" src="lib/respond.min.js"></script>
+<script type="text/javascript" src="lib/PIE_IE678.js"></script>
+<![endif]-->
+<link href="css/H-ui.min.css" rel="stylesheet" type="text/css" />
+<link href="css/H-ui.admin.css" rel="stylesheet" type="text/css" />
+<link href="css/style.css" rel="stylesheet" type="text/css" />
+<link href="lib/iconfont/iconfont.css" rel="stylesheet" type="text/css" />
+<link href="lib/font-awesome/font-awesome.min.css" rel="stylesheet" type="text/css" />
+<!--[if IE 7]>
+<link href="lib/font-awesome/font-awesome-ie7.min.css" rel="stylesheet" type="text/css" />
+<![endif]-->
+<!--[if IE 6]>
+<script type="text/javascript" src="lib/DD_belatedPNG_0.0.8a-min.js" ></script>
+<script>DD_belatedPNG.fix('*');</script>
+<![endif]-->
+<title>${pageTitle}</title>
+</head>
+<body>
+<header class="Hui-header cl"> <a class="Hui-logo l" title="${pageTitle}" href="main">${pageTitle}</a> <a class="Hui-logo-m l" href="main" title="${pageTitle}">${pageTitle}</a> <span class="Hui-subtitle l"></span> <span class="Hui-userbox"><span class="c-white">您好&nbsp;&nbsp;&nbsp;${loginUser.username}</span> <a class="btn btn-danger radius ml-10" href="logout" title="退出"><i class="icon-off"></i>退出</a></span> <a aria-hidden="false" class="Hui-nav-toggle" href="#"></a> </header>
+<aside class="Hui-aside">
+  <input runat="server" id="divScrollValue" type="hidden" value="" />
+  <div class="menu_dropdown bk_2">
+    <#list menulist as menu>
+      <#if menu.pid==0>
+      <dl id="menu_${menu.id}">
+        <dt><i class="${menu.ico}"></i> ${menu.name}<i class="iconfont menu_dropdown-arrow">&#xf02a9;</i></dt>
+        <dd>
+          <ul>
+          	<#list menulist as submenu>
+          		<#if submenu.pid=menu.id>
+            		<li><a _href="${submenu.link}" href="javascript:;" id="a_${menu.id}">${submenu.name}</a></li>
+            	</#if>
+            </#list>
+          </ul>
+        </dd>
+      </dl>
+      </#if>
+    </#list> 
+  </div>
+</aside>
+<div class="dislpayArrow"><a class="pngfix" href="javascript:void(0);" onClick="displaynavbar(this)"></a></div>
+<section class="Hui-article-box">
+  <div id="Hui-tabNav" class="Hui-tabNav">
+    <div class="Hui-tabNav-wp">
+      <ul id="min_title_list" class="acrossTab cl">
+        <li class="active"><span title="我的首页" data-href="welcome">我的首页</span><em></em></li>
+      </ul>
+    </div>
+    <div class="Hui-tabNav-more btn-group"><a id="js-tabNav-prev" class="btn radius btn-default size-S" href="javascript:;"><i class="icon-step-backward"></i></a><a id="js-tabNav-next" class="btn radius btn-default size-S" href="javascript:;"><i class="icon-step-forward"></i></a></div>
+  </div>
+  <div id="iframe_box" class="Hui-article">
+    <div class="show_iframe">
+      <div style="display:none" class="loading"></div>
+      <iframe scrolling="yes" frameborder="0" src="welcome"></iframe>
+    </div>
+  </div>
+</section>
+
+<script type="text/javascript" src="lib/jquery.min.js"></script> 
+<script type="text/javascript" src="lib/Validform_v5.3.2.js"></script> 
+<script type="text/javascript" src="lib/layer1.8/layer.min.js"></script> 
+<script type="text/javascript" src="js/H-ui.js"></script> 
+<script type="text/javascript" src="js/H-ui.admin.js"></script> 
+<script type="text/javascript" src="js/H-ui.admin.doc.js"></script> 
+<script src="lib/artDialog/artDialog.js?skin=black"></script>
+<script type="text/javascript">
+		artDialog.notice = function (options) {
+		    var opt = options || {},
+		        api, aConfig, hide, wrap, top,
+		        duration = 800;
+		        
+		    var config = {
+		        id: 'Notice',
+		        left: '100%',
+		        top: '100%',
+		        fixed: true,
+		        drag: false,
+		        resize: false,
+		        follow: null,
+		        lock: false,
+		        init: function(here){
+		            api = this;
+		            aConfig = api.config;
+		            wrap = api.DOM.wrap;
+		            top = parseInt(wrap[0].style.top);
+		            hide = top + wrap[0].offsetHeight;
+		            
+		            wrap.css('top', hide + 'px')
+		                .animate({top: top + 'px'}, duration, function () {
+		                    opt.init && opt.init.call(api, here);
+		                });
+		        },
+		        close: function(here){
+		            wrap.animate({top: hide + 'px'}, duration, function () {
+		                opt.close && opt.close.call(this, here);
+		                aConfig.close = $.noop;
+		                api.close();
+		            });
+		            
+		            return false;
+		        }
+		    };	
+		    
+		    for (var i in opt) {
+		        if (config[i] === undefined) config[i] = opt[i];
+		    };
+		    
+		    return artDialog(config);
+		};
+
+		function openOrder(){
+			$("#a_17").click();
+			
+			for(var i=0;i<window.frames.length;i++){
+				var obj=window.frames[i].document.getElementById('order-refresh');
+				if(obj){
+				
+					obj.click();
+				}
+			}
+		}
+    	function getData() {//获取留言数据 
+    		 
+            var temp = "";  
+            $.post("getmsg",{time: new Date()},function(result){
+            	if(result!=''){
+				    art.dialog.notice({
+					    title: '订单提醒',
+					    width: 220,// 必须指定一个像素宽度值或者百分比，否则浏览器窗口改变可能导致artDialog收缩
+					    content: '<a href="javascript:;" onclick="openOrder();">'+result+'</a>',
+					    icon: 'face-smile',
+					    time: 8
+					});
+				}
+			});
+        };  
+        $(function (){//间隔10s自动加载一次  
+        <#if logtype == '0'>
+            //getData(); //首次立即加载  
+            //window.setInterval(getData, 30000); //循环执行！！ 
+        </#if>     
+        });  
+</script>
+</body>
+</html>

@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.limon.manage.dao.ProductInfoDao">
+    <select id="getProductInfoList" parameterType="java.util.Map" resultType="com.limon.manage.model.ProductInfo">
+		select a.*,b.typename,c.brandname from product_info a,product_type b,product_brand c where a.type=b.id and a.brand=c.id and a.isdel=0
+			<if test="sname != null and sname !=''">  
+				and a.name like CONCAT('%',#{sname},'%') 
+			</if>
+			<if test="name != null and name !=''">  
+				and a.name = #{name}
+			</if>
+			<if test="stype != null and stype !=''">  
+				and a.type in ( select id from product_type where id = #{stype} or pid = #{stype}) 
+			</if>
+			<if test="sbrand != null and sbrand !=''">  
+				and a.brand = #{sbrand} 
+			</if>
+			<if test="sisself != null and sisself !=''">  
+				and a.isself = #{sisself} 
+			</if>
+			<if test="sisofficial != null and sisofficial !=''">  
+				and a.isofficial = #{sisofficial} 
+			</if>
+			<if test="ad0tl != null and ad0tl !=''">  
+				<if test="ad0tl == '0y' ">  
+					and a.isfrist = 1 
+				</if>
+				<if test="ad0tl =='tl' ">  
+					and a.id in (select tl.productid from timelimit tl where tl.productid=a.id) 
+				</if>
+				<if test="ad0tl !='0y' and ad0tl !='tl'">  
+					and a.id in (select ad.productid from store_ad_product ad where ad.adid = #{ad0tl}) 
+				</if>
+			</if>
+		order by a.id desc
+		limit #{pageStart} , #{pageSize}
+    </select>
+    <select id="getProductInfoListCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+		select count(*) from product_info a,product_type b,product_brand c where a.type=b.id and a.brand=c.id and a.isdel=0
+			<if test="sname != null and sname !=''">  
+				and name like CONCAT('%',#{sname},'%') 
+			</if>
+			<if test="name != null and name !=''">  
+				and a.name = #{name}
+			</if>
+			<if test="stype != null and stype !=''">  
+				and a.type in ( select id from product_type where id = #{stype} or pid = #{stype}) 
+			</if>
+			<if test="typepid != null and typepid !=''">  
+				and a.type = #{typepid} 
+			</if>
+			<if test="sbrand != null and sbrand !=''">  
+				and a.brand = #{sbrand} 
+			</if>
+			<if test="sisself != null and sisself !=''">  
+				and a.isself = #{sisself} 
+			</if>
+			<if test="sisofficial != null and sisofficial !=''">  
+				and a.isofficial = #{sisofficial} 
+			</if>
+			<if test="ad0tl != null and ad0tl !=''">  
+				<if test="ad0tl == '0y' ">  
+					and a.isfrist = 1 
+				</if>
+				<if test="ad0tl =='tl' ">  
+					and a.id in (select tl.productid from timelimit tl where tl.productid=a.id) 
+				</if>
+				<if test="ad0tl !='0y' and ad0tl !='tl'">  
+					and a.id in (select ad.productid from store_ad_product ad where ad.adid = #{ad0tl}) 
+				</if>
+			</if>
+    </select>
+    <select id="getProductInfo" parameterType="java.lang.String" resultType="com.limon.manage.model.ProductInfo">
+		select * from product_info where id=#{id}
+    </select>
+    <select id="getIsUseProductInfo" parameterType="java.util.Map" resultType="java.lang.Integer">
+		select count(*) from product_info where isdel=0
+			<if test="name != null and name !=''">  
+				and name =#{name}
+			</if>
+			<if test="type != null and type !=''">  
+				and type =#{type}
+			</if>
+			<if test="brand != null and brand !=''">  
+				and brand =#{brand}
+			</if>
+			<if test="id != null and id !=''">  
+				and id !=#{id} 
+			</if> 
+		
+    </select>
+    <insert id="productInfoAdd" parameterType="com.limon.manage.model.ProductInfo" useGeneratedKeys="true" keyProperty="id">
+		insert into product_info(name,type,brand,price,sprice,proxyprice,stockprice,unit,weight,paddress,creattime,description,isonline,isdel,isself,upnum,isrec,status,isofficial
+			<if test="imgurl != null and imgurl !=''">  
+				,imgurl
+			</if>
+			<if test="pic1 != null and pic1 !=''">  
+				,pic1
+			</if>
+			<if test="pic2 != null and pic2 !=''">  
+				,pic2
+			</if>
+			<if test="pic3 != null and pic3 !=''">  
+				,pic3
+			</if>
+			<if test="pic4 != null and pic4 !=''">  
+				,pic4
+			</if>
+			<if test="pic5 != null and pic5 !=''">  
+				,pic5
+			</if>
+		)values(#{name},#{type},#{brand},#{price},#{sprice},#{proxyprice},#{stockprice},#{unit},#{weight},#{paddress},#{creattime},#{description},#{isonline},#{isdel},#{isself},#{upnum},#{isrec},#{status},#{isofficial}
+			<if test="imgurl != null and imgurl !=''">  
+				,#{imgurl}
+			</if>
+			<if test="pic1 != null and pic1 !=''">  
+				,#{pic1}
+			</if>
+			<if test="pic2 != null and pic2 !=''">  
+				,#{pic2}
+			</if>
+			<if test="pic3 != null and pic3 !=''">  
+				,#{pic3}
+			</if>
+			<if test="pic4 != null and pic4 !=''">  
+				,#{pic4}
+			</if>
+			<if test="pic5 != null and pic5 !=''">  
+				,#{pic5}
+			</if>
+		)
+    </insert>
+    <update id="productInfoUpdate" parameterType="com.limon.manage.model.ProductInfo">
+		update product_info set name=#{name},type=#{type},brand=#{brand},price=#{price},sprice=#{sprice},proxyprice=#{proxyprice},stockprice=#{stockprice},unit=#{unit},weight=#{weight},paddress=#{paddress},description=#{description},isonline=#{isonline},isself=#{isself},upnum=#{upnum},isrec=#{isrec},status=#{status},isofficial=#{isofficial}
+			<if test="imgurl != null ">  
+				,imgurl=#{imgurl}
+			</if>
+			<if test="pic1 != null ">  
+				,pic1=#{pic1}
+			</if>
+			<if test="pic2 != null ">  
+				,pic2=#{pic2}
+			</if>
+			<if test="pic3 != null ">  
+				,pic3=#{pic3}
+			</if>
+			<if test="pic4 != null ">  
+				,pic4=#{pic4}
+			</if>
+			<if test="pic5 != null ">  
+				,pic5=#{pic5}
+			</if>
+		where id=#{id}
+    </update>
+    <update id="productInfoDel" parameterType="java.lang.String">
+		update product_info set isdel=1 where id=#{id}
+    </update>
+    <insert id="productInfoImport" parameterType="java.util.Map">
+		insert into product_info(name,type,brand,price,sprice,proxyprice,stockprice,unit,weight,description,creattime,isself,upnum,paddress,isofficial,isrec)values (
+		#{name},#{type},#{brand},#{price},#{sprice},#{proxyprice},#{stockprice},#{unit},#{weight},#{description},#{creattime},#{isself},#{upnum},#{paddress},#{isofficial},#{isrec})
+	</insert>
+	<update id="productInfoImgDel" parameterType="java.util.Map">
+		update product_info set 
+		<if test="imgurl == 1">  
+			imgurl=""
+		</if>
+		<if test="pic1 == 1">  
+			pic1=""
+		</if>
+		<if test="pic2 == 1">  
+			pic2=""
+		</if>
+		<if test="pic3 == 1">  
+			pic3=""
+		</if>
+		<if test="pic4 == 1">  
+			pic4=""
+		</if>
+		<if test="pic5 == 1">
+			pic5=""
+		</if>
+		where id=#{id}
+    </update>
+    <!-- 销售额列表 -->
+    <select id="getProductInfoListStatistics" parameterType="java.util.Map" resultType="com.limon.manage.model.ProductInfo">
+		SELECT *,SUM((b.opprice*b.ordernum)) as allprice,SUM((b.opprice*b.ordernum)) AS allorderprice,SUM(c.sendprice) AS allsendprice FROM product_info a,order_product b,order_info c,product_brand d,product_type e
+		WHERE a.type=e.id AND a.brand=d.id AND a.id=b.productid AND b.orderid=c.id AND c.isdel=0 AND c.status=3 AND c.storeid=#{uid}
+			<if test="sname != null and sname !=''">  
+				and a.name like CONCAT('%',#{sname},'%') 
+			</if>
+			<if test="stype != null and stype !=''">  
+				and a.type = #{stype}
+			</if>
+			<if test="sbrand != null and sbrand !=''">  
+				and a.brand = #{sbrand} 
+			</if>
+			<if test="paytype != null and paytype !=''">  
+				<if test="paytype==1 or paytype==2"> 
+					and (c.paytype = 1 or c.paytype = 2)
+				</if>
+				<if test="paytype==3"> 
+					and c.paytype = 3
+				</if>
+			</if>
+			<if test="stime != null and stime !=''">  
+				and substring(c.createtime,1,10) <![CDATA[>=]]> #{stime} 
+			</if>
+			<if test="etime != null and etime !=''">  
+				and substring(c.createtime,1,10) <![CDATA[<=]]> #{etime} 
+			</if>
+		group by a.id
+		order by c.id desc
+		limit #{pageStart} , #{pageSize}
+    </select>
+    <!-- 销售额列表数量 -->
+    <select id="getProductInfoListStatisticsCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+		SELECT count(*) FROM (SELECT a.id FROM product_info a,order_product b,order_info c,product_brand d,product_type e
+		WHERE a.type=e.id AND a.brand=d.id AND a.id=b.productid AND b.orderid=c.id AND c.isdel=0 AND c.status=3 AND c.storeid=#{uid}
+			<if test="sname != null and sname !=''">  
+				and a.name like CONCAT('%',#{sname},'%') 
+			</if>
+			<if test="stype != null and stype !=''">  
+				and a.type = #{stype}
+			</if>
+			<if test="sbrand != null and sbrand !=''">  
+				and a.brand = #{sbrand} 
+			</if>
+			<if test="paytype != null and paytype !=''">  
+				<if test="paytype==1 or paytype==2"> 
+					and (c.paytype = 1 or c.paytype = 2)
+				</if>
+				<if test="paytype==3"> 
+					and c.paytype = 3
+				</if>
+			</if>
+			<if test="stime != null and stime !=''">  
+				and substring(c.createtime,1,10) <![CDATA[>=]]> #{stime} 
+			</if>
+			<if test="etime != null and etime !=''">  
+				and substring(c.createtime,1,10) <![CDATA[<=]]> #{etime} 
+			</if>
+		group by a.id) z
+	</select>
+    <!-- 销售额总数 -->
+    <select id="getProductInfoListStatisticsPrice" parameterType="java.util.Map" resultType="com.limon.manage.model.ProductInfo">
+		SELECT SUM((b.opprice*b.ordernum)) as allprice,SUM((b.opprice*b.ordernum)) AS allorderprice,SUM(c.sendprice) AS allsendprice FROM product_info a,order_product b,order_info c,product_brand d,product_type e
+		WHERE a.type=e.id AND a.brand=d.id AND a.id=b.productid AND b.orderid=c.id AND c.isdel=0 AND c.status=3 AND c.storeid=#{uid}
+			<if test="sname != null and sname !=''">  
+				and a.name like CONCAT('%',#{sname},'%') 
+			</if>
+			<if test="stype != null and stype !=''">  
+				and a.type = #{stype}
+			</if>
+			<if test="sbrand != null and sbrand !=''">  
+				and a.brand = #{sbrand} 
+			</if>
+			<if test="paytype != null and paytype !=''">  
+				<if test="paytype==1 or paytype==2"> 
+					and (c.paytype = 1 or c.paytype = 2)
+				</if>
+				<if test="paytype==3"> 
+					and c.paytype = 3
+				</if>
+			</if>
+			<if test="stime != null and stime !=''">  
+				and substring(c.createtime,1,10) <![CDATA[>=]]> #{stime} 
+			</if>
+			<if test="etime != null and etime !=''">  
+				and substring(c.createtime,1,10) <![CDATA[<=]]> #{etime} 
+			</if>
+	</select>
+	
+	<!-- 销售额配送费总数 -->
+    <select id="getProductInfoListStatisticsSendPrice" parameterType="java.util.Map" resultType="com.limon.manage.model.ProductInfo">
+		SELECT SUM(c.sendprice) AS allsendprice FROM order_info c
+		WHERE c.isdel=0 AND c.status=3 AND c.storeid=#{uid}
+			
+			<if test="paytype != null and paytype !=''">  
+				<if test="paytype==1 or paytype==2"> 
+					and (c.paytype = 1 or c.paytype = 2)
+				</if>
+				<if test="paytype==3"> 
+					and c.paytype = 3
+				</if>
+			</if>
+			<if test="stime != null and stime !=''">  
+				and substring(c.createtime,1,10) <![CDATA[>=]]> #{stime} 
+			</if>
+			<if test="etime != null and etime !=''">  
+				and substring(c.createtime,1,10) <![CDATA[<=]]> #{etime} 
+			</if>
+	</select>
+	<update id="updateProduntInfoIsFristById" parameterType="java.util.Map">
+		update product_info set isfrist=#{isfrist} where id=#{id}
+    </update>
+    <update id="updateProduntInfoIsLuckById" parameterType="java.util.Map">
+		update product_info set isluck=#{isluck} where id=#{id}
+    </update>
+    <!-- 查询所有的官营产品 -->
+    <select id="getOfficialProductInfoList" resultType="com.limon.manage.model.ProductInfo">
+		select * from product_info where isdel=0 and isofficial=1
+    </select>
+    <!-- 查询所有的官方商品并左关联上架信息 -->
+    <select id="getOfficialProductInfoLeftStoreProductList" parameterType="java.util.Map" resultType="com.limon.manage.model.ProductInfo">
+		select * from product_info a left join store_product b on b.isdel = 0 and a.id=b.productid and b.storeid = #{storeid} where a.isdel=0 and a.isofficial=1
+    </select>
+</mapper>

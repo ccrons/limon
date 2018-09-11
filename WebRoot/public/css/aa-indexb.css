@@ -1,0 +1,73 @@
+body, html,input{font-family:"微软雅黑" !important;}
+
+.aa img{
+    width: 100%;
+}
+.sy-xlb{
+    height: 295px;
+    width: 100%;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+/*小轮播*/
+.xlb{
+    height: 295px;
+    width: 50%;
+    display: inline-block;
+    border-right: 1px solid #EEEEEE;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+.xlb .bb img{
+    height: 295px;
+    margin: 0 auto;
+}
+/*右侧*/
+.sy-you{
+    height: 295px;
+    width: 50%;
+    display: inline-block;
+    float: right;
+    margin-bottom: 0;
+}
+.sy-you .shang{
+    width: 100%;
+    padding: 2%;
+    text-align: center;
+    border-bottom: 1px solid #EEEEEE;
+    margin-top: 2%;
+}
+.sy-you .shang li{
+    color: #FE9390;
+}
+.sy-you .shang ul{
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-around;
+
+}
+.sy-you .shang ul img{
+    max-width: 100px;
+}
+
+.sy-you .shang ul li:nth-child(1){
+    text-align: left;
+}
+.sy-you .shang ul li:nth-child(2){
+    text-align: right;
+}
+.sy-you .shang p{
+    font-size: 1.2rem;
+    margin: 1% 0;
+    /*font-weight: bolder;*/
+    /*color: #4C4B4B;*/
+}
+
+@media (max-width: 1024px) and (min-width: 767px){
+    .sy-xlb{height: 320px;}
+    .sy-you{height: 320px;}
+}
+@media (max-width: 374px) {
+    .sy-you .shang ul img{max-width: 90px;}
+    .sy-you .shang>p{font-size: 0.6rem;}
+}

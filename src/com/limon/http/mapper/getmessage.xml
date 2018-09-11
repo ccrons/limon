@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.limon.http.dao.GetMessageDao">
+	<select id="getMessageList" parameterType="java.util.Map" resultType="com.limon.http.model.Message">
+		select id,content,createtime as sendtime from sys_message limit #{pageStart},#{pageSize}
+    </select>
+    <select id="getMessageListCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+		select count(*) from sys_message
+    </select>
+</mapper>

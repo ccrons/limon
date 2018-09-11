@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>关于我们</title>
+<link rel="stylesheet" type="text/css" href="css/Similar.css">
+<!--[if lt IE 9]><script src="js/html5.js"></script><![endif]-->
+<script type='text/javascript' src='js/jquery-1.7.2.min.js'></script>
+<script type='text/javascript' src='js/common.js'></script>
+<script type='text/javascript' src='js/slider.js'></script>
+<script type="text/javascript">
+$(document).ready(function(){
+  var $backgrounds = $(".header-content").find(".parallax-bg"),
+      LAYER_OFFSET = 30,
+      PRLX_SPEED = 1500,
+      $slider;
+  
+  $slider = $("#slider").tlrkSlider({
+    autoStart: true,
+    animationStart: function(ev, slider, step){
+      var max_steps = this.framesCount; 
+      $backgrounds.each(function(idx, el){
+        var pos = (step * (100 / max_steps)) + (LAYER_OFFSET * idx);
+        $(this).animate({"backgroundPosition": pos + "% 0"}, PRLX_SPEED);
+      });
+    },
+    elements: {
+      "img": {delay: 10},
+      "h2": {delay: 500},
+      ".copy": {delay: 800},
+      ".button": {delay: 1000}
+    }
+  });
+  
+/*  $(".header-content").hover(function(){
+	  $(this).find(".slider-prev, .slider-next").show();
+},
+      function(){$(this).find(".slider-prev, .slider-next").hide();}
+    )
+    .find(".slider-prev").click(function(){$slider.tlrkSlider("go", "prev"); return false; }).end()
+    .find(".slider-next").click(function(){$slider.tlrkSlider("go", "next"); return false; });*/
+
+});
+</script>
+</head>
+
+<body>
+<div id="nav">
+  <ul>
+    <div id="nav_logo"><a href="index.html"><img src="img/logo.png" width="200" height="50"></a></div>
+    <li><a >合作咨询热线 : 010-59434119</a></li>
+    <li class="Violet"><a href="about.html">关于我们</a></li>
+    <li><a href="#">新闻中心</a></li>
+    <li><a href="join.html">合作加盟</a></li>
+    <li><a href="service.html">产品与服务</a></li>
+    <li><a href="index.html">首页</a></li>
+  </ul>
+</div>
+<div class="header-content home About_content">
+  <div class="parallax-bg" id="slider-wrap">
+    <div class="slider parallax-bg" id="slider">
+      <div class="slider-sections sandbox">
+        <section class="first"> <img alt="Kendo UI" src="img/gy_02.png" width="773" height="441" class="About_content_img"/>
+          <div class="text"><img src="img/gy_01.png" width="576" height="144"></div>
+        </section>
+      </div>
+    </div>
+    <!--<a class="slider-prev" href="javascript: void(0)">?</a> <a class="slider-next" href="javascript: void(0)">?</a>--> </div>
+</div>
+<div id="main">
+  <div id="Service" class="About">
+    <div class="Service_bt">公司介绍</div>
+    <div class="About_bt">制欲感恩</div>
+    <div class="About_bt_p">
+    	<p>公司经营项目－榴莲购，致力打造中国社区生态圈第一品牌。秉承立足社区、服务社区业主［消费者］的专业精神，构建中国社区内部生态圈。</p>
+        <p>结合线上线下多种商业形式，联合社区内部资源，开设榴莲购便利店、生活服务、邻里圈等关注社区生活的产品，为品牌提供更多社区展示商品的机会，为业主带来最大的便利。</p>
+        <p>至今，榴莲购辐射北京800多个社区、96万用户、覆盖50万家庭、与五大知名企业签订战略合作，供应150个产品，计划将在2016年实现在全国覆盖超过10000个社区，三十家知名企业合作，完成1000个产品供应。</p>
+    </div>
+  
+</div>
+<!--<div id="Service" class="About2">
+    <div class="Service_bt">我们的团队</div>
+    <div class="About_bt">以挑战者精神拼搏创新</div>
+    <ul class="box_ul">
+        <li>
+            <div class="tb_li">
+                <div class="d1"><img src="img/td_01.png" width="237" height="148"></div>
+                <div class="d2"><span class="name">雷 勇</span><span class="job">CEO</span></div>
+                <div class="d3">
+                    <p>来自三体</p>
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="tb_li">
+                <div class="d1"><img src="img/td_01.png" width="237" height="148"></div>
+                <div class="d2"><span class="name">雷 勇</span><span class="job">CEO</span></div>
+                <div class="d3">
+                    <p>来自三体</p>
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="tb_li">
+                <div class="d1"><img src="img/td_01.png" width="237" height="148"></div>
+                <div class="d2"><span class="name">雷 勇</span><span class="job">CEO</span></div>
+                <div class="d3">
+                    <p>来自三体</p>
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="tb_li">
+                <div class="d1"><img src="img/td_01.png" width="237" height="148"></div>
+                <div class="d2"><span class="name">雷 勇</span><span class="job">CEO</span></div>
+                <div class="d3">
+                    <p>来自三体</p>
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="tb_li">
+                <div class="d1"><img src="img/td_01.png" width="237" height="148"></div>
+                <div class="d2"><span class="name">雷 勇</span><span class="job">CEO</span></div>
+                <div class="d3">
+                    <p>来自三体</p>
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="tb_li">
+                <div class="d1"><img src="img/td_01.png" width="237" height="148"></div>
+                <div class="d2"><span class="name">雷 勇</span><span class="job">CEO</span></div>
+                <div class="d3">
+                    <p>来自三体</p>
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="tb_li">
+                <div class="d1"><img src="img/td_01.png" width="237" height="148"></div>
+                <div class="d2"><span class="name">雷 勇</span><span class="job">CEO</span></div>
+                <div class="d3">
+                    <p>来自三体</p>
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="tb_li">
+                <div class="d1"><img src="img/td_01.png" width="237" height="148"></div>
+                <div class="d2"><span class="name">雷 勇</span><span class="job">CEO</span></div>
+                <div class="d3">
+                    <p>来自三体</p>
+                </div>
+            </div>
+        </li>
+    </ul>
+  </div>-->
+  <div id="Service" class="About3">
+    <div class="Service_bt">联系我们</div>
+    <div class="About3_lx_bottom"></div>
+    <div class="About3_lx">
+    	<span class="About3_lx01"><p>公司咨询热线</p><p>北京：010-59434119</p></span>
+    	<span class="About3_lx02"><p><img src="img/gy_logo.png" width="118" height="118"></p></span>
+    	<span class="About3_lx03"><p>商家咨询热线</p><p>客服：010-59434119-806</p></span>
+    </div>
+    <div class="About3_lx_fs"><p>邮箱：ningmengshequ@sina.com</p><p>地址：北京市朝阳区雨霖大厦608室</p></div>
+  
+</div>
+</div>
+<div id="footer">
+  <div class="footer_lixi">
+    <div class="footer_lixi_b"><ul><li><img src="img/d1.png" width="186" height="56"></li><li><img src="img/d2.png" width="284" height="56"></li></ul></div>
+  </div>
+  <div class="footer_about">
+    <p>京ICP备15042741号-1</p>
+    <p>Copyright &copy; 2017 北京榴莲时代网络科技有限公司 All rights reserved.</p>
+  </div>
+</div>
+</body>
+</html>

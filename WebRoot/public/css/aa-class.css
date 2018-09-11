@@ -1,0 +1,126 @@
+body, html,input{font-family:"微软雅黑" !important;}
+
+.sousuo{
+    width: 90%;
+    margin:2% 5%;
+    border-radius: 5px;
+    background: #EEEEEE;
+    text-align: center;
+}
+.index-ssk{
+    padding: 2%;
+    outline: none;
+    font-size: 11pt;
+    background: #EEEEEE;
+    border: none;
+}
+
+/*分类导航*/
+.xian{
+    margin: 0;
+}
+.zuo-dh{
+    display: inline-block;
+    text-align: center;
+    width: 20%;
+    background: #FAFAFA;
+    padding-bottom: 10%;
+    border-top: 1px solid #E5E5E5;
+}
+.zuo-dh li{
+    border-bottom: 1px solid #E7E7E7;
+    padding: 15% 0;
+}
+.zuo-dh li:hover{
+    color: #80C532;
+}
+
+/*右边*/
+.you-zt{
+    background: #EEEEEE;
+    width: 80%;
+    display: inline-block;
+    padding: 2% 2% 0 2%;
+    float: right;
+    border-top: 1px solid #E5E5E5;
+}
+.you-zt .tua img{
+    width: 100%;
+}
+.you-zt>p{
+    margin: 2% 0;
+    color: #6C6B6C;
+}
+
+/*商品*/
+.r-taba{
+    width: 100%;
+    text-align: center;
+    font-size: 8pt;
+    margin-bottom: 2%;
+}
+.r-taba .kong{
+    padding-left: 2%;
+    background: #EEEEEE;
+}
+
+.hong{
+    color: #FD3332;
+    margin-right: 2%;
+    font-size: 10pt;
+}
+.r-taba td{
+    background: white;
+}
+.r-taba td p{
+    padding: 0 5%;
+}
+.r-taba img{
+    height: 140px;
+    width: 140px;
+    margin: 2%;
+}
+
+/*底部导航*/
+.table-five{
+    border-top:1px solid #B3B3B3;
+    width: 100%;
+    text-align: center;
+    color: #C2C2C2;
+    background: black;
+    position: fixed;
+    bottom: 0;
+    z-index:999;
+}
+.table-five img{
+    height: 29px;
+}
+.table-five td{
+    padding-top:1%;
+    padding-bottom:1%;
+}
+.table-five td:hover{
+    color: #58A801;
+}
+
+.table-five td:nth-child(3){
+    position: relative;
+}
+
+.table-five p{
+    margin-bottom: 0;
+    font-size: 12;
+}
+.sl-ia{
+    /*border: 1px solid red;
+    padding:0 1%;*/
+    border-radius: 50%;
+    font-size: 0.9em;
+    color: white;
+    background: red;
+    position: absolute;
+    right: 25%;
+    width:18px;
+    height:18px;
+}
+@media (min-width: 767px) {  .sl-ia{padding: 1%;font-size: 1.5rem;}}

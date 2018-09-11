@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>首页</title>
+<link rel="stylesheet" type="text/css" href="css/Similar.css">
+<!--[if lt IE 9]><script src="js/html5.js"></script><![endif]-->
+<script type='text/javascript' src='js/jquery-1.7.2.min.js'></script>
+<script type='text/javascript' src='js/common.js'></script>
+<script type='text/javascript' src='js/slider.js'></script>
+<script type="text/javascript">
+$(document).ready(function(){
+  var $backgrounds = $(".header-content").find(".parallax-bg"),
+      LAYER_OFFSET = 30,
+      PRLX_SPEED = 1500,
+      $slider;
+  
+  $slider = $("#slider").tlrkSlider({
+    autoStart: true,
+    animationStart: function(ev, slider, step){
+      var max_steps = this.framesCount; 
+      $backgrounds.each(function(idx, el){
+        var pos = (step * (100 / max_steps)) + (LAYER_OFFSET * idx);
+        $(this).animate({"backgroundPosition": pos + "% 0"}, PRLX_SPEED);
+      });
+    },
+    elements: {
+      "img": {delay: 10},
+      "h2": {delay: 500},
+      ".copy": {delay: 800},
+      ".button": {delay: 1000}
+    }
+  });
+  
+/*  $(".header-content").hover(function(){
+	  $(this).find(".slider-prev, .slider-next").show();
+},
+      function(){$(this).find(".slider-prev, .slider-next").hide();}
+    )
+    .find(".slider-prev").click(function(){$slider.tlrkSlider("go", "prev"); return false; }).end()
+    .find(".slider-next").click(function(){$slider.tlrkSlider("go", "next"); return false; });*/
+
+});
+</script>
+</head>
+
+<body>
+<div id="nav">
+  <ul>
+    <div id="nav_logo"><a href="index.html"><img src="img/logo.png" width="200" height="50"></a></div>
+    <li><a >合作咨询热线 : 010-59434119</a></li>
+    <li><a href="about.html">关于我们</a></li>
+    <li><a href="#">新闻中心</a></li>
+    <li><a href="join.html">合作加盟</a></li>
+    <li><a href="service.html">产品与服务</a></li>
+    <li class="Violet"><a href="index.html">首页</a></li>
+  </ul>
+</div>
+<div class="header-content home">
+  <div class="parallax-bg" id="slider-wrap">
+    <div class="slider parallax-bg" id="slider">
+      <div class="slider-sections sandbox">
+        <section class="first"> <img alt="Kendo UI" src="img/index_banner_Location.png" width="790" height="480"/>
+          <div class="text">
+            <div class="copy"><img src="img/index_banner_bt.png" width="494" height="108"></div>
+            <div class="index_banner_2">
+              <div class="index_banner_2wb"><img src="img/index_banner_2.png" width="185" height="185"></div>
+              <div class="button"> <a class="Android" href="#">下载榴莲购APP</a> <a class="Iphone" href="#">下载榴莲购APP</a> </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+    <!--<a class="slider-prev" href="javascript: void(0)">?</a> <a class="slider-next" href="javascript: void(0)">?</a>--> </div>
+</div>
+<div id="main">
+    <div id="Service">
+        <div class="Service_bt">我们的产品</div>
+        <div class="page1_center">
+            <div class="x1">
+                <ul class="x1_fl">
+                    <li><img src="img/x1.png" width="29" height="29"><i>限时秒杀</i></li>
+                    <li><img src="img/x2.png" width="29" height="29"><i>促销活动</i></li>
+                </ul>
+                <ul class="x1_fr">
+                    <li><img src="img/x3.png" width="29" height="29"><i>定时配送</i></li>
+                    <li><img src="img/x4.png" width="29" height="29"><i>便捷支付</i></li>
+                </ul>
+            </div>
+            <div class="x2">
+                <ul class="x1_fl">
+                    <li><img src="img/x5.png" width="29" height="29"><i>缴物业费</i></li>
+                    <li><img src="img/x6.png" width="29" height="29"><i>缴停车费</i></li>
+                    <li><img src="img/x7.png" width="29" height="29"><i>物业通知</i></li>
+                </ul>
+                <ul class="x1_fr">
+                    <li><img src="img/x8.png" width="29" height="29"><i>保洁服务</i></li>
+                    <li><img src="img/x9.png" width="29" height="29"><i>维修服务</i></li>
+                    <li><img src="img/x10.png" width="29" height="29"><i>第三方应用</i></li>
+                </ul>
+            </div>
+            <div class="x3">
+                <ul class="x1_fl">
+                    <li><img src="img/x11.png" width="29" height="29"><i>发布图文</i></li>
+                    <li><img src="img/x12.png" width="29" height="29"><i>点赞喜欢</i></li>
+                    <li><img src="img/x13.png" width="29" height="29"><i>评论图文</i></li>
+                </ul>
+                <ul class="x1_fr">
+                    <li><img src="img/x14.png" width="29" height="29"><i>活动聚会</i></li>
+                </ul>
+            </div>
+            <div class="d1">
+                <p class="size1 color2">服务综合性</p>
+            </div>
+            <div class="d2">
+                <p class="size1 color2">推广与销售</p>
+            </div>
+            <div class="d3">
+                <p class="size1 color2">增加了解与沟通</p>
+            </div>
+            <div class="d4">
+                <p class="size1 color1">提供上游商品采购</p>
+            </div>
+            <div class="d5">
+                <p class="size1 color1">提供物业服务</p>
+            </div>
+            <div class="d6">
+                <p class="size1 color1">增加用户粘性</p>
+            </div>
+        </div>
+    </div>
+  <!--<div id="Service">
+    <div class="Service_bt2">我们的动态</div>
+    <div class="news_box">
+      <div class="news"> <a href="#">
+        <div class="nl"><img src="img/hlogo.png"></div>
+        <div class="nr">
+          <h3>南奥助邻会：挑战小掌柜 跳蚤市集互换快乐</h3>
+          <label>来源：新浪广东</label>
+        </div>
+        </a> </div>
+      <div class="news"> <a href="#" target="_blank">
+        <div class="nl"><img src="img/hlogo.png"></div>
+        <div class="nr">
+          <h3>考拉先生：年轻就是生产力</h3>
+          <label>来源：亿欧网</label>
+        </div>
+        </a> </div>
+      <div class="news"> <a href="#" target="_blank">
+        <div class="nl"><img src="img/hlogo.png"></div>
+        <div class="nr">
+          <h3>捷报 | 全网双十一狂欢？考拉引领实体店突围</h3>
+          <label>来源：考拉先生双十一战报</label>
+        </div>
+        </a> </div>
+      <div class="news"> <a href="#" target="_blank">
+        <div class="nl"><img src="img/hlogo.png"></div>
+        <div class="nr">
+          <h3>社区 O2O 不仅是社区经济的电商化，考拉先生想用 2000 多微信公众号玩出 Nextdoor＋的感觉</h3>
+          <label>来源：36kr</label>
+        </div>
+        </a> </div>
+      <div class="news"> <a href="#" target="_blank">
+        <div class="nl"><img src="img/hlogo.png"></div>
+        <div class="nr">
+          <h3>还鼓捣物业APP？人家用微信玩社区O2O已月入2千万</h3>
+          <label>来源：新浪乐居</label>
+        </div>
+        </a> </div>
+      <div class="news"> <a href="#" target="_blank">
+        <div class="nl"><img src="img/hlogo.png"></div>
+        <div class="nr">
+          <h3>整合电商、物业、供应商等社会资源 闵行区浦锦街道构建“智治社区”</h3>
+          <label>来源：新华网</label>
+        </div>
+        </a> </div>
+    </div>
+  </div>-->
+</div>
+<div id="footer">
+  <div class="footer_lixi">
+    <div class="footer_lixi_b"><ul><li><img src="img/d1.png" width="186" height="56"></li><li><img src="img/d2.png" width="284" height="56"></li></ul></div>
+  </div>
+  <div class="footer_about">
+    <p>京ICP备15042741号-1</p>
+    <p>Copyright &copy; 2017 北京榴莲时代网络科技有限公司 All rights reserved.</p>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,74 @@
+body, html,input{font-family:"微软雅黑" !important;}
+
+.head-eidt td{
+    padding: 3%;
+    vertical-align: text-top;
+}
+.index-ssk{
+    padding: 2%;
+    outline: none;
+    font-size: 11pt;
+    background: #EEEEEE;
+    border: none;
+}
+.sousuo{
+    width: 90%;
+    margin:2% 5%;
+    border-radius: 5px;
+    background: #EEEEEE;
+    text-align: center;
+
+}
+.rmssp{
+    color: #B8B8B8;
+    margin:4% 8%;
+    font-size: 1.1em;
+}
+
+/*热门搜索*/
+.sea-tab1{
+    width: 84%;
+    margin-left: 8%;
+    text-align: left;
+    margin-top: 3%;
+}
+.bookname-an{
+    background: white;
+    font-size: 15px;
+    height: 30px;
+    padding: 0 17%;
+    border-radius: 25px;
+    border: 1px solid #EDEDED;
+    outline: none;
+}
+.bookname-an:hover{
+    background: #48CFAD;
+    color: white;
+}
+.ssls{
+    color: #B8B8B8;
+    margin:4% 0 2% 8%;
+    font-size: 1.1em;
+}
+.lishi{
+    border-top: 1px solid #E4E4E4;
+}
+.lishi li{
+    border-bottom: 1px solid #E4E4E4;
+    padding:2% 0 2% 8%;
+}
+.lishi li p{
+    margin-bottom: 0;
+}
+
+.qk{
+    text-align: center;
+}
+.qk .qingchu{
+    background: white;
+    font-size: 15px;
+    padding: 1% 3%;
+    border-radius: 5px;
+    border: 1px solid #9C9C9C;
+    color: #A0A0A0;
+}

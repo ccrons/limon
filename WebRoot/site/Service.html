@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>产品与服务</title>
+<link rel="stylesheet" type="text/css" href="css/Similar.css">
+<!--[if lt IE 9]><script src="js/html5.js"></script><![endif]-->
+<script type='text/javascript' src='js/jquery-1.7.2.min.js'></script>
+<script type='text/javascript' src='js/common.js'></script>
+<script type='text/javascript' src='js/slider.js'></script>
+<script type="text/javascript">
+$(document).ready(function(){
+  var $backgrounds = $(".header-content").find(".parallax-bg"),
+      LAYER_OFFSET = 30,
+      PRLX_SPEED = 1500,
+      $slider;
+  
+  $slider = $("#slider").tlrkSlider({
+    autoStart: true,
+    animationStart: function(ev, slider, step){
+      var max_steps = this.framesCount; 
+      $backgrounds.each(function(idx, el){
+        var pos = (step * (100 / max_steps)) + (LAYER_OFFSET * idx);
+        $(this).animate({"backgroundPosition": pos + "% 0"}, PRLX_SPEED);
+      });
+    },
+    elements: {
+      "img": {delay: 10},
+      "h2": {delay: 500},
+      ".copy": {delay: 800},
+      ".button": {delay: 1000}
+    }
+  });
+  
+/*  $(".header-content").hover(function(){
+	  $(this).find(".slider-prev, .slider-next").show();
+},
+      function(){$(this).find(".slider-prev, .slider-next").hide();}
+    )
+    .find(".slider-prev").click(function(){$slider.tlrkSlider("go", "prev"); return false; }).end()
+    .find(".slider-next").click(function(){$slider.tlrkSlider("go", "next"); return false; });*/
+
+});
+</script>
+</head>
+
+<body>
+<div id="nav">
+  <ul>
+    <div id="nav_logo"><a href="index.html"><img src="img/logo.png" width="200" height="50"></a></div>
+    <li><a >合作咨询热线 : 010-59434119</a></li>
+    <li><a href="about.html">关于我们</a></li>
+    <li><a href="#">新闻中心</a></li>
+    <li><a href="join.html">合作加盟</a></li>
+    <li class="Violet"><a href="service.html">产品与服务</a></li>
+    <li><a href="index.html">首页</a></li>
+  </ul>
+</div>
+<div class="header-content home Service_content">
+  <div class="parallax-bg" id="slider-wrap">
+    <div class="slider parallax-bg" id="slider">
+      <div class="slider-sections sandbox">
+        <section class="first"> <img alt="Kendo UI" src="img/cp_02.png" width="427" height="480" class="Service_content_01img"/>
+          <div class="text"><img src="img/cp_01.png" width="494" height="480"></div>
+        </section>
+      </div>
+    </div>
+    <!--<a class="slider-prev" href="javascript: void(0)">?</a> <a class="slider-next" href="javascript: void(0)">?</a>--> </div>
+</div>
+<div id="main">
+  <div id="Service">
+    <div class="Service_bt">产品与服务</div>
+    <div class="content_box">
+            <div class="cbr"><img class="img" src="img/cp_t1.png" width="608" height="538"></div>
+            <div class="cbl">
+                <h2>榴莲购便利店</h2>
+                <dl class="icon_box">
+                    <dd><img src="img/cp_x1.png"><label class="icon_w">限时秒杀</label></dd>
+                    <dd><img src="img/cp_x2.png"><label class="icon_w">促销活动</label></dd>
+                    <dd><img src="img/cp_x3.png"><label class="icon_w">团购</label></dd>
+                    <dd><img src="img/cp_x4.png"><label class="icon_w">定时配送</label></dd>
+                    <dd><img src="img/cp_x5.png"><label class="icon_w">便捷支付</label></dd>
+                </dl>
+                <p class="p1">榴莲购聚合现有社区便利店资源，借助新型的移动端便捷购物模式，为社区便利店带来了更多的用户和收益，榴莲购便利店服务于“懒人”贵族，打造懒人文化，满足懒男懒女在家饿了，累了，急了等即时消费需求，足不出户，便捷，即时享受家门口购物。</p>
+            </div>
+        </div>
+        <div class="content_box content_box_fl01">
+            <div class="cbr cbr_fr"><img class="img" src="img/cp_t2.png" width="593" height="488"></div>
+            <div class="cbl cbr_fl">
+                <h2>生活服务</h2>
+                <dl class="icon_box">
+                    <dd><img src="img/cp_x6.png"><label class="icon_w">缴物业费</label></dd>
+                    <dd><img src="img/cp_x7.png"><label class="icon_w">缴停车费</label></dd>
+                    <dd><img src="img/cp_x8.png"><label class="icon_w">物业通知</label></dd>
+                    <dd><img src="img/cp_x9.png"><label class="icon_w">保洁服务</label></dd>
+                    <dd><img src="img/cp_x10.png"><label class="icon_w">维修服务</label></dd>
+                    <dd><img src="img/cp_x11.png"><label class="icon_w">第三方应用</label></dd>
+                </dl>
+                <p class="p1">通过生活服务，为小区业主提供更便捷，更安全，更舒适的生活体验，通过生活服务模块，及时缴纳物业费，停车费和寻求保洁，维修等服务，并且告别满屏僵尸app，一个模块打通各种需求，无需在为您手机内存而烦心，</p>
+            </div>
+        </div>
+        <div class="content_box content_box_fl02">
+            <div class="cbr"><img class="img" src="img/cp_t3.png" width="593" height="488"></div>
+            <div class="cbl">
+                <h2>邻里圈</h2>
+                <dl class="icon_box">
+                    <dd><img src="img/cp_x12.png"><label class="icon_w">发布图文</label></dd>
+                    <dd><img src="img/cp_x13.png"><label class="icon_w">点赞喜欢</label></dd>
+                    <dd><img src="img/cp_x14.png"><label class="icon_w">评论图文</label></dd>
+                    <dd><img src="img/cp_x15.png"><label class="icon_w">活动聚会</label></dd>
+                </dl>
+                <p class="p1">俗话说“远亲不如近邻”随着时代的发展，高楼大厦取代了胡同大院，邻里之间缺少了沟通与了解，榴莲购平台，邻里圈让我们不告别朋友圈的前提下，与社区内部邻居有更深层次的了解与沟通，为促进和谐社会尽微薄之力。</p>
+            </div>
+        </div>
+  </div>
+  
+</div>
+<div id="footer">
+  <div class="footer_lixi">
+    <div class="footer_lixi_b"><ul><li><img src="img/d1.png" width="186" height="56"></li><li><img src="img/d2.png" width="284" height="56"></li></ul></div>
+  </div>
+  <div class="footer_about">
+    <p>京ICP备15042741号-1</p>
+    <p>Copyright &copy; 2017 北京榴莲时代网络科技有限公司 All rights reserved.</p>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.limon.store.dao.ShelvesDao">
+    <select id="getProductInfoList" parameterType="java.util.Map" resultType="com.limon.manage.model.ProductInfo">
+		select d.*,b.typename,c.brandname,sp.id as sid,sp.storeid,sp.salenum,sp.saleprice from (
+		
+		select a.* from product_info a  where a.id not in(select productid from store_product where storeid=#{uid} and isdel=0) 
+		and a.isdel=0 and a.isonline=1 and a.isself = 0 
+		
+		<if test="sname != null and sname !=''">  
+			and a.name like CONCAT('%',#{sname},'%') 
+		</if>
+		<if test="stype != null and stype !=''">  
+			and a.type = #{stype}
+		</if>
+		<if test="sbrand != null and sbrand !=''">  
+			and a.brand = #{sbrand} 
+		</if>
+		<if test="isself != null and isself !=''">  
+			and a.isself = #{isself}
+		</if>
+		<if test="sisofficial != null and sisofficial !=''">  
+			and a.isofficial = #{sisofficial} 
+		</if>
+		
+		order by a.id desc limit #{pageStart} , #{pageSize}
+		
+		) d 
+		left join product_type b on d.type=b.id 
+		left join product_brand c on d.brand=c.id
+		left join store_product sp on d.id=sp.productid and sp.storeid=#{uid} and sp.isdel=0	
+			
+		where 1=1	
+			<if test="sj == '1'.toString()">  
+				and sp.id != '' 
+			</if>
+			<if test="sj == '2'.toString()">  
+				and sp.id IS NULL 
+			</if>
+			
+		
+    </select>
+    <select id="getProductInfoListCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+		select count(*) from product_info a where a.isdel=0 and a.isonline=1 and a.id not in(select productid from store_product where storeid=#{uid} and isdel=0)
+			<if test="sname != null and sname !=''">  
+				and name like CONCAT('%',#{sname},'%') 
+			</if>
+			<if test="stype != null and stype !=''">  
+				and a.type = #{stype}
+			</if>
+			<if test="sbrand != null and sbrand !=''">  
+				and a.brand = #{sbrand} 
+			</if>
+			<if test="isself != null and isself !=''">  
+				and a.isself = #{isself}
+			</if>
+			<if test="sisofficial != null and sisofficial !=''">  
+				and a.isofficial = #{sisofficial} 
+			</if>
+    </select>
+    <select id="getProductInfo" parameterType="java.lang.String" resultType="com.limon.manage.model.ProductInfo">
+		select *,sp.id as sid from product_info a left join store_product as sp on sp.productid = a.id and sp.isdel=0 and sp.storeid=#{storeid},product_type b,product_brand c where a.type=b.id and a.brand=c.id and a.id=#{id}
+    </select>
+    <select id="getStoreProductCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+		select count(*) from store_product where productid=#{id} and isdel=0 and storeid=#{uid}
+    </select>
+    <insert id="storeProductAdd" parameterType="java.util.Map">
+		insert into store_product(storeid,productid,salenum,saleprice,createtime,isdel)values(#{uid},#{id},#{salenum},#{saleprice},#{createtime},0)
+    </insert>
+    <update id="storeProductDel" parameterType="java.lang.String">
+		update store_product set isdel=1 where id=#{id}
+    </update>
+    <update id="storeProductUpdate" parameterType="java.lang.String">
+		update store_product set salenum=#{salenum},saleprice=#{saleprice} where storeid=#{uid} and productid=#{id}
+    </update>
+    <update id="storeProductDelByProductid" parameterType="java.lang.String">
+		update store_product set isdel=1 where productid=#{productid}
+    </update>
+    <select id="getStoreProductList" resultType="com.limon.store.model.StoreProduct">
+		select * from store_product where isdel = 0
+    </select>
+</mapper>

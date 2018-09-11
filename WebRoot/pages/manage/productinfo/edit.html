@@ -1,0 +1,472 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport"
+	content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<!--[if lt IE 9]>
+<script type="text/javascript" src="${basePath}/lib/html5.js"></script>
+<script type="text/javascript" src="${basePath}/lib/respond.min.js"></script>
+<script type="text/javascript" src="${basePath}/lib/PIE_IE678.js"></script>
+<![endif]-->
+<link href="${basePath}/css/H-ui.min.css" rel="stylesheet"
+	type="text/css" />
+<link href="${basePath}/css/H-ui.admin.css" rel="stylesheet"
+	type="text/css" />
+<link href="${basePath}/css/style.css" rel="stylesheet" type="text/css" />
+<link href="${basePath}/lib/font-awesome/font-awesome.min.css"
+	rel="stylesheet" type="text/css" />
+<!--[if IE 7]>
+<link href="${basePath}/lib/font-awesome/font-awesome-ie7.min.css" rel="stylesheet" type="text/css" />
+<![endif]-->
+<link href="${basePath}/lib/iconfont/iconfont.css" rel="stylesheet"
+	type="text/css" />
+<!--[if IE 6]>
+<script type="text/javascript" src="${basePath}/lib/DD_belatedPNG_0.0.8a-min.js" ></script>
+<script>DD_belatedPNG.fix('*');</script>
+<![endif]-->
+<link rel="stylesheet" type="text/css"
+	href="${basePath}/lib/uploadify/uploadify.css">
+<title>产品信息</title>
+</head>
+<body>
+	<div class="pd-20">
+		<div class="Huiform">
+			<form action="save" method="post" id="form-article-class"
+				enctype="multipart/form-data">
+				<input type="hidden" name="id" value="${productinfo.id?c}">
+				<table class="table table-border table-bordered table-bg">
+					<tbody>
+						<tr>
+							<th class="text-r" width="100px">产品名称：</th>
+							<td><div class="formControls col-6">
+									<input class="input-text" style="width:300px" type="text"
+										placeholder="输入产品名称" name="name" id="class-val"
+										datatype="*1-100" nullmsg="产品名称不能为空" maxlength="100"
+										value="${productinfo.name}">
+								</div>
+								<div class="col-4"></div></td>
+						</tr>
+						<tr>
+							<th class="text-r" width="100px">产品类型：</th>
+							<td>
+								<span class="select-box" style="width:150px"> 
+									<select class="select" name="typelevel1" id="typelevel1" size="1"> 
+										<option value="" >请选择一级类型</option>
+										<#list producttypelist as producttype >
+											<option value="${producttype.id}" <#if producttype.id==pt.pid>selected="selected"</#if> >${producttype.typename}</option>
+										</#list>
+									</select>
+								</span>
+								<span class="select-box" style="width:150px"> <select
+										class="select" name="type" id="type" size="1" datatype="*" nullmsg="请选择二级类型"> 
+										<option value="" >请选择二级类型</option>
+										<#list producttypelist as producttype >
+											<#if producttype.id==pt.pid>
+												<#list producttype.childproductpypelist as producttypetwo >
+													<option value="${producttypetwo.id}" <#if producttypetwo.id==productinfo.type>selected="selected"</#if> >${producttypetwo.typename}</option>
+												</#list>
+											</#if>
+										</#list>
+									</select>
+								</span>
+							</td>
+						</tr>
+						<tr>
+							<th class="text-r" width="100px">产品品牌：</th>
+							<td><span class="select-box" style="width:150px"> <select
+									class="select" name="brand" size="1"> <#list
+										productbrandlist as productbrand >
+										<option value="${productbrand.id}"<#if
+											productbrand.id==productinfo.brand >selected="selected"</#if>
+											>${productbrand.brandname}</option> </#list>
+								</select>
+							</span></td>
+						</tr>
+						<tr>
+							<th class="text-r" width="100px">产品类型：</th>
+							<td><span class="select-box" style="width:150px"> <select
+									class="select" name="isself" size="1"> 
+										<option value="0" <#if
+											productinfo.isself=='0' >selected="selected"</#if> >便利店商品</option>
+										<option value="1" <#if
+											productinfo.isself=='1' >selected="selected"</#if> >自营店商品</option>
+								</select>
+							</span></td>
+						</tr>
+						<tr>
+							<th class="text-r" width="100px">产品价格：</th>
+							<td><div class="formControls col-6">
+									<input class="input-text" style="width:170px" type="text"
+										placeholder="输入产品价格" name="price" value="<#if productinfo?if_exists>${productinfo.price?c}</#if>"
+										id="price" datatype="price" nullmsg="产品价格不能为空" errormsg="产品价格为最多2位小数的数字" maxlength="10">
+								</div>
+								<div class="col-4"></div></td>
+							</td>
+						</tr>
+						<tr>
+							<th class="text-r" width="100px">原价：</th>
+							<td><div class="formControls col-6">
+									<input class="input-text" style="width:170px" type="text"
+										placeholder="输入销售价格" name="sprice" value="<#if productinfo?if_exists><#if productinfo.sprice?if_exists>${productinfo.sprice?c}</#if></#if>"  
+										id="sprice" datatype="price" nullmsg="销售价格不能为空" errormsg="销售价格为最多2位小数的数字" maxlength="10">
+								</div>
+								<div class="col-4"></div></td>
+						</tr>
+						<tr>
+							<th class="text-r" width="100px">进货价：</th>
+							<td><div class="formControls col-6">
+									<input class="input-text" style="width:170px" type="text"
+										placeholder="输入进货价" name="stockprice" value="<#if productinfo?if_exists><#if productinfo.stockprice?if_exists>${productinfo.stockprice?c}</#if></#if>"  
+										id="stockprice" datatype="price" nullmsg="进货价不能为空" errormsg="进货价为最多2位小数的数字" maxlength="10">
+								</div>
+								<div class="col-4"></div></td>
+						</tr>
+						<tr>
+							<th class="text-r" width="100px">代理价：</th>
+							<td><div class="formControls col-6">
+									<input class="input-text" style="width:170px" type="text"
+										placeholder="输入代理价" name="proxyprice" value="<#if productinfo?if_exists><#if productinfo.proxyprice?if_exists>${productinfo.proxyprice?c}</#if></#if>"  
+										id="proxyprice" datatype="price" nullmsg="代理价不能为空" errormsg="代理价为最多2位小数的数字" maxlength="10">
+								</div>
+								<div class="col-4"></div></td>
+						</tr>
+						<tr>
+							<th class="text-r" width="100px">默认库存：</th>
+							<td><div class="formControls col-6">
+									<input class="input-text" style="width:170px" type="text"
+										value="${productinfo.upnum!'0'}" placeholder="输入默认库存" name="upnum" id="class-val"
+										datatype="n1-10" nullmsg="默认库存不能为空" errormsg="默认库存为1-10位数字" maxlength="10">
+								</div>
+								<div class="col-4"></div></td>
+						</tr>
+						<tr>
+							<th class="text-r" width="100px">产品规格：</th>
+							<td><div class="formControls col-6">
+									<input class="input-text" style="width:170px" type="text"
+										placeholder="输入产品规格" name="unit" value="${productinfo.unit}"
+										id="class-val" datatype="*0-100" errormsg="规格长度为1到100" maxlength="100">
+								</div>
+								<div class="col-4"></div></td>
+						</tr>
+						<tr>
+							<th class="text-r" width="100px">产品重量（克）：</th>
+							<td><div class="formControls col-6">
+								<input class="input-text" style="width:170px" type="text"
+									   placeholder="输入产品重量" name="weight" value="${productinfo.weight}"
+									   id="class-val" datatype="n1-10" errormsg="重量长度为1到100" maxlength="100">
+							</div>
+								<div class="col-4"></div></td>
+						</tr>
+						<tr>
+							<th class="text-r" width="100px">产地：</th>
+							<td><div class="formControls col-6">
+									<input class="input-text" style="width:170px" type="text"
+										value="${productinfo.paddress}" placeholder="输入产品产地" name="paddress" id="class-val"
+										datatype="*0-100" errormsg="产品产地长度为0到100" maxlength="100">
+								</div>
+								<div class="col-4"></div></td>
+							</td>
+						</tr>
+						<tr>
+							<th class="text-r" width="100px">上线：</th>
+							<td>
+								<div class="radio-box">
+									<input type="radio" name="isonline" value="1"<#if
+									productinfo.isonline==1> checked="checked" </#if> > <label
+										for="radio-1">上线</label>
+								</div>
+								<div class="radio-box">
+									<input type="radio" name="isonline" value="0"<#if
+									productinfo.isonline==0> checked="checked" </#if> > <label
+										for="radio-2">下线</label>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<th class="text-r" width="100px">官方供应：</th>
+							<td>
+								<div class="radio-box">
+									<input type="radio" name="isofficial" value="1"<#if
+									productinfo.isofficial==1> checked="checked" </#if> >
+									<label for="radio-1">是</label>
+								</div>
+								<div class="radio-box">
+									<input type="radio" name="isofficial" value="0"<#if
+									productinfo.isofficial==0> checked="checked" </#if> > <label
+										for="radio-2">否</label>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<th class="text-r" width="100px">推荐商品：</th>
+							<td>
+								<div class="radio-box">
+									<input type="radio" name="isrec" value="0"<#if
+									productinfo.isrec==0> checked="checked" </#if> >
+									<label for="radio-1">是</label>
+								</div>
+								<div class="radio-box">
+									<input type="radio" name="isrec" value="1"<#if
+									productinfo.isrec==1> checked="checked" </#if> > <label
+										for="radio-2">否</label>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<th class="text-r" width="100px">商品缩略图：</th>
+							<td><#if productinfo.imgurl!=""> <img name="imgurl_url"
+								id="imgurl_url" style="display: " class="avatar size-XXXL"
+								src="${basePath}/${productinfo.imgurl}">
+								<button type="button" style="display: "
+									class="btn btn-danger radius" id="imgurl_button"
+									name="imgurl_button" onclick="picDel('imgurl')">删除</button> <br>
+								</#if> <input name="imgurl" id="imgurl" type="hidden"
+								value="<#if productinfo.imgurl!="">1</#if>"> <span
+								class="btn-upload form-group" id="imgurl_file"
+								name="imgurl_file"<#if
+									productinfo.imgurl!="">style="display:none "</#if> > <input
+									class="input-text upload-url radius" type="text"
+									name="uploadfile0" id="uploadfile0" readonly="readonly"><a
+									href="javascript:void();" class="btn btn-primary radius"><i
+										class="iconfont">&#xf0020;</i> 浏览文件</a> <input type="file"
+									multiple name="file0" class="input-file"
+									accept="image/jpeg,image/png">
+							</span>
+
+							</td>
+						</tr>
+						<tr id="upfiletr" name="upfiletr"
+							<#if uploadLimit==0> style="display:none "<#else> style="display:
+							"</#if>>
+							<th class="text-r" width="100px">产品图上传：</th>
+							<td>
+								<input type="file" name="fileName" id="file_upload"/>  
+								<a href="javascript:$('#file_upload').uploadify('upload', '*')" class="btn btn-primary radius">上传文件</a>
+								<!-- <a href="javascript:$('#file_upload').uploadify('stop')" class="btn btn-primary radius">停止上传</a> -->
+							</td>
+						</tr>
+						<tr>
+							<th class="text-r" width="100px">产品图1：</th>
+							<td><#if productinfo.pic1!=""> <input name="pic1" id="pic1"
+								type="hidden" value="1"> <img name="pic1_url"
+								id="pic1_url" style="display: " class="avatar size-XXXL"
+								src="${basePath}/${productinfo.pic1}">
+								<button type="button" style="display: "
+									class="btn btn-danger radius" id="pic1_button"
+									name="pic1_button" onclick="picDel('pic1')">删除</button> <br>
+								<#else> <input name="pic1" id="pic1" type="hidden" value="">
+								<img name="pic1_url" id="pic1_url" style="display: none"
+								class="avatar size-XXXL" src="">
+								<button type="button" style="display: none"
+									class="btn btn-danger radius" id="pic1_button"
+									name="pic1_button" onclick="picDel('pic1')">删除</button> <br>
+								</#if>
+							</td>
+						</tr>
+						<tr>
+							<th class="text-r" width="100px">产品图2：</th>
+							<td><#if productinfo.pic2!=""> <input name="pic2" id="pic2"
+								type="hidden" value="1"> <img name="pic2_url"
+								id="pic2_url" style="display: " class="avatar size-XXXL"
+								src="${basePath}/${productinfo.pic2}">
+								<button type="button" style="display: "
+									class="btn btn-danger radius" id="pic2_button"
+									name="pic2_button" onclick="picDel('pic2')">删除</button> <br>
+								<#else> <input name="pic2" id="pic2" type="hidden" value="">
+								<img name="pic2_url" id="pic2_url" style="display: none"
+								class="avatar size-XXXL" src="">
+								<button type="button" style="display: none"
+									class="btn btn-danger radius" id="pic2_button"
+									name="pic2_button" onclick="picDel('pic2')">删除</button> <br>
+								</#if>
+							</td>
+						</tr>
+						<tr>
+							<th class="text-r" width="100px">产品图3：</th>
+							<td><#if productinfo.pic3!=""> <input name="pic3" id="pic3"
+								type="hidden" value="1"> <img name="pic3_url"
+								id="pic3_url" style="display: " class="avatar size-XXXL"
+								src="${basePath}/${productinfo.pic3}">
+								<button type="button" style="display: "
+									class="btn btn-danger radius" id="pic3_button"
+									name="pic3_button" onclick="picDel('pic3')">删除</button> <br>
+								<#else> <input name="pic3" id="pic3" type="hidden" value="">
+								<img name="pic3_url" id="pic3_url" style="display: none"
+								class="avatar size-XXXL" src="">
+								<button type="button" style="display: none"
+									class="btn btn-danger radius" id="pic3_button"
+									name="pic3_button" onclick="picDel('pic3')">删除</button> <br>
+								</#if>
+							</td>
+						</tr>
+						<tr>
+							<th class="text-r" width="100px">产品图4：</th>
+							<td><#if productinfo.pic4!=""> <input name="pic4" id="pic4"
+								type="hidden" value="1"> <img name="pic4_url"
+								id="pic4_url" style="display: " class="avatar size-XXXL"
+								src="${basePath}/${productinfo.pic4}">
+								<button type="button" style="display: "
+									class="btn btn-danger radius" id="pic4_button"
+									name="pic4_button" onclick="picDel('pic4')">删除</button> <br>
+								<#else> <input name="pic4" id="pic4" type="hidden" value="">
+								<img name="pic4_url" id="pic4_url" style="display: none"
+								class="avatar size-XXXL" src="">
+								<button type="button" style="display: none"
+									class="btn btn-danger radius" id="pic4_button"
+									name="pic4_button" onclick="picDel('pic4')">删除</button> <br>
+								</#if>
+							</td>
+						</tr>
+						<tr>
+							<th class="text-r" width="100px">产品图5：</th>
+							<td><#if productinfo.pic5!=""> <input name="pic5" id="pic5"
+								type="hidden" value="1"> <img name="pic5_url"
+								id="pic5_url" style="display: " class="avatar size-XXXL"
+								src="${basePath}/${productinfo.pic5}">
+								<button type="button" style="display: "
+									class="btn btn-danger radius" id="pic5_button"
+									name="pic5_button" onclick="picDel('pic5')">删除</button> <br>
+								<#else> <input name="pic5" id="pic5" type="hidden" value="">
+								<img name="pic5_url" id="pic5_url" style="display: none"
+								class="avatar size-XXXL" src="">
+								<button type="button" style="display: none"
+									class="btn btn-danger radius" id="pic5_button"
+									name="pic5_button" onclick="picDel('pic5')">删除</button> <br>
+								</#if>
+							</td>
+						</tr>
+						<tr>
+							<th class="text-r" width="100px">产品描述：</th>
+							<td>
+								<div class="formControls col-6">
+									<textarea class="textarea" onkeyup="textarealength(this,500)"
+										placeholder="说点什么..." rows="2" cols="20"
+										errormsg="产品描述长度为0到500" datatype="*0-500" name="description">${productinfo.description}</textarea>
+									<p class="textarea-numberbar">
+										<em class="textarea-length">0</em>/500
+									</p>
+								</div>
+								<div class="col-4"></div>
+							</td>
+						</tr>
+						<tr>
+							<th></th>
+							<td><button type="submit" class="btn btn-success radius"
+									id="" name="">
+									<i class="icon-save"></i> 保存
+								</button></td>
+						</tr>
+					</tbody>
+				</table>
+
+			</form>
+		</div>
+	</div>
+	<script type="text/javascript" src="${basePath}/lib/jquery.min.js"></script>
+	<script type="text/javascript"
+		src="${basePath}/lib/Validform_v5.3.2.js"></script>
+	<script type="text/javascript" src="${basePath}/js/H-ui.js"></script>
+	<script type="text/javascript" src="${basePath}/js/H-ui.admin.js"></script>
+	<script type="text/javascript" src="${basePath}/js/H-ui.admin.doc.js"></script>
+	<script type="text/javascript"
+		src="${basePath}/lib/uploadify/jquery.uploadify.min.js"></script>
+	<script type="text/javascript">
+		$("#form-article-class").Validform({
+			tiptype : 2
+		});
+		<#if rs?if_exists>
+			function parentSubmit(){
+				parent.document.getElementById('searchform').submit();
+			}
+			<#if rs == "1">
+				parent.layer.msg('修改成功',2,9);
+				setInterval(parentSubmit, 2000);
+			<#elseif rs == "2">
+				parent.layer.msg('修改失败,产品名称重复',2,8);
+			<#else>	
+				parent.layer.msg('修改失败,系统异常',2,8);
+				setInterval(parentSubmit, 2000);
+			</#if>
+		</#if>
+		var uploadLimit = ${uploadLimit};
+		$(document).ready(function() {  
+			$("#file_upload").uploadify({  
+				'buttonText' : '请选择',  
+				'height' : 31,  
+				'swf' : '${basePath}/lib/uploadify/uploadify.swf',  
+				'uploader' : 'uploadFile',  
+				'width' : 82,  
+				'auto':false,  
+				'fileObjName'   : 'file',  
+				'fileTypeDesc' : '指定类型文件',  
+	       		'fileTypeExts' : '*.jpg;*.png', //控制可上传文件的扩展名，启用本项时需同时声明fileDesc   
+	       		'fileObjName' : 'myTestFile',//文件对象名称,用于后台获取文件对象时使用,详见下面的java代码  
+		        'buttonText' : '批量上传',//上传按钮显示内容，还有个属性可以设置按钮的背景图片  
+			    'fileSizeLimit' : '10000KB',  
+				'uploadLimit':${uploadLimit},
+				'buttonClass':'radius',
+				'onUploadSuccess' : function(file, data, response) { 
+					if(data == '上传失败'){
+						alert( file.name + ' 上传失败！ ');  
+					}else{
+						//alert(data+"----"+i);
+						for(var i=1;i<=uploadLimit;i++){
+							if($("#pic"+i).val()==""){
+								$("#pic"+i).val(data);
+								$("#pic"+i+"_url").show();
+								$("#pic"+i+"_button").show();
+								$("#pic"+i+"_url").attr("src","${basePath}/upload"+data);
+								break;
+							}
+						}
+					}
+				}
+			});
+		});
+
+
+		function picDel(id) {
+			if (id != "imgurl") {
+				$("#upfiletr").show();
+				$("#" + id).val("");
+				$("#" + id + "_url").hide();
+				$("#" + id + "_button").hide();
+				$("#" + id + "_url").attr("src", "");
+				$("#file_upload").uploadify("settings", "uploadLimit",
+						++uploadLimit);
+			} else {
+				$("#" + id).val("");
+				$("#" + id + "_url").hide();
+				$("#" + id + "_button").hide();
+				$("#" + id + "_url").attr("src", "");
+				$("#" + id + "_file").show();
+			}
+		}
+		$(function () {
+			 //当省份发生改变时，城市改变
+          $('#typelevel1').change(function () {
+              $.ajax({
+                  type: "post",
+                  contentType: "application/json",
+                  url: "getTypeLevel2?pid=" + $(this).val(),
+                  data: "{}",
+                  success: function (result) {
+                      var type = '';
+                      type += '<option value="">请选择二级类型</option>';
+                      for (var i = 0; i < result.length; i++) {
+                      	type += '<option value=' + result[i].id + '>';
+                      	type += result[i].typename;
+                      	type += '</option>';
+                      }
+                      $('#type').html(type);
+                  }
+              })
+          })
+		})
+	</script>
+</body>
+</html>

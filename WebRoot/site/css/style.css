@@ -1,0 +1,61 @@
+*{margin:0; padding:0;}
+ul, li{list-style:none;}
+a{text-decoration:none;}
+img{border:0;}
+h2, h3, h4{font-size:12px;}
+body {font-size: 12px;font-family: "Microsoft Yahei",Arial,Helvetica,sans-serif;}
+
+#top, #AD, #AP, #ADC, #S-ADC{width:100%; float:left;}
+
+#top .top, #AD .AD-shanglu, #AP .AP-zhonglu, #ADC .ADC-xialu, #S-ADC .S-ADC{width:1100px; margin:0 auto;}
+#top .top{height:66px; background-color:#FFF; padding:9px 0;}
+#top .top .top-logo{width:368px; height:65px; float:left;}
+#top .top .top-nav{width:auto; float:right; margin-top:25px;}
+#top .top .top-nav li{float:left; height:24px; line-height:24px; padding:0 10px; margin-left:10px; font-size:15px; font-weight:bold;}
+#top .top .top-nav li.top-nav-bg, .top .top-nav li:hover{background-color:#c5a3ef;}
+
+#AD{background-color:#fec116; height:538px; overflow:visible;}
+#AD .AD-shanglu{ position:relative;}
+#AD .AD-shanglu .AD-shanglu-s{position:absolute;bottom:8px; right:-74px; z-index:1;}
+#AP{}
+#AP .AP-zhonglu{}
+#ADC{background-color:#f4f4f4;}
+#ADC .ADC-xialu{}
+#S-ADC{border-top:1px #fc0 solid;padding: 18px 0 20px 0;overflow:hidden;}
+#S-ADC .S-ADC{}
+#S-ADC .S-ADC .S-ADC-kill {float: left;width: 110px;}
+#S-ADC .S-ADC .S-ADC-kill h2 {float: left;color: #53565b;font-weight: 700; font-size:14px;}
+#S-ADC .S-ADC .S-ADC-kill ul {float: left;width: 110px;padding-top: 10px;}
+#S-ADC .S-ADC .S-ADC-kill li {float: left;width: 110px;line-height: 22px;color: #7e8084;}
+#S-ADC .S-ADC .S-ADC-kill li a {color: #555;}
+
+.S-ADC-towkill {float: left;width: 500px;margin: 0 20px 0 20px;}
+.S-ADC-towkill h2 {color: #53565b;font-weight: 700;font-size:14px;}
+.S-ADC-towkill dl {float: left;width: 80px;padding-top: 10px;margin-right: 20px;}
+.S-ADC-towkill dt {padding-bottom: 6px;color: #7e8084;}
+.S-ADC-towkill dd {width: 78px;height: 78px;}
+
+.S-ADC-therekill {float: left;width: 330px;color: #53565b;line-height: 30px;}
+.S-ADC-therekill h2 {font-size: 16px;font-weight: 700;}
+.S-ADC-therekill h3 {font-size: 12px;font-weight: 400;}
+.S-ADC-therekill h4 {font-size: 24px;}
+
+#AP .AP-zhonglu .about, #AP .chuangshi, #AP .tuandui, .lianxi{width:1050px;  padding-right:50px;}
+#AP .AP-zhonglu .about, .lianxi .lianxi-bt{ font-size:28px; color:#646565; font-weight:bold; padding-top:40px;}
+#AP .chuangshi{ margin-top:40px; overflow:hidden;}
+#AP .chuangshi dt{font-size:60px; font-weight:bold; text-indent:2em;float:left; width:100%; color:#646565;letter-spacing: 5px;}
+#AP .chuangshi dd{float:right;}
+#AP .chuangshi dd{font-size:22px; height:94px; line-height:94px; color:#7c7b7c;}
+#AP .chuangshi dd i, #AP .tuandui dd i{float:left; margin-right:10px;}
+#AP .tuandui{margin-top:100px;}
+#AP .tuandui dd{height:142px; overflow:hidden; font-size:26px; color:#7c7b7c; margin-bottom:80px;}
+#AP .tuandui dd .tuandui-div-span_fl{line-height:53px; height:92px; overflow:hidden; font-size:30px;}
+.tuandui-div{width:880px; float:right;}
+.tuandui-div-span_fr{float:right; width:100%; text-align:right;}
+
+.lianxi{margin:0 auto;}
+.lianxi .lianxi-mingpian{float:left; margin-top:30px;}
+.lianxi .lianxi-mingpian dt{font-size:40px; text-align:center;}
+.lianxi .lianxi-mingpian dd{ margin-top:60px; float:left; width:100%;}
+.lianxi .lianxi-mingpian dd .lianxi-mingpian-logo{width:220px; height:220px; margin-left:220px; margin-right:70px; margin-bottom:105px; float:left;}
+.lianxi .lianxi-mingpian dd .lianxi-mingpian-xinxi{float:right; width:520px; font-size:26px; line-height:44px;}

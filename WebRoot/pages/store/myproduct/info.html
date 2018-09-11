@@ -1,0 +1,179 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<!--[if lt IE 9]>
+<script type="text/javascript" src="${basePath}/lib/html5.js"></script>
+<script type="text/javascript" src="${basePath}/lib/respond.min.js"></script>
+<script type="text/javascript" src="${basePath}/lib/PIE_IE678.js"></script>
+<![endif]-->
+<link href="${basePath}/css/H-ui.min.css" rel="stylesheet" type="text/css" />
+<link href="${basePath}/css/H-ui.admin.css" rel="stylesheet" type="text/css" />
+<link href="${basePath}/css/style.css" rel="stylesheet" type="text/css" />
+<link href="${basePath}/lib/font-awesome/font-awesome.min.css" rel="stylesheet" type="text/css" />
+<!--[if IE 7]>
+<link href="${basePath}/lib/font-awesome/font-awesome-ie7.min.css" rel="stylesheet" type="text/css" />
+<![endif]-->
+<link href="${basePath}/lib/iconfont/iconfont.css" rel="stylesheet" type="text/css" />
+<!--[if IE 6]>
+<script type="text/javascript" src="${basePath}/lib/DD_belatedPNG_0.0.8a-min.js" ></script>
+<script>DD_belatedPNG.fix('*');</script>
+<![endif]-->
+<title>产品信息</title>
+</head>
+<body>
+	<div class="pd-20">
+		<div class="Huiform">
+			<form action="save" method="post" id="form-article-class">
+				<input type="hidden" name="id" value="${productinfo.id}">
+				<input type="hidden" name="tag" value="1">
+				<table class="table table-border table-bordered table-bg">
+					<tbody>
+						<tr>
+							<th class="text-r" width="100px">产品名称：</th>
+							<td>${productinfo.name}</td>
+						</tr>
+						<tr>
+							<th class="text-r" width="100px">产品类型：</th>
+							<td>${productinfo.typename}</td>
+						</tr>
+						<tr>
+							<th class="text-r" width="100px">产品品牌：</th>
+							<td>${productinfo.brandname}</td>
+						</tr>
+						<tr>
+							<th class="text-r" width="100px">产品价格：</th>
+							<td>${productinfo.price}</td>
+						</tr>
+						<tr>
+							<th class="text-r" width="100px">代理价：</th>
+							<td>${productinfo.proxyprice}</td>
+						</tr>
+						<tr>
+							<th class="text-r" width="100px">进货价：</th>
+							<td>${productinfo.stockprice}</td>
+						</tr>
+						<tr>
+							<th class="text-r" width="100px">产品规格：</th>
+							<td>${productinfo.unit}</td>
+						</tr>
+						<tr>
+							<th class="text-r" width="100px">产品重量：</th>
+							<td>${productinfo.weight}</td>
+						</tr>
+						<tr>
+							<th class="text-r" width="100px">商品缩略图：</th>
+							<td>
+								<#if productinfo.imgurl!="">
+									<div id="imgurl">
+									<img class="avatar size-XXXL" src="${basePath}/${productinfo.imgurl}">
+									</div>
+								</#if>
+							</td>
+						</tr>
+						<tr>
+							<th class="text-r" width="100px">产品图1：</th>
+							<td>
+								<#if productinfo.pic1!="">
+									<div id="pic1">
+									<img class="avatar size-XXXL" src="${basePath}/${productinfo.pic1}">
+									</div>
+								</#if>
+							</td>
+						</tr>
+						<tr>
+							<th class="text-r" width="100px">产品图2：</th>
+							<td>
+								<#if productinfo.pic2!="">
+									<div id="pic2">
+									<img class="avatar size-XXXL" src="${basePath}/${productinfo.pic2}">
+									</div>
+								</#if>
+								
+							</td>
+						</tr>
+						<tr>
+							<th class="text-r" width="100px">产品图3：</th>
+							<td>
+								<#if productinfo.pic3!="">
+									<div id="pic3">
+									<img class="avatar size-XXXL" src="${basePath}/${productinfo.pic3}">
+									</div>
+								</#if>
+							</td>
+						</tr>
+						<tr>
+							<th class="text-r" width="100px">产品图4：</th>
+							<td>
+								<#if productinfo.pic4!="">
+									<div id="pic4">
+									<img class="avatar size-XXXL" src="${basePath}/${productinfo.pic4}">
+									</div>
+								</#if>
+							</td>
+						</tr>
+						<tr>
+							<th class="text-r" width="100px">产品图5：</th>
+							<td>
+								<#if productinfo.pic5!="">
+									<div id="pic5">
+									<img class="avatar size-XXXL" src="${basePath}/${productinfo.pic5}">
+									</div>
+								</#if>
+							</td>
+						</tr>
+						<tr>
+							<th class="text-r" width="100px">产品描述：</th>
+							<td>${productinfo.description}</td>
+						</tr>
+						<tr>
+							<th class="text-r" width="100px">库存：</th>
+							<td>${productinfo.salenum}</td>
+						</tr>
+						<tr>
+							<th class="text-r" width="100px">售价：</th>
+							<td>${productinfo.saleprice}</td>
+						</tr>
+						<tr>
+							<th class="text-r" width="100px">是否官方供应：</th>
+							<td><#if productinfo.isofficial==1>是<#else>否</#if></td>
+						</tr>
+						<tr>
+							<th class="text-r" width="100px">是否推荐商品：</th>
+							<td><#if productinfo.isrec==0>是<#else>否</#if></td>
+						</tr>
+						<tr>
+							<th class="text-r" width="100px">是否参加0元购：</th>
+							<td><#if productinfo.isfrist==1>参加 首单0元购价格0<#else>不参加</#if></td>
+						</tr>
+						<tr>
+							<th class="text-r" width="100px">是否参加抽奖：</th>
+							<td><#if productinfo.isluck==1>参加 抽奖价格0<#else>不参加</#if></td>
+						</tr>
+						<tr>
+							<th class="text-r" width="100px">是否限时抢购：</th>
+							<td><#if productinfo.tltime?if_exists>参加 抢购价格${productinfo.tlprice}<#else>不参加</#if></td>
+						</tr>
+						<tr>
+							<th class="text-r" width="100px">是否参加广告：</th>
+							<td><#if productinfo.adid?if_exists>参加  活动价格${productinfo.adprice}<#else>不参加</#if></td>
+						</tr>
+					</tbody>
+				</table>
+			</form>
+		</div>
+	</div>
+<script type="text/javascript" src="${basePath}/lib/jquery.min.js"></script> 
+<script type="text/javascript" src="${basePath}/lib/Validform_v5.3.2.js"></script>
+<script type="text/javascript" src="${basePath}/js/H-ui.js"></script> 
+<script type="text/javascript" src="${basePath}/js/H-ui.admin.js"></script> 
+<script type="text/javascript" src="${basePath}/js/H-ui.admin.doc.js"></script>
+<script type="text/javascript">
+	
+</script>
+</body>
+</html>

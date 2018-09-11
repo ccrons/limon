@@ -1,0 +1,222 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport"
+	content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<!--[if lt IE 9]>
+<script type="text/javascript" src="${basePath}/lib/html5.js"></script>
+<script type="text/javascript" src="${basePath}/lib/respond.min.js"></script>
+<script type="text/javascript" src="${basePath}/lib/PIE_IE678.js"></script>
+<![endif]-->
+<link href="${basePath}/css/H-ui.min.css" rel="stylesheet"
+	type="text/css" />
+<link href="${basePath}/css/H-ui.admin.css" rel="stylesheet"
+	type="text/css" />
+<link href="${basePath}/lib/font-awesome/font-awesome.min.css"
+	rel="stylesheet" type="text/css" />
+<!--[if IE 7]>
+<link href="${basePath}/lib/font-awesome/font-awesome-ie7.min.css" rel="stylesheet" type="text/css" />
+<![endif]-->
+<link href="${basePath}/lib/iconfont/iconfont.css" rel="stylesheet"
+	type="text/css" />
+<!--[if IE 6]>
+<script type="text/javascript" src="${basePath}/lib/DD_belatedPNG_0.0.8a-min.js" ></script>
+<script>DD_belatedPNG.fix('*');</script>
+<![endif]-->
+<title>${pageTitle}</title>
+</head>
+<body>
+	<nav class="breadcrumb">
+		<i class="iconfont">&#xf012b;</i> 首页 <span class="c-gray en">&gt;</span>产品库管理
+		<span class="c-gray en">&gt;</span> 活动配置
+	</nav>
+
+	<div class="pd-20">
+		<form action="actconfigsave" method="post"
+			class="form form-horizontal" id="passwordform" enctype="multipart/form-data">
+			<table class="table table-border table-bordered table-hover table-bg">
+				<tbody>
+					<tr>
+						<th class="text-r" width="150">官方商品同步：</th>
+						<td>
+							<button type="button" class="btn btn-danger radius" id="tb" name="tb" onclick="tongbu()">同步</button>
+							<div id="tbmsg" style="display: none">同步中，请稍后...</div>
+							<br><span style="color:red">注：将官方商品在所有便利店上架，此过程会很慢</span>
+						</td>
+					</tr>
+					<tr>
+						<th class="text-r" width="100">限时抢购图片：</th>
+						<td>
+							<#if tlpic!=""> 
+								<img name="tlpic_url" id="tlpic_url" style="display:" class="avatar size-XXXL" src="${basePath}/${tlpic}">
+								<button type="button" style="display: " class="btn btn-danger radius" id="tlpic_button" name="tlpic_button" onclick="picDel('tlpic')">删除</button> 
+								<br id="tlpic_br">
+							</#if> 
+							<input name="tlpic" id="tlpic" type="hidden" value="<#if tlpic!="">1</#if>"> 
+							<span class="btn-upload form-group" id="tlpic_file" name="tlpic_file"<#if tlpic!="">style="display:none "</#if> > 
+								<input class="input-text upload-url radius" type="text" name="uploadfile1" id="uploadfile1" readonly="readonly">
+								<a href="javascript:void();" class="btn btn-primary radius">
+									<i class="iconfont">&#xf0020;</i> 浏览文件</a> 
+								<input type="file" multiple name="file1" class="input-file" accept="image/jpeg,image/png">
+							</span>
+						</td>
+					</tr>
+					<tr>
+						<th class="text-r" width="100">0元购图片：</th>
+						<td>
+							<#if fpic!=""> 
+								<img name="fpic_url" id="fpic_url" style="display:" class="avatar size-XXXL" src="${basePath}/${fpic}">
+								<button type="button" style="display: " class="btn btn-danger radius" id="fpic_button" name="fpic_button" onclick="picDel('fpic')">删除</button> 
+								<br id="fpic_br">
+							</#if> 
+							<input name="fpic" id="fpic" type="hidden" value="<#if fpic!="">1</#if>"> 
+							<span class="btn-upload form-group" id="fpic_file" name="fpic_file"<#if fpic!="">style="display:none "</#if> > 
+								<input class="input-text upload-url radius" type="text" name="uploadfile2" id="uploadfile2" readonly="readonly">
+								<a href="javascript:void();" class="btn btn-primary radius">
+									<i class="iconfont">&#xf0020;</i> 浏览文件</a> 
+								<input type="file" multiple name="file2" class="input-file" accept="image/jpeg,image/png">
+							</span>
+						</td>
+					</tr>
+					<tr>
+						<th class="text-r" width="100">招募令图片：</th>
+						<td>
+							<#if recpic!=""> 
+								<img name="recpic_url" id="recpic_url" style="display:" class="avatar size-XXXL" src="${basePath}/${recpic}">
+								<button type="button" style="display: " class="btn btn-danger radius" id="recpic_button" name="recpic_button" onclick="picDel('recpic')">删除</button> 
+								<br id="recpic_br">
+							</#if> 
+							<input name="recpic" id="recpic" type="hidden" value="<#if recpic!="">1</#if>"> 
+							<span class="btn-upload form-group" id="recpic_file" name="recpic_file"<#if recpic!="">style="display:none "</#if> > 
+								<input class="input-text upload-url radius" type="text" name="uploadfile3" id="uploadfile3" readonly="readonly">
+								<a href="javascript:void();" class="btn btn-primary radius">
+									<i class="iconfont">&#xf0020;</i> 浏览文件</a> 
+								<input type="file" multiple name="file3" class="input-file" accept="image/jpeg,image/png">
+							</span>
+						</td>
+					</tr>
+					
+					<tr>
+						<th class="text-r" width="100">抢购时间段1：</th>
+						<td>
+							<input type="text" onfocus="WdatePicker({dateFmt: 'HH:mm'})" id="fstime1" name="fstime1" class="input-text Wdate" style="width:120px;" value="${fstime1}"/>
+						    -
+						    <input type="text" onfocus="WdatePicker({dateFmt: 'HH:mm',minDate:'#F{$dp.$D(\'fstime1\')}'})" id="fetime1" name="fetime1" class="input-text Wdate" style="width:120px;" value="${fetime1}"/>
+						</td>
+					</tr>
+					
+					<tr>
+						<th class="text-r" width="100">抢购时间段2：</th>
+						<td>
+							<input type="text" onfocus="WdatePicker({dateFmt: 'HH:mm'})" id="fstime2" name="fstime2" class="input-text Wdate" style="width:120px;" value="${fstime2}"/>
+						    -
+						    <input type="text" onfocus="WdatePicker({dateFmt: 'HH:mm',minDate:'#F{$dp.$D(\'fstime2\')}'})" id="fetime2" name="fetime2" class="input-text Wdate" style="width:120px;" value="${fetime2}"/>
+						</td>
+					</tr>
+					<tr>
+						<th class="text-r" width="100">抢购时间段3：</th>
+						<td>
+							<input type="text" onfocus="WdatePicker({dateFmt: 'HH:mm'})" id="fstime3" name="fstime3" class="input-text Wdate" style="width:120px;" value="${fstime3}"/>
+						    -
+						    <input type="text" onfocus="WdatePicker({dateFmt: 'HH:mm',minDate:'#F{$dp.$D(\'fstime3\')}'})" id="fetime3" name="fetime3" class="input-text Wdate" style="width:120px;" value="${fetime3}"/>
+						</td>
+					</tr>
+					<tr>
+						<th class="text-r" width="100">基础重量（克）：</th>
+						<td>
+							<input class="input-text" style="width:170px" type="text" placeholder="输入基础重量（克）" name="startweight" value="${startweight}" id="startweight" maxlength="10">
+						</td>
+					</tr>
+					<tr>
+						<th class="text-r" width="100">基础运费（元）：</th>
+						<td>
+							<input class="input-text" style="width:170px" type="text" placeholder="输入基础运费（元）" name="startcost" value="${startcost}" id="startcost" maxlength="10">	
+						</td>
+					</tr>
+					<tr>
+						<th class="text-r" width="100">超重加价（元/kg）：</th>
+						<td>
+							<input class="input-text" style="width:170px" type="text" placeholder="输入超重加价（元/kg）" name="addcost" value="${addcost}" id="addcost" maxlength="10">	
+						</td>
+					</tr>
+					<tr>
+						<th class="text-r" width="100">包邮金额（元）：</th>
+						<td>
+							<input class="input-text" style="width:170px" type="text" placeholder="输入包邮金额（元）" name="zeropost" value="${zeropost}" id="zeropost" maxlength="10">	
+						</td>
+					</tr>
+					<tr>
+						<th class="text-r"></th>
+						<td>
+							<button type="submit" class="btn btn-success radius" id=""
+								name="">
+								<i class="icon-save"></i> 提交
+							</button>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+
+		</form>
+	</div>
+	<script type="text/javascript" src="${basePath}/lib/jquery.min.js"></script>
+	<script type="text/javascript"
+		src="${basePath}/lib/Validform_v5.3.2.js"></script>
+	<script type="text/javascript"
+		src="${basePath}/lib/layer1.8/layer.min.js"></script>
+	<script type="text/javascript" src="${basePath}/lib/laypage/laypage.js"></script>
+	<script type="text/javascript" src="${basePath}/js/H-ui.js"></script>
+	<script type="text/javascript" src="${basePath}/js/H-ui.admin.js"></script>
+	<script type="text/javascript" src="${basePath}/js/H-ui.admin.doc.js"></script>
+	<script type="text/javascript"
+		src="${basePath}/lib/My97DatePicker/WdatePicker.js"></script>
+	<script type="text/javascript">
+		$("#passwordform").Validform({
+			tiptype:2
+		});
+		<#if rs?if_exists>
+			<#if rs == "1">
+				layer.msg('修改成功',2,9);
+			<#else>
+				layer.msg('修改失败',2,8);
+			</#if>
+		</#if>
+		function picDel(id) {
+			$("#" + id).val("");
+			$("#" + id + "_url").hide();
+			$("#" + id + "_button").hide();
+			$("#" + id + "_br").hide();
+			$("#" + id + "_url").attr("src", "");
+			$("#" + id + "_file").show();
+		}
+		function tongbu(){
+			$("#tb").hide();
+			$("#tbmsg").show();
+			$.ajax({
+                type: "post",
+                contentType: "application/json",
+                url: "tb",
+                data: "{}",
+                success: function (result) {
+                    if(result==1){
+                    	layer.msg('同步成功',2,9);
+                    	$("#tb").show();
+                    	$("#tbmsg").hide();
+                    }else{
+                    	layer.msg('同步失败',2,8);
+                    	window.setTimeout("refreshPage()",2000); 
+                    }
+                }
+            })
+		}
+		function refreshPage(){ 
+			window.location.reload(); 
+		} 
+
+	</script>
+</body>
+</html>

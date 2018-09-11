@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.limon.base.dao.SysConfigDao">
+	<select id="getSysConfig" parameterType="java.lang.String" resultType="com.limon.base.model.SysConfig">
+		select * from sys_config where config_key=#{configkey}
+    </select>
+    <select id="getSysConfigs" parameterType="java.util.Map"
+		resultType="com.limon.base.model.SysConfig">
+			select * from sys_config
+			<where>
+				<if test="CONFIG_KEY != null and CONFIG_KEY !=''">
+					config_key like '%' || #{config_key} || '%'
+				</if>
+			</where>
+		limint #{pageStart} ,#{pageSize}
+	</select>
+	<select id="getSysConfigsCount" parameterType="java.util.Map"
+		resultType="java.lang.Integer">
+		select count(*) from sys_config
+		<where>
+			<if test="CONFIG_KEY != null and CONFIG_KEY !=''">
+				config_key like '%' || #{config_key} || '%'
+			</if>
+		</where>
+	</select>
+	<select id="getSysConfigsNoPage" parameterType="java.util.Map"
+		resultType="com.limon.base.model.SysConfig">
+		select * from sys_config
+		<where>
+			<if test="id != null and id !=''">
+				id=#{id}
+			</if>
+			<if test="config_key != null and config_key !=''">
+				and config_key=#{config_key}
+			</if>
+		</where>
+	</select>
+	<select id="getIsUseSysConfig" parameterType="java.util.Map"
+		resultType="java.lang.Integer">
+		select count(1) from sys_config
+		<where>
+			<if test="id != null and id !=''">
+				id!=#{id}
+			</if>
+			<if test="config_key != null and config_key !=''">
+				and config_key=#{config_key}
+			</if>
+		</where>
+	</select>
+	<insert id="insertSysConfig" parameterType="java.util.Map">
+		insert into sysconfig (config_key)
+		values
+		(#{config_key})
+	</insert>
+	<select id="getSysConfigById" parameterType="java.util.Map"
+		resultType="com.limon.base.model.SysConfig">
+		select * from config_key
+		<where>
+			<if test="id != null and id !=''">
+				id=#{id}
+			</if>
+		</where>
+	</select>
+	<update id="updateSysConfigById" parameterType="java.util.Map">
+		update sys_config set config_key=#{config_key},config_value=#{config_value},config_type=#{config_type} where 
+		id=#{id}
+	</update>
+	<update id="updateSysConfigByKey" parameterType="java.util.Map">
+		update sys_config set config_value=#{config_value} where config_key=#{config_key}
+	</update>
+	<delete id="deleteSysConfigById" parameterType="java.util.Map">
+    	delete from sys_config where id = #{id}
+    </delete>
+    <select id="getRec" parameterType="java.util.Map" resultType="com.limon.manage.model.Recruit">
+		select * from recruit where isup=1 order by createtime desc limit 0,1
+    </select>
+    <select id="getZero" parameterType="java.lang.Integer" resultType="com.limon.manage.model.StoreAdProductInfo">
+		select DISTINCT c.*,a.saleprice from store_product a left join product_info c on a.productid=c.id where c.isdel=0 and c.isfrist=1 and a.storeid=#{sid} and c.isdel=0
+    </select>
+    <select id="getZeroProductByPId" parameterType="java.lang.Integer" resultType="com.limon.manage.model.StoreAdProductInfo">
+		select DISTINCT c.*,c.price as adprice,d.brandname,a.saleprice from store_product a left join product_info c on a.productid=c.id left join product_brand d on c.brand=d.id where c.isdel=0 and c.isfrist=1 and a.productid=#{pid}  and a.storeid=#{sid}
+    </select>
+    <select id="getLuck" parameterType="java.lang.Integer" resultType="com.limon.manage.model.StoreAdProductInfo">
+		select DISTINCT c.* from store_product a left join product_info c on a.productid=c.id where c.isdel=0 and c.isluck=1 and a.storeid=#{sid} and c.isdel=0
+    </select>
+    <select id="getLuckProductByPId" parameterType="java.lang.Integer" resultType="com.limon.manage.model.StoreAdProductInfo">
+		select DISTINCT c.*,c.price as adprice,d.brandname from store_product a left join product_info c on a.productid=c.id left join product_brand d on c.brand=d.id where a.isdel=0 and c.isdel=0 and c.isluck=1 and a.productid=#{pid}  and a.storeid=#{sid}
+    </select>
+    <select id="getTLimit" parameterType="java.util.Map" resultType="com.limon.manage.model.StoreAdProductInfo">
+		select DISTINCT c.*,b.tlprice as adprice,b.*,a.saleprice from timelimit b left join store_product a on a.productid=b.productid left join product_info c on a.productid=c.id where a.isdel=0 and c.isdel=0 and a.storeid=#{sid} and b.tltime like CONCAT('%',#{tltime},'%')
+    </select>
+    <select id="getTLimitProductByPId" parameterType="java.lang.Integer" resultType="com.limon.manage.model.StoreAdProductInfo">
+		select DISTINCT c.*,b.tlprice as adprice,b.*,d.brandname,a.saleprice from timelimit b left join store_product a on a.productid=b.productid left join product_info c on a.productid=c.id left join product_brand d on c.brand=d.id where a.isdel=0 and c.isdel=0 and a.productid=#{pid} and a.storeid=#{sid}
+    </select>
+    <select id="getStoreProductByPId" parameterType="java.util.Map" resultType="com.limon.manage.model.StoreAdProductInfo">
+		select DISTINCT c.id,c.name,c.type,c.brand,c.sprice,c.upnum,c.unit,c.paddress,c.creattime,c.imgurl,c.pic1,c.pic2,c.pic3,c.pic4,c.pic5,c.description,c.isofficial,c.isrec,c.status,c.isfrist,c.isonline,c.isself,a.saleprice as price,d.brandname from store_product a left join product_info c on a.productid=c.id left join product_brand d on c.brand=d.id where c.isdel=0 and a.isdel=0 and a.productid=#{pid} and a.storeid=#{sid}
+    </select>
+    <select id="getBuyNum" parameterType="java.util.Map" resultType="com.limon.http.model.GoodsLimit">
+		select sum(a.ordernum) as buynum from order_product a left join order_info b on a.orderid=b.id where b.userid=#{uid} and b.status!=0 and b.createtime <![CDATA[>=]]> #{stime} and b.createtime <![CDATA[<=]]> #{etime} and a.productid=#{pid}
+    </select>
+    <select id="getLimitNum" parameterType="java.util.Map" resultType="com.limon.http.model.GoodsLimit">
+		select tlnum as totalnum,buynum as limitnum from timelimit where productid=#{pid}
+    </select>
+    <select id="getAppUserById" parameterType="java.lang.Integer" resultType="com.limon.base.model.AUser">
+		select * from app_user where id=#{auid}
+    </select>
+    <update id="changeLuck" parameterType="java.util.Map">
+		update app_user set hasluck=1 where id=#{auid}
+	</update>
+</mapper>

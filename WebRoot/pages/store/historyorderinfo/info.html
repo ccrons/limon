@@ -1,0 +1,116 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<!--[if lt IE 9]>
+<script type="text/javascript" src="${basePath}/lib/html5.js"></script>
+<script type="text/javascript" src="${basePath}/lib/respond.min.js"></script>
+<script type="text/javascript" src="${basePath}/lib/PIE_IE678.js"></script>
+<![endif]-->
+<link href="${basePath}/css/H-ui.min.css" rel="stylesheet" type="text/css" />
+<link href="${basePath}/css/H-ui.admin.css" rel="stylesheet" type="text/css" />
+<link href="${basePath}/css/style.css" rel="stylesheet" type="text/css" />
+<link href="${basePath}/lib/font-awesome/font-awesome.min.css" rel="stylesheet" type="text/css" />
+<!--[if IE 7]>
+<link href="${basePath}/lib/font-awesome/font-awesome-ie7.min.css" rel="stylesheet" type="text/css" />
+<![endif]-->
+<link href="${basePath}/lib/iconfont/iconfont.css" rel="stylesheet" type="text/css" />
+<!--[if IE 6]>
+<script type="text/javascript" src="${basePath}/lib/DD_belatedPNG_0.0.8a-min.js" ></script>
+<script>DD_belatedPNG.fix('*');</script>
+<![endif]-->
+<title>订单详情</title>
+</head>
+<body>
+	<div class="pd-20">
+		<div class="Huiform">
+			<form action="save" method="post" id="form-article-class">
+				<table class="table table-border table-bordered table-bg">
+					<tbody>
+						<tr>
+							<th class="text-r" width="100px">订单编号：</th>
+							<td>${orderinfo.orderno}</td>
+						</tr>
+						<tr>
+							<th class="text-r" width="100px">下单时间：</th>
+							<td>${orderinfo.createtime?string("yyyy-MM-dd HH:mm:ss")}</td>
+						</tr>
+						<tr>
+							<th class="text-r" width="100px">买家昵称：</th>
+							<td>${orderinfo.nickname}</td>
+						</tr>
+						<tr>
+							<th class="text-r" width="100px">订单金额：</th>
+							<td>${orderinfo.orderprice}</td>
+						</tr>
+						<tr>
+							<th class="text-r" width="100px">配送地址：</th>
+							<td>${orderinfo.province} ${orderinfo.city} ${orderinfo.county} ${orderinfo.address} ${orderinfo.contact} ${orderinfo.mobile}</td>
+						</tr>
+						<tr>
+							<th class="text-r" width="100px">订单产品：</th>
+							<td>
+							<#list productinfolist as productinfo >
+								名称：${productinfo.name} 数量：${productinfo.ordernum}<br>
+							</#list>
+							</td>
+						</tr>
+						<tr>
+							<th class="text-r" width="100px">订单状态：</th>
+							<td>
+								<#if orderinfo.status==1>
+									<span class="label label-secondary radius">新订单</span>
+								<#elseif orderinfo.status==2>
+									<span class="label label-primary radius">派送中</span>
+								<#elseif orderinfo.status==3>
+									<span class="label label-success radius">已完成</span>
+								<#elseif orderinfo.status==5>
+									<span class="label label-warning radius">已取消</span>
+								</#if>
+							</td>
+						</tr>
+						<tr>
+							<th class="text-r" width="100px">支付方式：</th>
+							<td>
+								<#if orderinfo.paytype?if_exists>
+									<#if orderinfo.paytype==1>
+										支付宝
+									<#elseif orderinfo.paytype==2>
+										微信
+									<#elseif orderinfo.paytype==3>
+										货到付款
+									<#else>
+										未支付
+									</#if>
+								<#else>
+									未支付
+								</#if>
+							</td>
+						</tr>
+						<#if orderinfo.status==5 && orderinfo.reason!=null && orderinfo.reason!="">
+						<tr>
+							<th class="text-r" width="100px">取消理由：</th>
+							<td>
+								${orderinfo.reason}
+							</td>
+						</tr>
+						</#if>
+					</tbody>
+				</table>
+			</form>
+		</div>
+	</div>
+<script type="text/javascript" src="${basePath}/lib/jquery.min.js"></script> 
+<script type="text/javascript" src="${basePath}/lib/Validform_v5.3.2.js"></script>
+<script type="text/javascript" src="${basePath}/js/H-ui.js"></script> 
+<script type="text/javascript" src="${basePath}/js/H-ui.admin.js"></script> 
+<script type="text/javascript" src="${basePath}/js/H-ui.admin.doc.js"></script>
+<script type="text/javascript">
+	
+</script>
+</body>
+</html>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.limon.http.dao.SetShopAddressDao">
+	<insert id="saveShopAddress" parameterType="java.util.Map" useGeneratedKeys="true" keyProperty="id">
+		insert into app_shopaddr(userid,storeid,province,city,county,address,contact,mobile,createtime)values(#{userid},#{storeid},#{province},#{city},#{county},#{address},#{contact},#{mobile},#{createtime})
+    </insert>
+    <update id="updateShopAddress" parameterType="java.util.Map">
+		update app_shopaddr set province=#{province},city=#{city},county=#{county},address=#{address},contact=#{contact},mobile=#{mobile} where userid=#{userid} and storeid=#{storeid}
+    </update>
+    <select id="getShopAddressBySidAndUid" parameterType="java.util.Map" resultType="com.limon.http.model.Address">
+		select * from app_shopaddr where storeid=#{storeid} and userid=#{userid}
+    </select>
+</mapper>
+

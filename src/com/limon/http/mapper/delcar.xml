@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.limon.http.dao.DelCarDao">
+	<delete id="delCar" parameterType="com.limon.http.model.ShoppingCart">
+		delete from app_shoppingcart where userid=#{userid} and productid=#{productid} and storeid=#{storeid}
+    </delete>
+</mapper>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.limon.http.dao.NmSelfShopDao">
+	<select id="getNmSelfShop" parameterType="java.util.Map" resultType="com.limon.http.model.SelfShop">
+		select * from store_info where isself=1 and isdel=0 order by createtime desc limit 0,1
+    </select>
+    <select id="getSaleInfoList" parameterType="java.util.Map" resultType="com.limon.http.model.SaleInfo">
+		select b.id,b.name,a.discount,b.imgurl from store_discount a left join product_info b on a.productid=b.id where a.storeid=#{storeid}
+    </select>
+    <select id="getAdInfoList" parameterType="java.util.Map" resultType="com.limon.http.model.AdInfo">
+		select b.id,b.name,a.adurl as imgurl from store_adinfo a left join product_info b on a.productid=b.id where a.storeid=#{storeid}
+    </select>
+</mapper>

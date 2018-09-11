@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.limon.manage.dao.RecruitDao">
+    <select id="getRecruitList" parameterType="java.util.Map" resultType="com.limon.manage.model.Recruit">
+		select * from recruit where 1=1
+			<if test="retitle != null and retitle !=''">  
+				and retitle like CONCAT('%',#{retitle},'%') 
+			</if> 
+		order by createtime desc
+		limit #{pageStart} , #{pageSize}
+    </select>
+    <select id="getRecruitListCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+		select count(*) from recruit where 1=1
+			<if test="retitle != null and retitle !=''">  
+				and retitle like CONCAT('%',#{retitle},'%') 
+			</if> 
+	</select>
+    <select id="getRecruit" parameterType="java.lang.String" resultType="com.limon.manage.model.Recruit">
+		select * from recruit where id=#{id}
+    </select>
+    <insert id="recruitAdd" parameterType="java.util.Map">
+		insert into recruit(retitle,recontent,createtime,isup)values(#{retitle},#{recontent},#{createtime},0)
+    </insert>
+    <update id="recruitUpdate" parameterType="java.util.Map">
+		update recruit set retitle=#{retitle},recontent=#{recontent} where id=#{id}
+    </update>
+    <delete id="recruitDel" parameterType="java.lang.String">
+		delete from recruit where id=#{id}
+    </delete>
+    <update id="recruitUp" parameterType="java.util.Map">
+		update recruit set isup=#{isup} where id=#{id}
+    </update>
+    <select id="getRecruitUpCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+		select count(*) from recruit where isup = 1
+	</select>
+</mapper>

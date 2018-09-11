@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.limon.store.dao.StoreAdDao">
+    <select id="getStoreAdList" parameterType="java.util.Map" resultType="com.limon.store.model.StoreAd">
+		select * from store_ad where isdel = 0
+			<if test="sadname != null and sadname !=''">  
+				and adname like CONCAT('%',#{sadname},'%') 
+			</if> 
+		order by isup desc, id desc
+		limit #{pageStart} , #{pageSize}
+    </select>
+    <select id="getStoreAdListCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+		select count(*) from store_ad where isdel = 0
+			<if test="sadname != null and sadname !=''">  
+				and adname like CONCAT('%',#{sadname},'%') 
+			</if> 
+	</select>
+	<select id="getTimeLimitProduct" parameterType="java.lang.Integer" resultType="java.lang.String">
+		select tltime from timelimit where productid=#{sid}
+    </select>
+    <select id="getStoreAd" parameterType="java.lang.String" resultType="com.limon.store.model.StoreAd">
+		select * from store_ad where id=#{id}
+    </select>
+    <insert id="storeAdAdd" parameterType="com.limon.store.model.StoreAd">
+		insert into store_ad(storeid,adname,adcontent,createtime,isdel,isup
+			<if test="imgurl != null and imgurl !=''">  
+				,imgurl
+			</if>
+		)values(#{storeid},#{adname},#{adcontent},#{createtime},0,0
+			<if test="imgurl != null and imgurl !=''">  
+				,#{imgurl}
+			</if>
+		)
+    </insert>
+    <update id="storeAdUpdate" parameterType="com.limon.store.model.StoreAd">
+		update store_ad set adname=#{adname},adcontent=#{adcontent} 
+			<if test="imgurl != null ">  
+				,imgurl=#{imgurl}
+			</if>
+		where id=#{id}
+    </update>
+    <update id="storeAdDel" parameterType="java.lang.String">
+		update store_ad set isdel=1 where id=#{id}
+    </update>
+    <update id="storeAdUp" parameterType="java.util.Map">
+		update store_ad set isup=#{isup} where id=#{id}
+    </update>
+    <select id="getStoreAdUpCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+		select count(*) from store_ad where isdel = 0 and isup = 1
+	</select>
+	<select id="getStoreAdListAll" resultType="com.limon.store.model.StoreAd">
+		select * from store_ad where isdel = 0 order by id desc,isup desc
+    </select>
+    <select id="getStoreAdProductByProductId" parameterType="java.lang.String" resultType="com.limon.manage.model.StoreAdProduct">
+		select a.* from store_ad_product a left join store_ad b on b.id=a.adid where b.isdel=0 and b.isup=1 and a.productid=#{id}
+    </select>
+    <insert id="storeAdProductSave" parameterType="java.util.Map">
+		insert into store_ad_product(adid,productid,adprice)values(#{adid},#{productid},#{adprice})
+    </insert>
+    <delete id="storeAdProductDel" parameterType="java.util.Map">
+		delete from store_ad_product where productid=#{productid}
+    </delete>
+    <select id="getTimeLimitByProductId" parameterType="java.lang.String" resultType="com.limon.manage.model.TimeLimit">
+		select * from timelimit where productid = #{id}
+	</select>
+	<select id="getStoreAdProductByStoreId" parameterType="java.lang.Integer" resultType="com.limon.manage.model.StoreAdProductInfo">
+		select DISTINCT c.*,b.adprice,a.saleprice from store_ad_product b left join store_product a on a.productid=b.productid left join product_info c on a.productid=c.id where a.isdel=0 and c.isdel=0 and a.storeid=#{sid}
+    </select>
+    
+    <select id="getStoreAdProductByStoreIdMap" parameterType="java.util.Map" resultType="com.limon.manage.model.StoreAdProductInfo">
+		select DISTINCT c.*,b.adprice,a.saleprice from store_ad_product b left join store_product a on a.productid=b.productid left join product_info c on a.productid=c.id where a.isdel=0 and c.isdel=0 and a.storeid=#{sid} and b.adid=#{aid}
+    </select>
+    
+    <select id="getStoreAdProductByPId" parameterType="java.util.Map" resultType="com.limon.manage.model.StoreAdProductInfo">
+		select DISTINCT c.*,b.adprice,d.brandname,a.saleprice from store_ad_product b left join store_product a on a.productid=b.productid left join product_info c on a.productid=c.id left join product_brand d on c.brand=d.id where  a.isdel=0 and c.isdel=0 and a.productid=#{pid} and a.storeid=#{sid}
+    </select>
+	
+	<insert id="timeLimitSave" parameterType="java.util.Map">
+		insert into timelimit(productid,tlnum,buynum,tlprice,tltime)values(#{productid},#{tlnum},#{buynum},#{tlprice},#{tltime})
+    </insert>
+    <update id="timeLimitupdate" parameterType="java.util.Map">
+		update timelimit set tlnum=#{tlnum},buynum=#{buynum},tlprice=#{tlprice},tltime=#{tltime} where productid=#{productid}
+    </update>
+    <delete id="timeLimitdel" parameterType="java.util.Map">
+		delete from timelimit where productid=#{productid}
+    </delete>
+    <select id="getGoodsSalePrice" parameterType="java.util.Map" resultType="java.lang.String">
+		select saleprice from store_product where storeid=#{sid} and productid=#{pid} and isdel=0
+	</select>
+</mapper>

@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>购物车</title>
+    <!-- BOOTSTRAP CORE STYLE CSS -->
+
+    <link href="${basePath}/public/css/bootstrap.min.css" rel="stylesheet">
+    <link href="${basePath}/public/css/bootstrap-theme.min.css" rel="stylesheet">
+    <link href="${basePath}/public/css/bootstrap.css" rel="stylesheet" />
+
+
+    <!-- CUSTOM STYLE CSS -->
+    <link href="${basePath}/public/css/head.css" rel="stylesheet" />
+	<link href="${basePath}/public/css/aa-class.css" rel="stylesheet" />
+    <link href="${basePath}/public/css/aa-gouwuc.css" rel="stylesheet" />
+    <!-- Google	Fonts -->
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,300' rel='stylesheet' type='text/css' />
+    <!-- BOOTSTRAP CORE STYLE CSS -->
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+</head>
+<body style="background: #F8F8F8;">
+
+<#list cartlist as cargoods>
+<!--商品-->
+<ul class="jsxx clearfloat" id="cart_${cargoods.id?c}_${cargoods.sid}">
+    <li class="tu">
+        <a href=""><img src="${cargoods.imgurl}" alt=""></a>
+    </li>
+    <li class="tua">
+        <ul>
+            <li>
+                <p class="ming">${cargoods.name}</p>
+            </li>
+            <li>
+                <span class="hong" id="${cargoods.id?c}">￥${cargoods.price}</span>
+            </li>
+            <li class="duan">
+                <div class="input-group">
+                    <span class="input-group-addon reduce" id="rednum_${cargoods.id?c}_${cargoods.sid}" onclick="updatecartone(${cargoods.id?c},${cargoods.sid},-1);">-</span>
+                    <input type="text" id="goodscount_${cargoods.id?c}_${cargoods.sid}" class="form-control" aria-label="Amount (to the nearest dollar)" value="${cargoods.count}" onblur="updatecart(${cargoods.id?c},${cargoods.sid},this.value);" style="text-align: center;">
+                    <span class="input-group-addon add" id="addnum_${cargoods.id?c}_${cargoods.sid}"  onclick="updatecartone(${cargoods.id?c},${cargoods.sid},1);">+</span>
+                </div>
+            </li>
+        </ul>
+
+    </li>
+    <li class="you">
+        <a href="javascript:delcart(${cargoods.id?c},${cargoods.sid});"><img src="${basePath}/public/img/grzx/cart_b1.png" alt=""></a>
+    </li>
+</ul>
+</#list>
+<div class="hui"></div>
+<!--说明-->
+<div class="shoum">
+    <span>部分商品不参与活动，运费金额以实际订单为准</span>
+</div>
+<!--总金额-->
+<div class="zje clearfloat">
+    <form action="">
+        <p>商品总计：<i id="totalprice">￥00.00</i></p>
+        <input type="button" value="去结算" class="tjdd-an" onclick="tomakeorder()">
+    </form>
+</div>
+<!--底部导航-->
+<table class="table-five">
+    <tr>
+        <td>
+            <a href="index"><img src="${basePath}/public/img/index/di_a1n.png" alt="" onmouseover="this.src='${basePath}/public/img/index/sy_a11.png'" onmouseout="this.src='${basePath}/public/img/index/di_a1n.png'"></a>
+            <p>首页</p>
+        </td>
+        <td>
+            <a href="goodslist"><img src="${basePath}/public/img/index/di_a2.png" alt="" onmouseover="this.src='${basePath}/public/img/index/sy_a121.png'" onmouseout="this.src='${basePath}/public/img/index/di_a2n.png'"></a>
+            <p>商品</p>
+        </td>
+        <td>
+            <i class="sl-ia" id="cnum">${cartnum}</i>
+            <a href="cartlist"><img src="${basePath}/public/img/index/di_a3n.png" alt="" onmouseover="this.src='${basePath}/public/img/index/sy_a131.png'" onmouseout="this.src='${basePath}/public/img/index/di_a3n.png'"></a>
+            <p>购物车</p>
+        </td>
+        <td>
+            <a href="person"><img src="${basePath}/public/img/index/di_a4.png" alt="" onmouseover="this.src='${basePath}/public/img/index/sy_a141.png'" onmouseout="this.src='${basePath}/public/img/index/di_a4.png'"></a>
+            <p>我的</p>
+        </td>
+    </tr>
+</table>
+
+
+<!--  Jquery Core Script -->
+<script src="${basePath}/public/js/jquery-1.10.2.js"></script>
+<!--  Core Bootstrap Script -->
+<script src="${basePath}/public/js/bootstrap.js"></script>
+<!--  Flexslider Scripts -->
+<script src="${basePath}/public/js/jquery.flexslider.js"></script>
+<!--  Scrolling Reveal Script -->
+<script src="${basePath}/public/js/scrollReveal.js"></script>
+<!--  Scroll Scripts -->
+<script src="${basePath}/public/js/jquery.easing.min.js"></script>
+<!--  Custom Scripts -->
+<script src="${basePath}/public/js/custom.js"></script>
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="${basePath}/public/js/jquery-1.12.4.min.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="${basePath}/public/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+window.onload=function(){
+	countprice();
+}
+function delcart(pid,sid){
+	$.ajax({
+           type: "post",
+           contentType: "application/json",
+           url: "delcart?pid="+pid+"&sid="+sid,
+           data: "{}",
+           success: function (result) {
+           	   $("#cart_"+pid+"_"+sid).remove();
+           	   var cn=parseInt($("#cnum").html().replace("&nbsp;",""));
+           	   $("#cnum").html(cn-1);
+           	   countprice();
+           }
+    })
+}
+
+function updatecart(pid,sid,count){
+	if(count<=0){
+		count=1;
+	}else if(count>999){
+		count=999;
+	}
+	$.ajax({
+           type: "post",
+           contentType: "application/json",
+           url: "updatecart?pid="+pid+"&sid="+sid+"&num="+count,
+           data: "{}",
+           success: function (result) {
+           	   $("#goodscount_"+pid+"_"+sid).val(count);
+           	   countprice();
+           	   if(count==1){
+           	   		$("#rednum_"+pid+"_"+sid).attr("disabled",true);
+           	   }else{
+           	   		$("#rednum_"+pid+"_"+sid).attr("disabled",false);
+           	   }
+           	   if(count==999){
+           	   		$("#addnum_"+pid+"_"+sid).attr("disabled",true);
+           	   }else{
+           	   		$("#addnum_"+pid+"_"+sid).attr("disabled",false);
+           	   }
+           }
+     })
+}
+
+function updatecartone(pid,sid,num){
+	var count=parseInt($("#goodscount_"+pid+"_"+sid).val())+num;
+	if(count<=0){
+		count=1;
+	}else if(count>999){
+		count=999;
+	}
+	$.ajax({
+           type: "post",
+           contentType: "application/json",
+           url: "updatecart?pid="+pid+"&sid="+sid+"&num="+count,
+           data: "{}",
+           success: function (result) {
+           	   $("#goodscount_"+pid+"_"+sid).val(count);
+           	   countprice();
+           	   if(count==1){
+           	   		$("#rednum_"+pid+"_"+sid).attr("disabled",true);
+           	   }else{
+           	   		$("#rednum_"+pid+"_"+sid).attr("disabled",false);
+           	   }
+           	   if(count==999){
+           	   		$("#addnum_"+pid+"_"+sid).attr("disabled",true);
+           	   }else{
+           	   		$("#addnum_"+pid+"_"+sid).attr("disabled",false);
+           	   }
+           }
+    })
+}
+
+function countprice(){
+	var a = $(".hong");
+	var b = $(".form-control");
+	var total=0;
+	if(a.length==0){
+		$("#totalprice").text("￥0");
+	}
+    for(var i=0;i<a.length;i++){
+    	var price=parseFloat($(a[i]).html().replace("￥",""));
+    	var num=parseInt($(b[i]).val()); 
+    	total+=price*num;   
+    }
+    $("#totalprice").text("￥"+total);
+}
+
+function tomakeorder(){
+	var pinfo="";
+	var a = $(".hong");
+	var b = $(".form-control");
+	for(var i=0;i<a.length;i++){
+    	var price=parseFloat($(a[i]).html().replace("￥",""));
+    	var num=parseInt($(b[i]).val()); 
+    	var pid=$(a[i]).attr("id");
+    	if(i==0){
+    		pinfo+=pid+";"+num+";"+price;
+    	}else{
+    		pinfo+="_"+pid+";"+num+";"+price;
+    	}
+    }	
+	window.location.href="makeorder?pinfo="+pinfo;
+}
+</script>
+</body>
+</html>

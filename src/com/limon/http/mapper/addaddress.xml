@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.limon.http.dao.AddAddressDao">
+	<insert id="saveUserAddress" parameterType="com.limon.http.model.Address" useGeneratedKeys="true" keyProperty="id">
+		insert into app_useraddr(userid,province,city,county,address,contact,mobile,createtime)values(#{userid},#{province},#{city},#{county},#{address},#{contact},#{mobile},#{createtime})
+    </insert>
+</mapper>

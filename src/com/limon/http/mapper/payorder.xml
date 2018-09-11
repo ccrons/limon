@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.limon.http.dao.PayOrderDao">
+	<update id="updateOrderStatus" parameterType="java.util.Map">
+		update order_info set status=#{status},payno=#{payno},paytype=#{paytype} where id=#{id}
+    </update>
+    <select id="getProductListByOid" parameterType="java.lang.Integer" resultType="com.limon.http.model.OrderProductGet">
+		select b.name as name,a.ordernum as count,a.productid as gid,b.imgurl from order_product a left join product_info b on a.productid=b.id where a.orderid=#{orderid}
+    </select>
+    <select id="getOrderbyOid" parameterType="java.lang.Integer" resultType="com.limon.http.model.Order">
+		select id,storeid as sid,orderno from order_info where id=#{orderid}
+    </select>
+    <update id="updateStoreSaleNum" parameterType="java.util.Map">
+		update store_product set salenum=salenum-#{pnum} where storeid=#{storeid} and productid=#{productid} and isdel=0
+    </update>
+</mapper>

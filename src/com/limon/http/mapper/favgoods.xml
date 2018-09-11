@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.limon.http.dao.FavGoodsDao">
+	<insert id="favGoods" parameterType="java.util.Map" useGeneratedKeys="true" keyProperty="id">
+		insert into app_favourite(appuserid,storeid,productid)values(#{userid},#{storeid},#{productid})
+    </insert>
+    <select id="getFavGoods" parameterType="java.util.Map" resultType="java.lang.Integer">
+		select count(*) from app_favourite where appuserid=#{userid} and storeid=#{storeid} and productid=#{productid}
+    </select>
+    <select id="getCartNum" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+		select count(*) from app_shoppingcart where userid=#{userid}
+    </select>
+</mapper>

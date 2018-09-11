@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.limon.wx.dao.ShopDao">
+    <select id="getGoosById" parameterType="java.lang.Integer" resultType="com.limon.manage.model.ProductInfo">
+		select * from product_info where id=#{#pid}
+    </select>
+    <select id="getWPayOrder" parameterType="java.util.Map" resultType="com.limon.http.model.Order">
+		select a.orderno,a.id as id,a.orderprice as sprice,a.addrid as aid,a.storeid as sid,b.storename as sname,a.createtime as time,a.sendtime,a.goodscode as picknum,a.status,a.province,a.city,a.county,a.acceptname,a.accepttel,a.address as addr,a.remark,a.paytype from order_info a left join store_info b on a.storeid=b.id where a.userid=#{userid} and a.status=0 and a.isdel=0 order by a.id desc limit #{pageStart},#{pageSize}
+    </select>
+    <select id="getWPayOrderCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+		select count(*) from order_info where userid=#{userid} and status=0 and isdel=0
+    </select>
+    <select id="getWReceiveOrder" parameterType="java.util.Map" resultType="com.limon.http.model.Order">
+		select a.orderno,a.id as id,a.orderprice as sprice,a.addrid as aid,a.storeid as sid,b.storename as sname,a.createtime as time,a.sendtime,a.goodscode as picknum,a.status,a.province,a.city,a.county,a.acceptname,a.accepttel,a.address as addr,a.remark,a.paytype from order_info a left join store_info b on a.storeid=b.id where a.userid=#{userid} and a.status=2 and a.isdel=0 order by a.id desc limit #{pageStart},#{pageSize}
+    </select>
+    <select id="getWReceiveOrderCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+		select count(*) from order_info where userid=#{userid} and status=2 and isdel=0
+    </select>
+    <select id="getWSendOrder" parameterType="java.util.Map" resultType="com.limon.http.model.Order">
+		select a.orderno,a.id as id,a.orderprice as sprice,a.addrid as aid,a.storeid as sid,b.storename as sname,a.createtime as time,a.sendtime,a.goodscode as picknum,a.status,a.province,a.city,a.county,a.acceptname,a.accepttel,a.address as addr,a.remark,a.paytype from order_info a left join store_info b on a.storeid=b.id where a.userid=#{userid} and a.status=1 and a.isdel=0 order by a.id desc limit #{pageStart},#{pageSize}
+    </select>
+    <select id="getWSendOrderCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+		select count(*) from order_info where userid=#{userid} and status=1 and isdel=0
+    </select>
+    <select id="getOverOrder" parameterType="java.util.Map" resultType="com.limon.http.model.Order">
+		select a.orderno,a.id as id,a.orderprice as sprice,a.addrid as aid,a.storeid as sid,b.storename as sname,a.createtime as time,a.sendtime,a.goodscode as picknum,a.status,a.province,a.city,a.county,a.acceptname,a.accepttel,a.address as addr,a.remark,a.paytype from order_info a left join store_info b on a.storeid=b.id where a.userid=#{userid} and (a.status=3 or a.status=4 or a.status=5 or a.status=6) and a.isdel=0 order by a.id desc limit #{pageStart},#{pageSize}
+    </select>
+    <select id="getOverOrderCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+		select count(*) from order_info where userid=#{userid} and (status=3 or status=4 or status=5 or status=6) and isdel=0
+    </select>
+    <select id="getCancelOrder" parameterType="java.util.Map" resultType="com.limon.http.model.Order">
+		select a.orderno,a.id as id,a.orderprice as sprice,a.addrid as aid,a.storeid as sid,b.storename as sname,a.createtime as time,a.sendtime,a.goodscode as picknum,a.status,a.province,a.city,a.county,a.acceptname,a.accepttel,a.address as addr,a.remark,a.paytype from order_info a left join store_info b on a.storeid=b.id where a.userid=#{userid} and a.status=5 and a.isdel=0 order by a.id desc limit #{pageStart},#{pageSize}
+    </select>
+    <select id="getCancelOrderCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+		select count(*) from order_info where userid=#{userid} and status=5 and isdel=0
+    </select>
+    <select id="getAllOrder" parameterType="java.util.Map" resultType="com.limon.http.model.Order">
+		select a.orderno,a.id as id,a.orderprice as sprice,a.addrid as aid,a.storeid as sid,b.storename as sname,a.createtime as time,a.sendtime,a.goodscode as picknum,a.status,a.province,a.city,a.county,a.acceptname,a.accepttel,a.address as addr,a.remark,a.paytype from order_info a left join store_info b on a.storeid=b.id where a.userid=#{userid} and a.isdel=0 order by a.id desc limit #{pageStart},#{pageSize}
+    </select>
+    <select id="getAllOrderCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+		select count(*) from order_info where userid=#{userid} and isdel=0
+    </select>
+    <select id="getProductListByOid" parameterType="java.lang.Integer" resultType="com.limon.http.model.OrderProductGet">
+		select b.name as name,a.ordernum as count,a.productid as gid,b.imgurl,a.opprice from order_product a left join product_info b on a.productid=b.id where a.orderid=#{orderid}
+    </select>
+    <select id="getAddressById" parameterType="java.lang.Integer" resultType="com.limon.http.model.Address">
+		select a.*,b.provname as provname,c.cityname as cityname,d.countyname as countyname from 
+		app_useraddr a left join area_province b on a.province=b.provcode left join area_city c on a.city=c.citycode
+ 		left join area_county d on a.county=d.countycode where a.isdel=0 and a.id=#{aid}
+    </select>
+    <select id="getTLimit" parameterType="java.util.Map" resultType="com.limon.manage.model.StoreAdProductInfo">
+		select DISTINCT c.*,b.tlprice as adprice,b.*,a.saleprice from timelimit b left join store_product a on a.productid=b.productid left join product_info c on a.productid=c.id where c.isdel=0 and a.storeid=#{sid} and b.tltime like CONCAT('%',#{tltime},'%')
+    </select>
+    <select id="getTimeLimitProduct" parameterType="java.lang.Integer" resultType="java.lang.String">
+		select tltime from timelimit where productid=#{sid}
+    </select>
+    <select id="getStoreInfoById" parameterType="java.lang.String" resultType="com.limon.store.model.StoreInfo">
+		select a.*,b.provname as provname,c.cityname,d.countyname from store_info a left join area_province b on a.provincecode=b.provcode left join area_city c on a.citycode=c.citycode left join area_county d on a.countycode=d.countycode where a.isdel=0 and a.id=#{id}
+    </select>
+    <select id="getOrderById" parameterType="java.lang.Integer" resultType="com.limon.http.model.Order">
+		select a.orderno,a.id as id,a.orderprice as sprice,a.addrid as aid,a.storeid as sid,b.storename as sname,a.createtime as time,a.sendtime,a.goodscode as picknum,a.status,a.province,a.city,a.county,a.acceptname,a.accepttel,a.address as addr,a.remark,a.paytype from order_info a left join store_info b on a.storeid=b.id where a.id=#{oid} and a.isdel=0
+    </select>
+    <select id="getOrderByOrderno" parameterType="java.lang.String" resultType="com.limon.http.model.Order">
+		select a.orderno,a.id as id,a.orderprice as sprice,a.addrid as aid,a.storeid as sid,b.storename as sname,a.createtime as time,a.sendtime,a.goodscode as picknum,a.status,a.province,a.city,a.county,a.acceptname,a.accepttel,a.address as addr,a.remark,a.paytype from order_info a left join store_info b on a.storeid=b.id where a.orderno=#{orderno} and a.isdel=0
+    </select>
+    <update id="cleanDefault" parameterType="java.lang.Integer">
+		update app_useraddr set isdefault=0 where userid=#{uid} and isdel=0
+    </update>
+    <update id="setDefault" parameterType="java.lang.Integer">
+		update app_useraddr set isdefault=1 where id=#{aid} and isdel=0
+    </update>
+    <select id="getDefaultNum" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+		select count(*) from app_useraddr where isdefault=1 and userid=#{uid} and isdel=0
+    </select>
+    <update id="updateOrderPrepay_id" parameterType="java.lang.String">
+		update order_info set prepay_id=#{prepay_id} where orderno=#{orderno}
+    </update>
+    <select id="getOrderPrepay_id" parameterType="java.lang.String" resultType="java.lang.String">
+		select prepay_id from order_info where orderno=#{orderno}
+    </select>
+</mapper>

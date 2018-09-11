@@ -1,0 +1,83 @@
+body, html,input{font-family:"微软雅黑" !important;}
+
+.erdao{
+    padding-left:4%;
+    justify-content: space-between;
+    border-bottom: 1px solid #E5E5E5;
+
+}
+.erdao li{
+    padding: 3%;
+}
+.erdao li a{
+    color: black;
+    font-size: 1.4rem;
+}
+.erdao .bj-a{
+    border-left: 1px solid #E5E5E5;
+    padding: 3% 5%;
+}
+.erdao li a:hover{
+    color: #73C40F;
+}
+/*商品*/
+.spzt{
+    width: 100%;
+    margin-bottom: 2%;
+        border-bottom: 1px solid #DEDEDE;
+}
+
+
+.sp-tu{
+    margin-left: 2%;
+    display: inline-block;
+    width: 28%;
+}
+.sp-tu img{
+    width: 100%;
+}
+/*说明*/
+.sp-js{
+    width: 70%;
+    display: inline-block;
+    float: right;
+    padding-left: 2%;
+    font-size: 1.3rem;
+}
+.sp-js>span{
+    display: block;
+    font-size: 0.8rem;
+}
+.sp-js .an-lu{
+    margin-top: 20%;
+    /*border-bottom: 1px solid #DEDEDE;*/
+    color: #79CF22;
+    font-size: 1.5rem;
+    padding-bottom: 3%;
+}
+@media (min-width: 768px) and (max-width: 1024px){.sp-js .an-lu{margin-top: 20%;}}
+/*按钮*/
+.sp-js .an-lu .qgm{
+    background: #F3F3F3;
+    border: 1px solid #79CF22;
+    border-radius: 5px;
+    color: #79CF22;
+    padding: 2% 12%;
+}
+.sp-js .an-lu li{
+    float: right;
+    margin-right: 2%;
+}
+.sp-js .an-lu li img{
+    width: 70%;
+}
+/*清除浮动*/
+.clearfloat:after{
+    display:block;
+    clear:both;content:"";
+    visibility:hidden;
+    height:0;
+}
+.clearfloat{
+    zoom:1;
+}

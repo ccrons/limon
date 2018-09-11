@@ -1,0 +1,217 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport"
+	content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<!--[if lt IE 9]>
+<script type="text/javascript" src="${basePath}/lib/html5.js"></script>
+<script type="text/javascript" src="${basePath}/lib/respond.min.js"></script>
+<script type="text/javascript" src="${basePath}/lib/PIE_IE678.js"></script>
+<![endif]-->
+<link href="${basePath}/css/H-ui.min.css" rel="stylesheet"
+	type="text/css" />
+<link href="${basePath}/css/H-ui.admin.css" rel="stylesheet"
+	type="text/css" />
+<link href="${basePath}/css/style.css" rel="stylesheet" type="text/css" />
+<link href="${basePath}/lib/font-awesome/font-awesome.min.css"
+	rel="stylesheet" type="text/css" />
+<!--[if IE 7]>
+<link href="${basePath}/lib/font-awesome/font-awesome-ie7.min.css" rel="stylesheet" type="text/css" />
+<![endif]-->
+<link href="${basePath}/lib/iconfont/iconfont.css" rel="stylesheet"
+	type="text/css" />
+<!--[if IE 6]>
+<script type="text/javascript" src="${basePath}/lib/DD_belatedPNG_0.0.8a-min.js" ></script>
+<script>DD_belatedPNG.fix('*');</script>
+<![endif]-->
+<title>${pageTitle}</title>
+</head>
+<body>
+	<nav class="breadcrumb">
+		<i class="iconfont">&#xf012b;</i> 首页 <span class="c-gray en">&gt;</span>订单管理<span
+			class="c-gray en">&gt;</span> 订单处理 <a
+			class="btn btn-success radius r mr-20"
+			style="line-height:1.6em;margin-top:3px"
+			href="#" title="刷新" id="order-refresh" name="order-refresh" onclick="location.replace(location.href);"><i
+			class="icon-refresh"></i></a>
+	</nav>
+	<div class="pd-20">
+		<form action="list" id="searchform" method='post'>
+			<input type="hidden" name="currentPage" id="currentPage" value="${page.currentPage}"/>
+			<div class="text-c">
+				<span class="select-box" style="width:150px"> 
+					<select class="select" name=sstatus size="1">
+						<option value="99">订单状态</option>
+						<option value="1" <#if sstatus==1>selected="selected"</#if>>新订单</option>
+						<option value="2" <#if sstatus==2>selected="selected"</#if>>派送中</option>
+						<option value="3" <#if sstatus==3>selected="selected"</#if>>已完成</option>
+						<option value="5" <#if sstatus==5>selected="selected"</#if>>退款中</option>
+						<option value="6" <#if sstatus==6>selected="selected"</#if>>已退款</option>
+					</select>
+				</span>
+				<input type="text" class="input-text" style="width:250px"
+					placeholder="输入订单编号" id="sorderno" name="sorderno" value="${sorderno}">
+				<button type="button" class="btn btn-success radius" id="" name="" onclick="toSubmit();">
+					<i class="icon-search"></i> 查询
+				</button>
+			</div>
+		</form>
+		<div class="cl pd-5 bg-1 bk-gray mt-20">
+			<span class="l">
+				
+			</span>
+			<span class="r">共有数据：<strong>${page.totalRecord}</strong> 条</span>
+		</div>
+		<table
+			class="table table-border table-bordered table-hover table-bg table-sort">
+			<thead>
+				<tr class="text-c">
+					<th width="40">ID</th>
+					<th width="145">订单编号</th>
+					<th width="120">下单时间</th>
+					<th width="80">买家昵称</th>
+					<th width="40">订单金额</th>
+					<th width="40">配送金额</th>
+					<!--<th width="150">配送时间</th>-->
+					<th>配送地址</th>
+					<th width="40">订单状态</th>
+					<th width="50">支付方式</th>
+					<#if logintype==1><th width="100">操作</th></#if>
+				</tr>
+			</thead>
+			<tbody>
+				<#list page.list as orderinfo >
+				<tr class="text-c">
+					<td>${orderinfo.id?c}</td>
+					<td><a title="详情" href="javascript:;"
+						onclick="layer_show('820','485','订单详情','info?id=${orderinfo.id?c}')"
+						class="ml-5" style="text-decoration:none">${orderinfo.orderno}<#if orderinfo.isluck==1><span style="color:#EE6911" title="首单抽奖价格0">[奖]</span></#if></a></td>
+					<td>${orderinfo.createtime?string("yyyy-MM-dd HH:mm:ss")}</td>
+					<td>${orderinfo.nickname}</td>
+					<td width="50">${orderinfo.orderprice}</td>
+					<td width="50">${orderinfo.sendprice}</td>
+					<!--<td>${orderinfo.sendtime}</td>-->
+					<td>${orderinfo.province} ${orderinfo.city} ${orderinfo.county} ${orderinfo.address} ${orderinfo.acceptname} ${orderinfo.accepttel}</td>
+					<td width="50">
+						<#if orderinfo.status==1>
+							<span class="label label-secondary radius">新订单</span>
+						<#elseif orderinfo.status==2>
+							<span class="label label-primary radius">派送中</span>
+						<#elseif orderinfo.status==3>
+							<span class="label label-success radius">已完成</span>
+						<#elseif orderinfo.status==4>
+							<span class="label label-warning radius">已取消</span>
+						<#elseif orderinfo.status==5>
+							<span class="label label-warning radius">退款中</span>	
+						<#elseif orderinfo.status==6>
+							<span class="label label-warning radius">已退款</span>	
+						<#else>	
+							<span class="label label-warning radius">未支付</span>
+						</#if>
+					</td>
+					<td>
+						<#if orderinfo.paytype?if_exists>
+							<#if orderinfo.paytype==1>
+								支付宝
+							<#elseif orderinfo.paytype==2>
+								微信
+							<#elseif orderinfo.paytype==3>
+								货到付款
+							<#else>
+								未支付
+							</#if>
+						<#else>
+							未支付
+						</#if>
+					</td>
+					<#if logintype==1> 
+					<td class="f-14 user-manage">
+						<#if orderinfo.status==1>
+							<a title="确认" href="javascript:;"
+						 		onclick="cf('${orderinfo.id?c}','${orderinfo.orderno}')"
+								class="ml-5" style="text-decoration:none"><i class="iconfont iconfont-zhengque"></i></a>
+							<a title="取消订单" href="javascript:;"
+								onclick="layer_show('820','260','取消订单','cancel?id=${orderinfo.id?c}')"
+								class="ml-5" style="text-decoration:none"><i class="iconfont iconfont-cuowu"></i></a>
+						<#elseif orderinfo.status==2>
+						    <!--  
+						    <a title="完成订单" href="javascript:;"
+								onclick="layer_show('820','260','完成订单','sure?id=${orderinfo.id?c}')"
+								class="ml-5" style="text-decoration:none"><i class="icon-arrow-right"></i></a>
+							-->	
+							<a title="取消订单" href="javascript:;"
+								onclick="layer_show('820','260','取消订单','cancel?id=${orderinfo.id?c}')"
+								class="ml-5" style="text-decoration:none"><i class="iconfont iconfont-cuowu"></i></a>
+						<#elseif orderinfo.status==3>
+							<!-- 订单已完成 -->
+						<#elseif orderinfo.status==4>
+							<!-- 订单已取消 -->
+						<#elseif orderinfo.status==5>
+							<!-- 订单退款中 -->
+							<a title="完成退款" href="javascript:;"
+								onclick="layer_show('820','260','完成订单','sure?id=${orderinfo.id?c}')"
+								class="ml-5" style="text-decoration:none"><i class="icon-arrow-right"></i></a>
+						<#elseif orderinfo.status==6>
+							<!-- 订单已退款 -->
+						</#if>
+					</td>
+					</#if>
+				</tr>
+				</#list>
+			</tbody>
+		</table>
+		<div id="laypage" class="pageNav"></div>
+	</div>
+	<script type="text/javascript" src="${basePath}/lib/jquery.min.js"></script>
+	<script type="text/javascript"
+		src="${basePath}/lib/Validform_v5.3.2.js"></script>
+	<script type="text/javascript"
+		src="${basePath}/lib/layer1.8/layer.min.js"></script>
+	<script type="text/javascript" src="${basePath}/lib/laypage/laypage.js"></script>
+	<script type="text/javascript" src="${basePath}/js/H-ui.js"></script>
+	<script type="text/javascript" src="${basePath}/js/H-ui.admin.js"></script>
+	<script type="text/javascript" src="${basePath}/js/H-ui.admin.doc.js"></script>
+	<script>
+		<#if rs?if_exists>
+			function lazySubmit(){
+				document.getElementById("searchform").submit();  
+			}
+			<#if rs == "1">
+				layer.msg("确认成功",2,9);
+				setInterval(lazySubmit, 2000);
+			<#elseif rs == "0">
+				layer.msg("确认失败",2,8);
+				setInterval(lazySubmit, 2000);
+			</#if>
+		</#if>
+		laypage({
+		     cont: $('#laypage'), //容器。值支持id名、原生dom对象，jquery对象,
+		     pages: ${page.totalPage}, //总页数
+		     skip: false, //是否开启跳页
+		     skin: '#333',
+		     groups: 5, //连续显示分页数
+		     curr: ${page.currentPage}, //初始化当前页
+		     jump: function(e, first){ //触发分页后的回调
+		        if(!first){ //一定要加此判断，否则初始时会无限刷新 	
+		            document.getElementById("currentPage").value = e.curr;
+					document.getElementById("searchform").submit();
+		        }
+		     }
+		});
+		function toSubmit(){
+			document.getElementById("currentPage").value=1;
+			document.getElementById("searchform").submit();
+		}
+		function cf(id,orderno){
+			layer.confirm('要确认\''+orderno+'\'吗？',function(index){
+				window.location.href="cf?id="+id+"&currentPage=${page.currentPage}&sorderno=${sorderno}&sstatus=${sstatus}&orderno="+orderno;
+			});
+		}
+		
+	</script>
+</body>
+</html>

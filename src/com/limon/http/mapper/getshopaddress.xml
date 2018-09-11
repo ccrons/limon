@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.limon.http.dao.GetShopAddressDao">
+	<select id="getShopAddressBySidAndUid" parameterType="java.util.Map" resultType="com.limon.http.model.Address">
+		select * from app_shopaddr where storeid=#{storeid} and userid=#{userid}
+    </select>
+    <select id="getShopAddressDefault" parameterType="java.util.Map" resultType="com.limon.http.model.Address">
+		select b.provname as province,c.cityname as city,d.countyname as county from store_info a left join area_province b on a.provincecode=b.provcode left join area_city c on a.citycode=c.citycode left join area_county d on a.countycode=d.countycode where a.id=#{storeid}
+    </select>
+</mapper>

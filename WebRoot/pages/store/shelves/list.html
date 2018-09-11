@@ -1,0 +1,245 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport"
+	content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<!--[if lt IE 9]>
+<script type="text/javascript" src="${basePath}/lib/html5.js"></script>
+<script type="text/javascript" src="${basePath}/lib/respond.min.js"></script>
+<script type="text/javascript" src="${basePath}/lib/PIE_IE678.js"></script>
+<![endif]-->
+<link href="${basePath}/css/H-ui.min.css" rel="stylesheet"
+	type="text/css" />
+<link href="${basePath}/css/H-ui.admin.css" rel="stylesheet"
+	type="text/css" />
+<link href="${basePath}/css/style.css" rel="stylesheet" type="text/css" />
+<link href="${basePath}/lib/font-awesome/font-awesome.min.css"
+	rel="stylesheet" type="text/css" />
+<!--[if IE 7]>
+<link href="${basePath}/lib/font-awesome/font-awesome-ie7.min.css" rel="stylesheet" type="text/css" />
+<![endif]-->
+<link href="${basePath}/lib/iconfont/iconfont.css" rel="stylesheet"
+	type="text/css" />
+<!--[if IE 6]>
+<script type="text/javascript" src="${basePath}/lib/DD_belatedPNG_0.0.8a-min.js" ></script>
+<script>DD_belatedPNG.fix('*');</script>
+<![endif]-->
+<title>${pageTitle}</title>
+</head>
+<body>
+	<nav class="breadcrumb">
+		<i class="iconfont">&#xf012b;</i> 首页 <span class="c-gray en">&gt;</span>产品管理<span
+			class="c-gray en">&gt;</span> 产品信息 <a
+			class="btn btn-success radius r mr-20"
+			style="line-height:1.6em;margin-top:3px"
+			href="javascript:location.replace(location.href);" title="刷新"><i
+			class="icon-refresh"></i></a>
+	</nav>
+	<div class="pd-20">
+		<form action="list" id="searchform" method='post'>
+			<input type="hidden" name="currentPage" id="currentPage" value="${page.currentPage}"/>
+			<div class="text-c">
+				<span class="select-box" style="width:150px"> 
+					<select class="select" name="stype" size="1">
+						<option value="">产品类型</option>
+						<#list producttypelist as producttype >
+							<option value="${producttype.id}" <#if producttype.id==stype>selected="selected"</#if> >${producttype.typename}</option>
+							<#list producttype.childproductpypelist as producttypetwo >
+								<option value="${producttypetwo.id}" <#if producttypetwo.id==stype>selected="selected"</#if> >&nbsp;&nbsp;|-&nbsp;${producttypetwo.typename}</option>
+							</#list>
+						</#list>
+					</select>
+				</span>
+				<span class="select-box" style="width:150px"> 
+					<select class="select" name="sbrand" size="1">
+						<option value="">产品品牌</option>
+						<#list productbrandlist as productbrand >
+							<option value="${productbrand.id?c}" <#if productbrand.id==sbrand >selected="selected"</#if> >${productbrand.initial}-${productbrand.brandname}</option>
+						</#list>
+					</select>
+				</span>
+				<span class="select-box" style="width:150px"> 
+					<select class="select" name="sisofficial" size="1">
+						<option value="">产品分类</option>
+						<option value="0" <#if sisofficial=='0' >selected="selected"</#if> >非官方供应</option>
+						<option value="1" <#if sisofficial=='1' >selected="selected"</#if> >官方供应</option>
+					</select>
+				</span>
+				<input type="hidden" name="sj" value="2"/>
+				<!--
+				<span class="select-box" style="width:100px"> 
+					<select class="select" name="sj" id="sj" size="1">
+						<option value="0">全部</option>
+						<option value="1" <#if sj=="1">selected</#if>>已上架</option>
+						<option value="2" <#if sj=="2">selected</#if>>未上架</option>
+					</select>
+				</span>
+				-->
+				<input type="text" class="input-text" style="width:250px"
+					placeholder="输入产品名称" id="sname" name="sname" value="${sname}">
+				<button type="button" class="btn btn-success radius" id="" name="" onclick="toSubmit();">
+					<i class="icon-search"></i> 查询
+				</button>
+			</div>
+		</form>
+		<div class="cl pd-5 bg-1 bk-gray mt-20">
+			<span class="l"> 
+			<a href="javascript:;" onclick="alldel();" class="btn btn-primary radius"><i class="iconfont iconfont-xiangshang"></i> 上架</a>
+			</span>  
+			<span class="r">共有数据：<strong>${page.totalRecord}</strong> 条</span>
+		</div>
+		<table
+			class="table table-border table-bordered table-hover table-bg table-sort">
+			<thead>
+				<tr class="text-c">
+					<th><input type="checkbox" id="checkAll"></th>
+					<th width="80">ID</th>
+					<th>产品类型</th>
+					<th>产品品牌</th>
+					<th>产品名称</th>
+					<th>产品价格</th>
+					<th>原价</th>
+					<th>产地</th>
+					<th>产品缩略图</th>
+					<th>默认库存</th>
+					<th>规格</th>
+					<th>是否已上架</th>
+					<th width="100">操作</th>
+				</tr>
+			</thead>
+			<tbody>
+				<#list page.list as productinfo >
+				<tr class="text-c">
+					<td>
+					<#if productinfo.salenum!=null && productinfo.salenum!="">
+					<#else>
+							<input type="checkbox" name="pids" value="${productinfo.id?c}">
+					</#if>	
+					</td>
+					<td>${productinfo.id?c}</td>
+					<td>${productinfo.typename}</td>
+					<td>${productinfo.brandname}</td>
+					<td class="text-l">
+						<#if productinfo.isrec==0><span style="color:#FFCC00">[推荐]</span></#if>
+						<#if productinfo.adid?if_exists><span style="color:blue" title="活动价格${productinfo.adprice}">[活]</span></#if>
+						<#if productinfo.isfrist==1><span style="color:red" title="首单0元购价格0">[0]</span></#if>
+						<#if productinfo.isluck==1><span style="color:#EE6911" title="首单抽奖价格0">[奖]</span></#if>
+						<#if productinfo.tltime?if_exists><span style="color:green" title="抢购价格${productinfo.tlprice}">[抢]</span></#if>
+						<a title="详情" href="javascript:;"
+						onclick="layer_show('820','460','产品信息详情','info?id=${productinfo.id?c}')"
+						class="ml-5" style="text-decoration:none">${productinfo.name}</a>
+						<#if productinfo.isofficial==1><span style="color:red">[官方]</span></#if>	
+					</td>
+					<td>${productinfo.price}</td>
+					<td>${productinfo.sprice}</td>
+					<td>${productinfo.paddress}</td>
+					<td><#if productinfo.imgurl!=""><img src="${allPath}${productinfo.imgurl}" width="35" height="35"/></#if></td>
+					<td>${productinfo.upnum!'0'}</td>
+					<td>${productinfo.unit}</td>
+					<td><#if productinfo.salenum!=null && productinfo.salenum!="">已上架<#else>未上架</#if></td>
+					<td class="f-14 user-manage">
+					<#if productinfo.salenum!=null && productinfo.salenum!="">
+					<!-- <a title="下架" href="javascript:;"
+						 onclick="del('${productinfo.sid}','${productinfo.name}')"
+						class="ml-5" style="text-decoration:none"><i class="iconfont iconfont-paixu"></i></a> -->
+					<#else>
+					<a title="上架" href="javascript:;" onclick="layer_show('820','400','产品上架','edit?id=${productinfo.id?c}&name=${productinfo.name}&price=${productinfo.price}&sprice=${productinfo.sprice}&isofficial=${productinfo.isofficial}')" class="ml-5" style="text-decoration:none"><i class="iconfont iconfont-xiangshang"></i></a>
+					</#if>	
+					</td>
+				</tr>
+				</#list>
+			</tbody>
+		</table>
+		<div id="laypage" class="pageNav"></div>
+	</div>
+	<script type="text/javascript" src="${basePath}/lib/jquery.min.js"></script>
+	<script type="text/javascript"
+		src="${basePath}/lib/Validform_v5.3.2.js"></script>
+	<script type="text/javascript"
+		src="${basePath}/lib/layer1.8/layer.min.js"></script>
+	<script type="text/javascript" src="${basePath}/lib/laypage/laypage.js"></script>
+	<script type="text/javascript" src="${basePath}/js/H-ui.js"></script>
+	<script type="text/javascript" src="${basePath}/js/H-ui.admin.js"></script>
+	<script type="text/javascript" src="${basePath}/js/H-ui.admin.doc.js"></script>
+	<script>
+		<#if rs?if_exists>
+			function lazySubmit(){
+				document.getElementById("searchform").submit();  
+			}
+			<#if rs == "1">
+				layer.msg("下架成功",2,9);
+				setInterval(lazySubmit, 2000);
+			<#elseif rs == "0">
+				layer.msg("下架失败",2,8);
+				setInterval(lazySubmit, 2000);
+			<#elseif rs == "3">
+				layer.msg("批量上架成功",2,9);
+				setInterval(lazySubmit, 2000);
+			</#if>
+		</#if>
+		laypage({
+		     cont: $('#laypage'), //容器。值支持id名、原生dom对象，jquery对象,
+		     pages: ${page.totalPage}, //总页数
+		     skip: false, //是否开启跳页
+		     skin: '#333',
+		     groups: 5, //连续显示分页数
+		     curr: ${page.currentPage}, //初始化当前页
+		     jump: function(e, first){ //触发分页后的回调
+		        if(!first){ //一定要加此判断，否则初始时会无限刷新 	
+		            document.getElementById("currentPage").value = e.curr;
+					document.getElementById("searchform").submit();
+		        }
+		     }
+		});
+		function toSubmit(){
+			document.getElementById("currentPage").value=1;
+			document.getElementById("searchform").submit();
+		}
+		function toSubmit(){
+			document.getElementById("currentPage").value=1;
+			document.getElementById("searchform").submit();
+		}
+		function del(id,name){
+			layer.confirm('确认要下架\''+name+'\'吗？',function(index){
+				window.location.href="del?id="+id+"&currentPage=${page.currentPage}&stype=${stype}&sbrand="+'${sbrand}';
+			});
+		}
+		
+		//全选/取消全选操作
+	    function checkAll() {
+			var flag = document.getElementById("checkAll").checked; 
+			var cartids = document.getElementsByName("pids");  
+			for(var i=0;i<cartids.length;i++){  
+				cartids[i].checked = flag;  
+			}
+		}
+		
+		function alldel(){
+			
+				var pids = document.getElementsByName("pids"); 
+				var ids="";
+				for(var i=0;i<pids.length;i++){  
+					if(pids[i].checked==true){
+						if(i==0){
+							ids+=pids[i].value;
+						}else{
+							ids+=","+pids[i].value;
+						}
+					}
+				}
+				if(ids!=""){
+					layer.confirm('确认要上架这些吗？',function(index){
+						window.location.href="upsale?id="+ids+"&currentPage=${page.currentPage}&sname=${sname}&stype=${stype}&sbrand=${sbrand}&sj=${sj}";
+					});
+				}else{
+					layer.msg("请选择数据!");
+				}
+		
+		}
+	</script>
+</body>
+</html>

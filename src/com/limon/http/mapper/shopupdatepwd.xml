@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.limon.http.dao.ShopUpdatePwdDao">
+	<select id="updateShopPwd" parameterType="java.util.Map" resultType="java.lang.Integer">
+		update store_info set password=#{npasswd} where id=#{sid}
+    </select>
+    <select id="checkShopOldPwd" parameterType="java.util.Map" resultType="java.lang.Integer">
+		select count(*) from store_info where id=#{sid} and password=#{opasswd}
+    </select>
+</mapper>

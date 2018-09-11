@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.limon.store.dao.OrderInfoDao">
+    <select id="getOrderInfoList" parameterType="java.util.Map" resultType="com.limon.store.model.OrderInfo">
+		select a.*,b.username,b.nickname from order_info a left join app_user b on a.userid=b.id left join app_useraddr c on a.addrid=c.id where  a.isdel=0 
+			<if test="uid != null and uid !=''">  
+				and a.storeid=#{uid}
+			</if>
+			<if test="sorderno != null and sorderno !=''">  
+				and a.orderno like CONCAT('%',#{sorderno},'%') 
+			</if>
+			<if test="sstatus != null and sstatus !=''">  
+				and a.status = #{sstatus}
+			</if>
+			<if test="sstatus == 3 or sstatus==6">  
+				and substring(a.createtime,1,10)=#{nowday}
+			</if>
+			and a.status <![CDATA[ <> ]]> 0
+			and a.status <![CDATA[ <> ]]> 4
+		order by a.id desc
+		limit #{pageStart} , #{pageSize}
+    </select>
+    <select id="getOrderInfoListCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+		select count(*) from order_info a left join app_user b on a.userid=b.id left join app_useraddr c on a.addrid=c.id where  a.isdel=0 and a.storeid=#{uid} 
+			<if test="sorderno != null and sorderno !=''">  
+				and a.orderno like CONCAT('%',#{sorderno},'%') 
+			</if>
+			<if test="sstatus != null and sstatus !=''">  
+				and a.status = #{sstatus}
+			</if>
+			<if test="sstatus == 3 or sstatus==6">  
+				and substring(a.createtime,1,10)=#{nowday}
+			</if>
+			and a.status <![CDATA[ <> ]]> 0
+			and a.status <![CDATA[ <> ]]> 4
+    </select>
+    <update id="orderInfoCF" parameterType="java.lang.String">
+    	update order_info set status='2' where id=#{id}
+    </update>
+     <update id="orderInfoOver" parameterType="java.util.Map">
+    	update order_info set status='6',return_id=#{return_id} where id=#{id}
+    </update>
+    <update id="orderInfoCancel" parameterType="java.util.Map">
+    	update order_info set status='5',reason=#{reason} where id=#{id}
+    </update>
+    <select id="getOrderInfo" parameterType="java.lang.String" resultType="com.limon.store.model.OrderInfo">
+		select * from order_info a,app_user b where a.isdel=0 and a.userid=b.id and a.id=#{id}	
+	</select>
+	<select id="getProductInfoList" parameterType="java.lang.String" resultType="com.limon.manage.model.ProductInfo">
+		select * from order_info a,order_product b,product_info c where a.id=b.orderid and b.productid=c.id and a.id=#{id}	
+	</select>
+	<!-- 获取历史订单列表 -->
+	<select id="getHistoryOrderInfoList" parameterType="java.util.Map" resultType="com.limon.store.model.OrderInfo">
+		select * from order_info a,app_user b,app_useraddr c where  a.isdel=0 and a.userid=b.id and a.storeid=#{uid} and a.addrid=c.id
+			<if test="sorderno != null and sorderno !=''">  
+				and a.orderno like CONCAT('%',#{sorderno},'%') 
+			</if>
+			<if test="sstatus != null and sstatus !=''">  
+				and a.status = #{sstatus}
+			</if>
+			<if test="stime != null and stime !=''">  
+				and substring(a.createtime,1,10) <![CDATA[>=]]> #{stime} 
+			</if>
+			<if test="etime != null and etime !=''">  
+				and substring(a.createtime,1,10) <![CDATA[<=]]> #{etime} 
+			</if>
+			and a.status <![CDATA[ <> ]]> 0
+			and a.status <![CDATA[ <> ]]> 4
+		order by a.id desc
+		limit #{pageStart} , #{pageSize}
+    </select>
+    <!-- 获取历史订单列表数量 -->
+    <select id="getHistoryOrderInfoListCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+		select count(*) from order_info a,app_user b,app_useraddr c where a.isdel=0 and a.userid=b.id and a.storeid=#{uid} and a.addrid=c.id
+			<if test="sorderno != null and sorderno !=''">  
+				and a.orderno like CONCAT('%',#{sorderno},'%') 
+			</if>
+			<if test="sstatus != null and sstatus !=''">  
+				and a.status = #{sstatus}
+			</if>
+			<if test="stime != null and stime !=''">  
+				and substring(a.createtime,1,10) <![CDATA[>=]]> #{stime} 
+			</if>
+			<if test="etime != null and etime !=''">  
+				and substring(a.createtime,1,10) <![CDATA[<=]]> #{etime} 
+			</if>
+			and a.status <![CDATA[ <> ]]> 0
+			and a.status <![CDATA[ <> ]]> 4
+    </select>
+    <select id="getNewOrderListCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+		select count(*) from order_info where storeid=#{storeid} and status=1 <!-- and substring(createtime,1,10)=#{nowday} -->
+    </select>
+    <select id="getProductListByOid" parameterType="java.lang.Integer" resultType="com.limon.http.model.OrderProductGet">
+		select b.name as name,a.ordernum as count,a.productid as gid,b.imgurl from order_product a left join product_info b on a.productid=b.id where a.orderid=#{orderid}
+    </select>
+    <select id="getOrderbyOid" parameterType="java.lang.Integer" resultType="com.limon.http.model.Order">
+		select id,storeid as sid,goodscode from order_info where id=#{orderid}
+    </select>
+    
+    <select id="getOrderbyId" parameterType="java.lang.Integer" resultType="com.limon.http.model.Order">
+		select a.*,b.storename as sname from order_info a left join store_info b on a.storeid=b.id where a.id=#{oid}
+    </select>
+    <update id="updateStoreSaleNum" parameterType="java.util.Map">
+		update store_product set salenum=salenum+#{pnum} where storeid=#{storeid} and productid=#{productid} and isdel=0
+    </update>
+</mapper>

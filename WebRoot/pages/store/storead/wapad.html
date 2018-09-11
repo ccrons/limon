@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+	    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+	    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+        <meta name="viewport" content = "width=device-width, target-densitydpi=high-dpi, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+        <meta content="telephone=no" name="format-detection" />
+        <meta name="keywords" content="seokeywords"/>
+        <meta name="description" content="seodescription"/>
+		<title>广告信息</title>
+<link rel="stylesheet" type="text/css" href="${basePath}/wap/css/base.css" />
+<script type="text/javascript" src="${basePath}/wap/js/jquery-1.7.min.js"></script>
+<script type="text/javascript" src="${basePath}/wap/js/common.js"></script>
+<script type="text/javascript" src="${basePath}/wap/js/quick_links.js"></script>
+<style>
+.goods-list-v1 .gl-item {
+    margin-right: 10px;
+    margin-left: 10px;
+}
+.goods-list-v1 .gl-item .p-img {
+    padding: 0px;
+        padding-top: 0px;
+        padding-right: 0px;
+        padding-bottom: 0px;
+        padding-left: 0px;
+    margin-bottom: 15px;
+    position: relative;
+}
+.goods-list-v1 .gl-item .p-price {
+    position: relative;
+    overflow: hidden;
+        overflow-x: hidden;
+        overflow-y: hidden;
+    margin: 0px 0px 8px;
+        margin-top: 0px;
+        margin-right: 0px;
+        margin-bottom: 8px;
+        margin-left: 0px;
+        width: 100%; height: auto;max-width: 100%; display: block;
+}
+.goods-list-v1 .gl-item .p-name {
+    margin-bottom: 6px;
+    overflow: hidden;
+        overflow-x: hidden;
+        overflow-y: hidden;
+        width: 100%; height: auto;max-width: 100%; display: block;
+}
+.goods-list-v1 .gl-item .p-operate {
+    overflow: hidden;
+        overflow-x: hidden;
+        overflow-y: hidden;
+    margin-bottom: 10px;}
+		.J_782200{overflow: hidden;white-space: nowrap;text-overflow: ellipsis; width:100%; height:24px; line-height:24px;}
+.p-icons{ width:100%; height:24px; line-height:24px; color:#666;}
+.zero_jg{height:24px; line-height:24px;}
+.red{color:#F00; font-size:16px;}
+.hui{ color:#737373}
+.zero_jg{float:left;}
+.zero_button{float:right; height:30px; width:30px;background:#FFCD02;border-radius: 35px; text-align:center; font-family:黑体; padding:0; position:relative; top:-10px; right:0;}
+.zero_button a.btnCart{ color:#FFF; font-size:28px; height:30px; line-height:30px; float:left; width:30px;}
+#plist li{padding:2%; padding-bottom:0; background:#FFF; width:44%; margin-right:2%; margin-bottom:2%;}
+.zerp_imng{height:162px;}
+        </style>
+	</head>
+<body>
+<a href="javascript:void(0);" ><img  src="${basePath}/${storead.imgurl}"  style="width: 100%; height: auto;max-width: 100%; display: block;"/></a>
+<div class="main" style="width: 100%; height: auto;max-width: 100%; display: block;">
+    <div id="plist" >
+        <ul style="padding-left: 2%;lign-content: center ;">
+        	<#list saplist as sap>
+           <li>
+				<div class="zerp_imng"><a href="${basePath}/pinfo?pid=${sap.id?c}&sid=${sid}"><img  src="${basePath}/${sap.imgurl}" style="width: 100%; height: 100%;max-width: 100%; display: block;">
+				</a>
+                </div>
+				<h3 data-done="1" class="J_782200" data-price="1406.00">
+					<i>
+						<#if sap.isrec==0>[推荐]</#if>
+						<#if sap.isofficial==1><!--[官方供应]--></#if>
+						<#if sap.adid?if_exists><!--[活动]--></#if>
+						<#if sap.tltime?if_exists><!--[限时]--></#if>
+						<#if sap.isfrist==1><!--[首单0元]--></#if>
+						<#if sap.isluck==1><!--[首单抽奖]--></#if>
+						${sap.name}
+					</i>
+				</h3>	
+	       			<div class="p-icons" id="J_pro_782200">
+	       				<i class="goods-icons-s1" title="规格">规格:${sap.unit}</i>
+	     			</div>
+	     			<div>
+	     			<span class="zero_jg">
+					<#if sap.adid?if_exists>
+						<i class="red" >￥:${sap.adprice}</i>
+						<del class="hui">￥:${sap.saleprice} </del>
+					<#elseif sap.tltime?if_exists>	
+						<i class="red" >￥:${sap.tlprice}</i>
+						<del class="hui">￥:${sap.saleprice} </del>
+					<#else>
+						<i class="red" >￥:${sap.saleprice}</i>	
+					</#if>  
+                    </span>
+            		<span class="zero_button"><a href="javascript:toad('${sap.id?c}','${sap.imgurl}','${sap.unit}','<#if sap.adid?if_exists>${sap.adprice}<#elseif sap.tltime?if_exists>${sap.tlprice}<#else>${sap.saleprice}</#if>');" class="add_cart_large btnCart">+</a></span>
+                    </div>
+           </li> 
+           </#list>
+        </ul>
+    </div>
+</div>
+
+<!--[if lte IE 8]>
+<script src="${basePath}/wap/js/ieBetter.js"></script>
+<![endif]-->
+
+<script type="text/javascript" src="${basePath}/wap/js/parabola.js"></script>
+<script type="text/javascript">
+function toad(gid,imgurl,spec,price){
+		window.location.href='custom://ad_gid-'+gid+'_imgurl-'+imgurl+'_spec-'+spec+'_price-'+price+'_max-';
+	}
+	$(".quick_links_panel li").mouseenter(function(){
+		$(this).children(".mp_tooltip").animate({left:-92,queue:true});
+		$(this).children(".mp_tooltip").css("visibility","visible");
+		$(this).children(".ibar_login_box").css("display","block");
+	});
+	$(".quick_links_panel li").mouseleave(function(){
+		$(this).children(".mp_tooltip").css("visibility","hidden");
+		$(this).children(".mp_tooltip").animate({left:-121,queue:true});
+		$(this).children(".ibar_login_box").css("display","none");
+	});
+	$(".quick_toggle li").mouseover(function(){
+		$(this).children(".mp_qrcode").show();
+	});
+	$(".quick_toggle li").mouseleave(function(){
+		$(this).children(".mp_qrcode").hide();
+	});
+
+// 元素以及其他一些变量
+var eleFlyElement = document.querySelector("#flyItem"), eleShopCart = document.querySelector("#shopCart");
+var numberItem = 0;
+// 抛物线运动
+var myParabola = funParabola(eleFlyElement, eleShopCart, {
+	speed: 400, //抛物线速度
+	curvature: 0.0008, //控制抛物线弧度
+	complete: function() {
+		eleFlyElement.style.visibility = "hidden";
+		eleShopCart.querySelector("span").innerHTML = ++numberItem;
+	}
+});
+// 绑定点击事件
+if (eleFlyElement && eleShopCart) {
+	
+	[].slice.call(document.getElementsByClassName("btnCart")).forEach(function(button) {
+		button.addEventListener("click", function(event) {
+			// 滚动大小
+			var scrollLeft = document.documentElement.scrollLeft || document.body.scrollLeft || 0,
+			    scrollTop = document.documentElement.scrollTop || document.body.scrollTop || 0;
+			eleFlyElement.style.left = event.clientX + scrollLeft + "px";
+			eleFlyElement.style.top = event.clientY + scrollTop + "px";
+			eleFlyElement.style.visibility = "visible";
+			
+			// 需要重定位
+			myParabola.position().move();			
+		});
+	});
+}
+</script>
+</body>
+</html>

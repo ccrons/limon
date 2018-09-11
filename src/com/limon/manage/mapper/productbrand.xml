@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.limon.manage.dao.ProductBrandDao">
+    <select id="getProductBrandList" parameterType="java.util.Map" resultType="com.limon.manage.model.ProductBrand">
+		select * from product_brand where isdel = 0 
+			<if test="sbrandname != null and sbrandname !=''">  
+				and brandname like CONCAT('%',#{sbrandname},'%') 
+			</if> 
+		order by id desc
+		limit #{pageStart} , #{pageSize}
+    </select>
+    <select id="getProductBrandListCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+		select count(*) from product_brand where isdel = 0 
+			<if test="sbrandname != null and sbrandname !=''">  
+				and brandname like CONCAT('%',#{sbrandname},'%') 
+			</if> 
+	</select>
+    <select id="getProductBrandListAll" resultType="com.limon.manage.model.ProductBrand">
+		select * from product_brand where isdel=0 order by initial
+	</select>
+    <select id="getProductBrand" parameterType="java.lang.String" resultType="com.limon.manage.model.ProductBrand">
+		select * from product_brand where id=#{id}
+    </select>
+    <select id="getIsUseProductBrand" parameterType="java.util.Map" resultType="java.lang.Integer">
+		select count(*) from product_brand where isdel=0  
+		<if test="brandname != null and brandname !=''">  
+			and brandname =#{brandname}
+		</if> 
+		<if test="id != null and id !=''">  
+			and id !=#{id} 
+		</if> 
+    </select>
+    <insert id="productBrandAdd" parameterType="com.limon.manage.model.ProductBrand">
+		insert into product_brand(brandname,initial)values(#{brandname},#{initial})
+    </insert>
+    <update id="productBrandUpdate" parameterType="com.limon.manage.model.ProductBrand">
+		update product_brand set brandname=#{brandname},initial=#{initial} where id=#{id}
+    </update>
+    <update id="productBrandDel" parameterType="java.lang.String">
+		update product_brand set isdel=1 where id=#{id}
+    </update>
+</mapper>

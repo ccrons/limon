@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.limon.http.dao.UpdatePwdDao">
+	<select id="checkOldPwd" parameterType="java.util.Map" resultType="java.lang.Integer">
+		select count(*) from app_user where id=#{uid} and password=#{opasswd}
+    </select>
+    <select id="updateAppUserPwd" parameterType="java.util.Map" resultType="java.lang.Integer">
+		update app_user set password=#{npasswd} where id=#{uid}
+    </select>
+</mapper>

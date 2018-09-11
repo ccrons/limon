@@ -1,0 +1,279 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport"
+	content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<!--[if lt IE 9]>
+<script type="text/javascript" src="${basePath}/lib/html5.js"></script>
+<script type="text/javascript" src="${basePath}/lib/respond.min.js"></script>
+<script type="text/javascript" src="${basePath}/lib/PIE_IE678.js"></script>
+<![endif]-->
+<link href="${basePath}/css/H-ui.min.css" rel="stylesheet"
+	type="text/css" />
+<link href="${basePath}/css/H-ui.admin.css" rel="stylesheet"
+	type="text/css" />
+<link href="${basePath}/css/style.css" rel="stylesheet" type="text/css" />
+<link href="${basePath}/lib/font-awesome/font-awesome.min.css"
+	rel="stylesheet" type="text/css" />
+<!--[if IE 7]>
+<link href="${basePath}/lib/font-awesome/font-awesome-ie7.min.css" rel="stylesheet" type="text/css" />
+<![endif]-->
+<link href="${basePath}/lib/iconfont/iconfont.css" rel="stylesheet"
+	type="text/css" />
+<!--[if IE 6]>
+<script type="text/javascript" src="${basePath}/lib/DD_belatedPNG_0.0.8a-min.js" ></script>
+<script>DD_belatedPNG.fix('*');</script>
+<![endif]-->
+<link rel="stylesheet" type="text/css"
+	href="${basePath}/lib/uploadify/uploadify.css">
+<title>${pageTitle}</title>
+</head>
+<body>
+	<div class="pd-20">
+		<div class="Huiform">
+			<form action="save" method="post" id="form-article-class">
+				<table class="table table-border table-bordered table-bg">
+					<tbody>
+						<tr>
+							<th class="text-r" width="100px">便利店名称：</th>
+							<td><div class="formControls col-6">
+									<input class="input-text" style="width:300px" type="text" value="" placeholder="输入便利店名称" name="storename" id="class-val" datatype="*1-100" nullmsg="便利店名称不能为空" maxlength="100" ajaxurl="validStoreName" >
+								</div>
+								<div class="col-4"></div></td>
+						</tr>
+						<tr>
+							<th class="text-r" width="100px">便利店账号：</th>
+							<td><div class="formControls col-6">
+									<input class="input-text" style="width:300px" type="text" value="" placeholder="输入便利店账号" name="username" id="class-val" datatype="*5-20" nullmsg="账号不能为空" maxlength="20" ajaxurl="validStoreUserName">
+								</div>
+								<div class="col-4"></div></td>
+						</tr>
+						<tr>
+							<th class="text-r" width="100px">联系人：</th>
+							<td><div class="formControls col-6">
+									<input class="input-text" style="width:300px" type="text" value="" placeholder="输入联系人" name="contact" id="class-val" datatype="*1-100" nullmsg="联系人不能为空" maxlength="100">
+								</div>
+								<div class="col-4"></div></td>
+						</tr>
+						<tr>
+							<th class="text-r" width="100px">联系电话：</th>
+							<td><div class="formControls col-6">
+									<input class="input-text" style="width:300px" type="text" value="" placeholder="输入联系电话" name="mobile" id="class-val" datatype="m" nullmsg="联系电话不能为空">
+								</div>
+								<div class="col-4"></div></td>
+						</tr>
+						<tr>
+							<th class="text-r" width="100px">省市区：</th>
+							<td>
+							
+							
+							<span class="select-box" style="width:160px"> 
+								<select class="select" name="provincecode" id="provincecode" size="1">
+									<option value="">请选择</option>
+									<#list provlist as prov>
+										<option value="${prov.provcode?c}">${prov.provname}</option>
+									</#list>
+								</select>
+							</span>
+							
+							<span class="select-box" style="width:200px"> 
+								<select class="select" name="citycode" id="citycode" size="1">
+									<option value="">请选择</option>
+								</select>
+							</span>
+							<br>
+							<br>
+							<div class="formControls col-13">
+							<span class="select-box" style="width:200px"> 
+								<select class="select" name="countycode" id="countycode" size="1" datatype="*" nullmsg="请选择所在区！">
+									<option value="">请选择</option>
+								</select>
+							</span>
+							</div>
+							<div class="col-4"></div>
+							
+							</td>
+						</tr>
+						<tr>
+							<th class="text-r" width="100px">详细地址：</th>
+							<td><div class="formControls col-6">
+									<input class="input-text" style="width:300px" type="text" value="" placeholder="输入详细地址" name="address" id="class-val" datatype="*1-100" nullmsg="详细地址不能为空">
+								</div>
+								<div class="col-4"></div></td>
+						</tr>
+						<tr>
+							<th class="text-r" width="100px">起送价：</th>
+							<td><div class="formControls col-6">
+									<input class="input-text" style="width:170px" type="text" value="" placeholder="输入起送价（元）" name="startprice" id="class-val" datatype="n" nullmsg="起送价不能为空" errormsg="请输入正整数" maxlength="5">
+								</div>
+								<div class="col-4"></div></td>
+						</tr>
+						<tr>
+							<th class="text-r" width="100px">配送费：</th>
+							<td><div class="formControls col-6">
+									<input class="input-text" style="width:170px" type="text" value="" placeholder="输入配送费（元）" name="sendprice" id="class-val" datatype="n" nullmsg="配送费不能为空" errormsg="请输入正整数" maxlength="5">
+								</div>
+								<div class="col-4"></div></td>
+						</tr>
+						<tr>
+							<th class="text-r" width="100px">配送距离：</th>
+							<td><div class="formControls col-6">
+									<input class="input-text" style="width:170px" type="text" value="" placeholder="输入配送距离（米）" name="distance" id="class-val" datatype="n" nullmsg="配送距离不能为空" errormsg="请输入正整数" maxlength="5">
+								</div>
+								<div class="col-4"></div></td>
+						</tr>
+						<tr>
+							<th class="text-r" width="100px">商家电话：</th>
+							<td><div class="formControls col-6">
+									<input class="input-text" style="width:300px" type="text" value="" placeholder="输入商家电话" name="storemobile" id="class-val" datatype="m" nullmsg="商家电话不能为空">
+								</div>
+								<div class="col-4"></div></td>
+						</tr>
+						<tr>
+							<th class="text-r" width="100px">配送时间：</th>
+							<td><div class="formControls col-6">
+									<input type="text" onfocus="WdatePicker({dateFmt:'H:mm',minDate:'00:00',maxDate:'24:00'})" id="send_stime" name="send_stime" class="input-text Wdate" style="width:120px;" value="8:00"/>
+								    -
+								    <input type="text" onfocus="WdatePicker({dateFmt:'H:mm',minDate:'#F{$dp.$D(\'send_stime\')}',maxDate:'24:00'})" id="send_etime" name="send_etime" class="input-text Wdate" style="width:120px;" value="17:00"/>
+								</div>
+								<div class="col-4"></div></td>
+							</td>
+						</tr>
+						<tr>
+							<th class="text-r" width="100px">营业时间：</th>
+							<td><div class="formControls col-6">
+									<input type="text" onfocus="WdatePicker({dateFmt:'H:mm',minDate:'00:00',maxDate:'24:00'})" id="bussiness_stime" name="bussiness_stime" class="input-text Wdate" style="width:120px;" value="8:00"/>
+								    -
+								    <input type="text" onfocus="WdatePicker({dateFmt:'H:mm',minDate:'#F{$dp.$D(\'bussiness_stime\')}',maxDate:'24:00'})" id="bussiness_etime" name="bussiness_etime" class="input-text Wdate" style="width:120px;" value="23:00"/>
+								</div>
+								<div class="col-4"></div></td>
+							</td>
+						</tr>
+						<tr>
+							<th class="text-r" width="100px">经度：</th>
+							<td><div class="formControls col-6">
+									<input class="input-text" style="width:170px" type="text" value="" placeholder="输入经度" name="lat" id="class-val" maxlength="10">
+								</div>
+								<div class="col-4"></div></td>
+						</tr>
+						
+						<tr>
+							<th class="text-r" width="100px">纬度：</th>
+							<td><div class="formControls col-6">
+									<input class="input-text" style="width:170px" type="text" value="" placeholder="输入纬度" name="lng" id="class-val" maxlength="10">
+								</div>
+								<div class="col-4"></div></td>
+						</tr>
+						
+						<tr>
+							<th class="text-r" width="100px">类型：</th>
+							<td>
+								<div class="radio-box">
+									<input type="radio" name="isself" value="1">
+									<label for="radio-1">自营店</label>
+								</div>
+								<div class="radio-box">
+									<input type="radio" name="isself" value="0" checked="checked"> 
+									<label for="radio-2">便利店</label>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<th class="text-r" width="100px">开通：</th>
+							<td>
+								<div class="radio-box">
+									<input type="radio" name="isopen" value="1" checked="checked">
+									<label for="radio-1">是</label>
+								</div>
+								<div class="radio-box">
+									<input type="radio" name="isopen" value="0"> 
+									<label for="radio-2">否</label>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<th></th>
+							<td><button type="submit" class="btn btn-success radius"
+									id="" name="">
+									<i class="icon-save"></i> 保存
+								</button></td>
+						</tr>
+					</tbody>
+				</table>
+			</form>
+		</div>
+	</div>
+	<script type="text/javascript" src="${basePath}/lib/jquery.min.js"></script>
+	<script type="text/javascript" src="${basePath}/lib/Validform_v5.3.2.js"></script>
+	<script type="text/javascript" src="${basePath}/js/H-ui.js"></script>
+	<script type="text/javascript" src="${basePath}/js/H-ui.admin.js"></script>
+	<script type="text/javascript" src="${basePath}/js/H-ui.admin.doc.js"></script>
+	<script type="text/javascript" src="${basePath}/lib/uploadify/jquery.uploadify.min.js"></script>
+	<script type="text/javascript" src="${basePath}/lib/My97DatePicker/WdatePicker.js"></script>
+	<script type="text/javascript">
+		$("#form-article-class").Validform({
+			tiptype:2
+		});
+		<#if rs?if_exists>
+			function parentSubmit(){
+				parent.document.getElementById('searchform').submit();
+			}
+			<#if rs == "1">
+				parent.layer.msg('添加成功',2,9);
+				setInterval(parentSubmit, 2000);
+			<#else>	
+				parent.layer.msg('添加失败,系统异常',2,8);
+				setInterval(parentSubmit, 2000);
+			</#if>
+		</#if>
+	</script>
+	<script type="text/javascript">
+         $(function () {
+			 //当省份发生改变时，城市改变
+             $('#provincecode').change(function () {
+                 $.ajax({
+                     type: "post",
+                     contentType: "application/json",
+                     url: "getCity?provcode=" + $(this).val(),
+                     data: "{}",
+                     success: function (result) {
+                         var strocity = '';
+                         strocity += '<option value="">请选择</option>';
+                         for (var i = 0; i < result.length; i++) {
+                             strocity += '<option value=' + result[i].citycode + '>';
+                             strocity += result[i].cityname;
+                             strocity += '</option>';
+                         }
+                         $('#citycode').html(strocity);
+                         $('#countycode').html('<option value="">请选择</option>');
+                     }
+                 })
+             })
+ 
+			 //当城市改变时，区改变
+             $('#citycode').change(function () {
+              $.ajax({
+                     type: "post",
+                     contentType: "application/json",
+                     url: "getCoty?citycode="+$(this).val(),
+                     data: "{}",
+                     success: function (result) {
+                         var stroarea = '';
+                         stroarea += '<option value="">请选择</option>';
+                         for (var i = 0; i < result.length; i++) {
+                             stroarea += '<option value=' + result[i].countycode + '>';
+                             stroarea += result[i].countyname;
+                             stroarea += '</option>';
+                         }
+                         $('#countycode').html(stroarea);
+                     }
+                   })
+              })
+         })
+     </script>
+</body>
+</html>

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.limon.manage.dao.OrderStatisticsDao">
+   <select id="getOrderInfoList" parameterType="java.util.Map" resultType="com.limon.store.model.OrderInfo">
+		SELECT a.*,b.storename FROM order_info a,store_info b WHERE a.status=3 and a.isdel=0 AND b.isdel=0 AND a.storeid=b.id
+		<if test="sstorename != null and sstorename !=''">  
+			and b.storename like CONCAT('%',#{sstorename},'%') 
+		</if> 
+		<if test="provincecode != null and provincecode !=''">  
+			and b.provincecode=#{provincecode} 
+		</if>
+		<if test="citycode != null and citycode !=''">  
+			and b.citycode=#{citycode} 
+		</if>
+		<if test="countycode != null and countycode !=''">  
+			and b.countycode=#{countycode} 
+		</if>
+		<if test="stime != null and stime !=''">  
+			and substring(a.createtime,1,10) <![CDATA[>=]]> #{stime} 
+		</if>
+		<if test="etime != null and etime !=''">  
+			and substring(a.createtime,1,10) <![CDATA[<=]]> #{etime} 
+		</if>
+		<if test="isself != null and isself !=''">  
+			and b.isself=#{isself} 
+		</if>
+		<if test="orderno != null and orderno !=''">  
+			and a.orderno like CONCAT('%',#{orderno},'%') 
+		</if>
+		order by a.id desc
+		limit #{pageStart} , #{pageSize}
+    </select>
+    <select id="getOrderInfoListCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+		SELECT count(*) FROM order_info a,store_info b WHERE a.status=3 and a.isdel=0 AND b.isdel=0 AND a.storeid=b.id
+		<if test="sstorename != null and sstorename !=''">  
+			and b.storename like CONCAT('%',#{sstorename},'%') 
+		</if> 
+		<if test="provincecode != null and provincecode !=''">  
+			and b.provincecode=#{provincecode} 
+		</if>
+		<if test="citycode != null and citycode !=''">  
+			and b.citycode=#{citycode} 
+		</if>
+		<if test="countycode != null and countycode !=''">  
+			and b.countycode=#{countycode} 
+		</if>
+		<if test="stime != null and stime !=''">  
+			and substring(a.createtime,1,10) <![CDATA[>=]]> #{stime} 
+		</if>
+		<if test="etime != null and etime !=''">  
+			and substring(a.createtime,1,10) <![CDATA[<=]]> #{etime} 
+		</if>
+		<if test="isself != null and isself !=''">  
+			and b.isself=#{isself} 
+		</if>
+    </select>
+    <select id="getOrderInfoListCountPrice" parameterType="java.util.Map" resultType="java.lang.Double">
+		SELECT sum(a.orderprice) FROM order_info a,store_info b WHERE a.status=3 and a.isdel=0 AND b.isdel=0 AND a.storeid=b.id
+		<if test="sstorename != null and sstorename !=''">  
+			and b.storename like CONCAT('%',#{sstorename},'%') 
+		</if> 
+		<if test="provincecode != null and provincecode !=''">  
+			and b.provincecode=#{provincecode} 
+		</if>
+		<if test="citycode != null and citycode !=''">  
+			and b.citycode=#{citycode} 
+		</if>
+		<if test="countycode != null and countycode !=''">  
+			and b.countycode=#{countycode} 
+		</if>
+		<if test="stime != null and stime !=''">  
+			and substring(a.createtime,1,10) <![CDATA[>=]]> #{stime} 
+		</if>
+		<if test="etime != null and etime !=''">  
+			and substring(a.createtime,1,10) <![CDATA[<=]]> #{etime} 
+		</if>
+		<if test="isself != null and isself !=''">  
+			and b.isself=#{isself} 
+		</if>
+    </select>
+    <select id="getOrderInfoListCountSendPrice" parameterType="java.util.Map" resultType="java.lang.Double">
+		SELECT sum(a.sendprice) FROM order_info a,store_info b WHERE a.status=3 and a.isdel=0 AND b.isdel=0 AND a.storeid=b.id
+		<if test="sstorename != null and sstorename !=''">  
+			and b.storename like CONCAT('%',#{sstorename},'%') 
+		</if> 
+		<if test="provincecode != null and provincecode !=''">  
+			and b.provincecode=#{provincecode} 
+		</if>
+		<if test="citycode != null and citycode !=''">  
+			and b.citycode=#{citycode} 
+		</if>
+		<if test="countycode != null and countycode !=''">  
+			and b.countycode=#{countycode} 
+		</if>
+		<if test="stime != null and stime !=''">  
+			and substring(a.createtime,1,10) <![CDATA[>=]]> #{stime} 
+		</if>
+		<if test="etime != null and etime !=''">  
+			and substring(a.createtime,1,10) <![CDATA[<=]]> #{etime} 
+		</if>
+		<if test="isself != null and isself !=''">  
+			and b.isself=#{isself} 
+		</if>
+    </select>
+</mapper>

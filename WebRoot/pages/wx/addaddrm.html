@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>添加新地址</title>
+    <!-- BOOTSTRAP CORE STYLE CSS -->
+
+    <link href="${basePath}/public/css/bootstrap.min.css" rel="stylesheet">
+    <link href="${basePath}/public/css/bootstrap-theme.min.css" rel="stylesheet">
+
+    <link href="${basePath}/public/css/bootstrap.css" rel="stylesheet" />
+    <!-- FONT AWESOME CSS -->
+    <link href="${basePath}/public/css/font-awesome.min.css" rel="stylesheet" />
+    <!-- FLEXSLIDER CSS -->
+    <link href="${basePath}/public/css/flexslider.css" rel="stylesheet" />
+
+    <!-- BOOTSTRAP CORE STYLE CSS -->
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <!-- CUSTOM STYLE CSS -->
+    <link href="${basePath}/public/css/head.css" rel="stylesheet" />
+
+    <link href="${basePath}/public/css/setting.css" rel="stylesheet" />
+    <link href="${basePath}/public/css/xzshdz.css" rel="stylesheet" />
+    <!-- Google	Fonts -->
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,300' rel='stylesheet' type='text/css' />
+</head>
+<body>
+
+<form action="saveaddrm" id="addrform" method="post">
+	<input type="hidden" value="" name="provname" id="provname">
+	<input type="hidden" value="${pinfo}" name="pinfo">
+    <ul class="call_add">
+        <li>
+            <b> 收货人：</b>&nbsp;<input type="text" id="cname" name="cname" maxlength="20" placeholder="请输入收货人姓名">
+        </li>
+        <li>
+            <b> 手机号码：</b>&nbsp;<input type="text" id="ctel" name="ctel" maxlength="11" placeholder="请输入收货人手机号码">
+        </li>
+        <li >
+        	<b> 省市区：</b>&nbsp;<input type="" name="cpcc" id="picker3" maxlength="100"placeholder="请选择省市区">
+        </li>
+        <li>
+            <b> 详细地址：</b>&nbsp;<input type="text" id="caddr" name="caddr" maxlength="50" placeholder="详细地址（精准到门牌号/楼层号）">
+        </li>
+    </ul>
+</form>
+
+<!--add adress-->
+<div class="address-an">
+    <input type="button" value="保存地址" class="dzan" id="" onclick="saveaddr();">
+</div>
+<!--add adress end-->
+
+<!--  Jquery Core Script -->
+<script src="${basePath}/public/js/jquery-1.10.2.js"></script>
+<!--  Core Bootstrap Script -->
+<script src="${basePath}/public/js/bootstrap.js"></script>
+<!--  Flexslider Scripts -->
+<script src="${basePath}/public/js/jquery.flexslider.js"></script>
+<!--  Scrolling Reveal Script -->
+<script src="${basePath}/public/js/scrollReveal.js"></script>
+<!--  Scroll Scripts -->
+<script src="${basePath}/public/js/jquery.easing.min.js"></script>
+<!--  Custom Scripts -->
+<script src="${basePath}/public/js/custom.js"></script>
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="${basePath}/public/js/jquery-1.12.4.min.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="${basePath}/public/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="${basePath}/lib/layer1.9/layer.js"></script>
+<script src="${basePath}/public/js/picker.min.js"></script>
+<script type="text/javascript">
+var data1 = [
+	<#list plist as p>
+		<#if p_index==0>
+			{text: '${p.name}',value: '${p.id?c}'}
+	    <#else>
+	       ,{text: '${p.name}',value: '${p.id?c}'}
+		</#if>
+	</#list>
+  ];
+
+  var data2 = [
+    <#list clist as p>
+		<#if p_index==0>
+			{text: '${p.name}',value: '${p.id?c}'}
+	    <#else>
+	       ,{text: '${p.name}',value: '${p.id?c}'}
+		</#if>
+	</#list>
+  ];
+
+  var data3 = [
+    <#list colist as p>
+		<#if p_index==0>
+			{text: '${p.name}',value: '${p.id?c}'}
+	    <#else>
+	       ,{text: '${p.name}',value: '${p.id?c}'}
+		</#if>
+	</#list>
+  ];
+  
+  var picker3El = document.getElementById('picker3');
+  var picker3 = new Picker({
+      data: [data1, data2, data3]
+  });
+
+  picker3.on('picker.select', function (selectedVal, selectedIndex) {
+      picker3El.value = picker3.data[0][selectedIndex[0]].text + ' ' + picker3.data[1][selectedIndex[1]].text + ' ' + picker3.data[2][selectedIndex[2]].text;
+  });
+
+  picker3.on('picker.change', function (index, selectedIndex) {
+    if(index==0){
+          //省份变化获取市列表
+          var newcitycode=0;
+          $.ajax({
+	           type: "post",
+	           contentType: "application/json",
+	           url: "ajaxgetcity?provcode="+picker3.data[0][selectedIndex].value,
+	           data: "{}",
+	           success: function (result) {
+	           	   var newdata2=eval('(' + result + ')'); 
+	           	   picker3.refillColumn(1,newdata2);
+	           	   //城市变化获取区列表
+		  	  	   $.ajax({
+			           type: "post",
+			           contentType: "application/json",
+			           url: "ajaxgetcounty?citycode="+newdata2[0].value,
+			           data: "{}",
+			           success: function (result) {
+			           	  var newdata3=eval('(' + result + ')'); 
+	           	   		  picker3.refillColumn(2,newdata3);
+			           }
+		          })
+	           }
+          })
+  	  }else if(index==1){
+  	  	  //城市变化获取区列表
+  	  	   $.ajax({
+	           type: "post",
+	           contentType: "application/json",
+	           url: "ajaxgetcounty?citycode="+picker3.data[1][selectedIndex].value,
+	           data: "{}",
+	           success: function (result) {
+	           	  	var newdata3=eval('(' + result + ')'); 
+	           	   	picker3.refillColumn(2,newdata3);
+	           }
+          })
+  	  }
+  });
+
+  picker3.on('picker.valuechange', function (selectedVal, selectedIndex) {
+      $("#provname").val(selectedVal);
+      //alert($("#provname").val());
+  });
+  
+  picker3El.addEventListener('click', function () {
+      picker3.show();
+  });
+  
+  function saveaddr(){
+  	if($("#cname").val()==""){
+  	    layer.msg('收货人姓名不能为空', {
+		   time: 1500 //2秒关闭（如果不配置，默认是3秒）
+	    }); 
+	    return false;
+  	}
+  	if($("#ctel").val()==""){
+  	    layer.msg('收货人电话不能为空', {
+		   time: 1500 //2秒关闭（如果不配置，默认是3秒）
+	   }); 
+	   return false;
+  	}
+  	if($("#ctel").val().length!=11){
+  	    layer.msg('收货人手机号码格式不正确', {
+		   time: 1500 //2秒关闭（如果不配置，默认是3秒）
+	    }); 
+	    return false;
+  	}
+  	if($("#picker3").val()==""){
+  		layer.msg('请选择省市区', {
+		   time: 1500 //2秒关闭（如果不配置，默认是3秒）
+	    }); 
+	    return false;
+  	}
+  	if($("#caddr").val()==""){
+  		layer.msg('请填写详细地址', {
+		   time: 1500 //2秒关闭（如果不配置，默认是3秒）
+	    }); 
+	    return false;
+  	}
+  	$("#addrform").submit();
+  }
+</script>
+</body>
+</html>

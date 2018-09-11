@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.limon.http.dao.GetSendingOrderDao">
+	<select id="getSendingOrder" parameterType="java.util.Map" resultType="com.limon.http.model.ShopOrder">
+		select a.id,a.orderno,a.orderprice as sprice,a.province,a.city,a.county,a.address,a.acceptname as acceptuser,a.accepttel,a.storeid as sid,d.storename as sname,a.createtime as time,a.status,a.goodscode as picknum,a.sendtime,a.paytype,a.remark from order_info a,app_useraddr c,store_info d where  a.isdel=0 and a.storeid=d.id and a.storeid=#{sid} and a.addrid=c.id
+		and a.status=2 
+		order by a.id desc
+		limit #{pageStart} , #{pageSize}
+    </select>
+    <select id="getSendingOrderCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+		select count(*) from order_info a,app_user b,app_useraddr c where a.isdel=0 and a.userid=b.id and a.storeid=#{sid} and a.addrid=c.id
+		and a.status=2 
+    </select>
+    <select id="getSendingOrderSelf" parameterType="java.util.Map" resultType="com.limon.http.model.ShopOrder">
+		select a.id,a.orderno,a.orderprice as sprice,a.province,a.city,a.county,a.address,a.acceptname as acceptuser,a.accepttel,a.storeid as sid,d.storename as sname,a.createtime as time,a.status,a.goodscode as picknum,a.sendtime,a.paytype,a.remark from order_info a,app_shopaddr c,store_info d where  a.isdel=0 and a.storeid=d.id and a.storeid=#{sid} and a.addrid=c.id
+		and a.status=2
+		order by a.id desc
+		limit #{pageStart} , #{pageSize}
+    </select>
+    <select id="getSendingOrderSelfCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+		select count(*) from order_info a,app_user b,app_shopaddr c where a.isdel=0 and a.userid=b.id and a.storeid=#{sid} and a.addrid=c.id
+		and a.status=2 
+    </select>
+    <select id="getStoreInfoById" parameterType="java.lang.String" resultType="com.limon.store.model.StoreInfo">
+		select a.*,b.provname as provname,c.cityname,d.countyname from store_info a left join area_province b on a.provincecode=b.provcode left join area_city c on a.citycode=c.citycode left join area_county d on a.countycode=d.countycode where a.isdel=0 and a.id=#{id}
+    </select>
+    <select id="getProductListByOid" parameterType="java.lang.Integer" resultType="com.limon.http.model.OrderProductGet">
+		select b.name as name,a.ordernum as count,a.productid as gid,b.imgurl,a.opprice from order_product a left join product_info b on a.productid=b.id where a.orderid=#{orderid}
+    </select>
+</mapper>

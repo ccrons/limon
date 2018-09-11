@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.limon.http.dao.SubmitOrderDao">
+	<insert id="saveOrder" parameterType="java.util.Map" useGeneratedKeys="true" keyProperty="id">
+		insert into order_info(orderno,payno,status,userid,storeid,orderprice,sendprice,remark,addrid,createtime,sendtime,goodscode,province,city,county,address,acceptname,accepttel,hasad)values(#{orderno},#{payno},#{status},#{userid},#{storeid},#{orderprice},#{sendprice},#{remark},#{addrid},#{createtime},#{sendtime},#{goodscode},#{province},#{city},#{county},#{address},#{acceptname},#{accepttel},#{hasad})
+    </insert>
+    <insert id="saveOrderProduct" parameterType="java.util.Map" useGeneratedKeys="true" keyProperty="id">
+		insert into order_product(orderid,productid,ordernum,opprice)values(#{orderid},#{productid},#{ordernum},#{opprice})
+    </insert>
+    
+    <select id="getProductNum" parameterType="java.util.Map" resultType="java.lang.Integer">
+		select salenum from store_product where storeid=#{sid} and productid=#{pid} and isdel=0
+    </select>
+    <select id="getTLimitNum" parameterType="java.util.Map" resultType="java.lang.Integer">
+		select tlnum from timelimit where productid=#{pid}
+    </select>
+    <update id="updateProductNum" parameterType="java.util.Map">
+		update store_product set salenum=salenum-1 where storeid=#{sid} and productid=#{pid}
+    </update>
+    <update id="updateTLimitNum" parameterType="java.util.Map">
+		update timelimit set tlnum=tlnum-1 where productid=#{pid}
+    </update>
+    <select id="getAddressById" parameterType="java.lang.Integer" resultType="com.limon.http.model.Address">
+		select * from app_shopaddr where id=#{aid}
+    </select>
+    <select id="getOrderbyId" parameterType="java.lang.Integer" resultType="com.limon.http.model.Order">
+		select a.*,b.storename as sname,b.id as sid from order_info a left join store_info b on a.storeid=b.id where a.id=#{oid}
+    </select>
+</mapper>

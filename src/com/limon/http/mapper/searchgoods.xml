@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.limon.http.dao.SearchGoodsDao">
+	<select id="searchGoods" parameterType="java.util.Map" resultType="com.limon.http.model.SearchGoods">
+		select a.productid as id,b.name,a.saleprice as price,b.imgurl,b.unit as specifications,c.id as typeid,c.typename,b.sprice as oprice,b.status as type,b.isrec,b.isfrist as isfirst from store_product a left join product_info b on a.productid=b.id left join product_type c on b.type=c.id left join product_brand d on b.brand=d.id where a.isdel=0 and b.isdel=0 and a.storeid=#{storeid} and b.name like CONCAT('%',#{name},'%') limit #{pageStart},#{pageSize} 
+    </select>
+    <select id="searchGoodsCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+		select count(*) from store_product a left join product_info b on a.productid=b.id left join product_type c on b.type=c.id left join product_brand d on b.brand=d.id where a.isdel=0 and b.isdel=0 and a.storeid=#{storeid} and b.name like CONCAT('%',#{name},'%')
+    </select>
+    
+    <select id="getBuyNum" parameterType="java.util.Map" resultType="com.limon.http.model.GoodsLimit">
+		select sum(b.ordernum) as buynum from order_product a left join order_info b on a.orderid=b.id where a.userid=#{userid} and a.status!=0 and a.createtime <![CDATA[>=]]> #{stime} and a.createtime <![CDATA[<=]]> #{etime} and b.productid=#{pid}
+    </select>
+    <select id="getTimelimit" parameterType="java.util.Map" resultType="com.limon.http.model.GoodsLimit">
+		select count(*) as limitnum from timelimit b where b.productid=#{pid}
+    </select>
+    <select id="getAdProduct" parameterType="java.util.Map" resultType="com.limon.http.model.GoodsLimit">
+		select count(*) as adnum from store_ad_product a where a.productid=#{pid}
+    </select>
+</mapper>

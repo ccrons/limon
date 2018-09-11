@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.limon.manage.dao.StoreStatisticsDao">
+   <select id="getStoreInfoList" parameterType="java.util.Map" resultType="com.limon.store.model.StoreInfo">
+		select a.*,b.provname,c.cityname,d.countyname from store_info a left join area_province b on a.provincecode=b.provcode left join area_city c on a.citycode=c.citycode left join area_county d on a.countycode=d.countycode where a.isdel=0
+		<if test="sstorename != null and sstorename !=''">  
+			and a.storename like CONCAT('%',#{sstorename},'%') 
+		</if> 
+		<if test="provincecode != null and provincecode !=''">  
+			and a.provincecode=#{provincecode} 
+		</if>
+		<if test="citycode != null and citycode !=''">  
+			and a.citycode=#{citycode} 
+		</if>
+		<if test="countycode != null and countycode !=''">  
+			and a.countycode=#{countycode} 
+		</if>
+		<if test="stime != null and stime !=''">  
+			and substring(a.createtime,1,10) <![CDATA[>=]]> #{stime} 
+		</if>
+		<if test="etime != null and etime !=''">  
+			and substring(a.createtime,1,10) <![CDATA[<=]]> #{etime} 
+		</if>
+		order by createtime desc
+		limit #{pageStart} , #{pageSize}
+    </select>
+    <select id="getStoreInfoListCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+		select count(*) from store_info a left join area_province b on a.provincecode=b.provcode left join area_city c on a.citycode=c.citycode left join area_county d on a.countycode=d.countycode where a.isdel=0
+		<if test="sstorename != null and sstorename !=''">  
+			and a.storename like CONCAT('%',#{sstorename},'%') 
+		</if> 
+		<if test="provincecode != null and provincecode !=''">  
+			and a.provincecode=#{provincecode} 
+		</if>
+		<if test="citycode != null and citycode !=''">  
+			and a.citycode=#{citycode} 
+		</if>
+		<if test="countycode != null and countycode !=''">  
+			and a.countycode=#{countycode} 
+		</if>
+		<if test="stime != null and stime !=''">  
+			and substring(a.createtime,1,10) <![CDATA[>=]]> #{stime} 
+		</if>
+		<if test="etime != null and etime !=''">  
+			and substring(a.createtime,1,10) <![CDATA[<=]]> #{etime} 
+		</if>
+    </select>
+    
+</mapper>

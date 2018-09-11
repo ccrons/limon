@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>榴莲购</title>
+    <link href="${basePath}/public/css/bootstrap.min.css" rel="stylesheet">
+    <!-- CUSTOM STYLE CSS -->
+    <link href="${basePath}/public/css/index.css" rel="stylesheet" />
+    <link href="${basePath}/public/css/aa-indexb.css" rel="stylesheet" />
+    <!-- Google	Fonts -->
+    <style type="text/css">
+        body, html,input{font-family:"微软雅黑" !important;}
+    </style>
+</head>
+<body >
+<!--轮播-->
+<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+    <!-- Indicators -->
+    <ol class="carousel-indicators quan" id="banner1"></ol>
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner" role="listbox" id="banner2"> </div>
+    <!-- Controls -->
+    <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev"></a>
+    <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next"></a>
+</div>
+<!--轮播 end-->
+
+<!--导航-->
+<div>
+    <table class="table-one">
+        <tr>
+            <td>
+                <a href="/timelimit" id="tlid"><img src="${basePath}/public/img/index/sy_b1.png" alt=""></a>
+                <p>限时抢购</p>
+            </td>
+            <td>
+                <a href="/zero" id="acid"><img src="${basePath}/public/img/index/sy_b2.png" alt=""></a>
+                <p>活动专区</p>
+            </td>
+            <td>
+                <a href="orderlist"><img src="${basePath}/public/img/index/sy_b3.png" alt=""></a>
+                <p>订单信息</p>
+            </td>
+            <td>
+                <a href="person"><img src="${basePath}/public/img/index/sy_b4.png" alt=""></a>
+                <p>个人中心</p>
+            </td>
+        </tr>
+    </table>
+</div>
+<!--导航 end-->
+<div class="hui_tiao"></div>
+
+<!--明星单品-->
+<table class="table-two">
+    <tr>
+        <td><b>明星单品</b></td>
+        <td class="td-you"><span>全国1200所大学的童鞋热单产品</span></td>
+    </tr>
+</table>
+<table class="tab-tja" id="goods1">
+</table>
+<div class="hui_tiao"></div>
+<!--超值特价-->
+<table class="table-two">
+    <tr>
+        <td><b>超值特价</b></td>
+        <td class="td-you"><span>某宝，某东都没有的超低价格</span></td>
+    </tr>
+</table>
+<table class="tab-tja" id="goods2">
+</table>
+<div class="hui_tiao"></div>
+<!--新品上架-->
+<table class="table-two">
+    <tr>
+        <td><b>新品上架</b></td>
+    </tr>
+</table>
+<table class="tab-tja" id="goods3">
+</table>
+
+<div class="hui_tiao" style="margin-top: 10%;"></div>
+<!--底部导航-->
+<table class="table-five">
+    <tr>
+        <td>
+            <a href="index"><img src="${basePath}/public/img/index/di_a1.png" alt="" onmouseover="this.src='${basePath}/public/img/index/sy_a11.png'" onmouseout="this.src='${basePath}/public/img/index/di_a1.png'"></a>
+            <p>首页</p>
+        </td>
+        <td>
+            <a href="goodslist"><img src="${basePath}/public/img/index/di_a2.png" alt="" onmouseover="this.src='${basePath}/public/img/index/sy_a121.png'" onmouseout="this.src='${basePath}/public/img/index/di_a2.png'"></a>
+            <p>商品</p>
+        </td>
+        <td>
+            <i class="sl-ia">${cartnum}</i>
+            <a href="cartlist"><img src="${basePath}/public/img/index/di_a3.png" alt="" onmouseover="this.src='${basePath}/public/img/index/sy_a131.png'" onmouseout="this.src='${basePath}/public/img/index/di_a3.png'"></a>
+            <p>购物车</p>
+        </td>
+        <td>
+            <a href="person"><img src="${basePath}/public/img/index/di_a4.png" alt="" onmouseover="this.src='${basePath}/public/img/index/sy_a141.png'" onmouseout="this.src='${basePath}/public/img/index/di_a4.png'"></a>
+            <p>我的</p>
+        </td>
+    </tr>
+</table>
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="${basePath}/public/js/jquery-1.12.4.min.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="${basePath}/public/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="${basePath}/public/js/jquery1.42.min.js"></script>
+<script type="text/javascript" src="${basePath}/public/js/jquery.SuperSlide.2.1.1.js"></script>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+	<script  type="text/javascript">
+		$(window).load(function(){
+			wx.config({
+			    debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+			    appId: 'wxb0df88b7ef3bd922', // 必填，公众号的唯一标识
+			    timestamp: '${sign.timestamp?c}', // 必填，生成签名的时间戳
+			    nonceStr: '${sign.nonceStr}', // 必填，生成签名的随机串
+			    signature: '${sign.signature}',// 必填，签名
+			    jsApiList: ['getLocation'] // 必填，需要使用的JS接口列表
+			});
+			wx.ready(function(){
+			    // config信息验证后会执行ready方法，所有接口调用都必须在config接口获得结果之后，config是一个客户端的异步操作，所以如果需要在页面加载时就调用相关接口，则须把相关接口放在ready函数中调用来确保正确执行。对于用户触发时才调用的接口，则可以直接调用，不需要放在ready函数中。
+				wx.getLocation({
+					type: 'wgs84', // 默认为wgs84的gps坐标，如果要返回直接给openLocation用的火星坐标，可传入'gcj02'
+					success: function (res) {
+						var latitude = res.latitude; // 纬度，浮点数，范围为90 ~ -90
+						var longitude = res.longitude; // 经度，浮点数，范围为180 ~ -180。
+						var speed = res.speed; // 速度，以米/每秒计
+						var accuracy = res.accuracy; // 位置精度
+						//获取首页banner数据
+						$.ajax({
+					           type: "post",
+					           contentType: "application/json",
+					           url: "ajaxbanner?lat="+latitude+"&lng="+longitude,
+					           data: "{}",
+					           success: function (result) {
+					           		var data=result.split("|");
+					                $("#banner1").html(data[0]);
+					                $("#banner2").html(data[1]);
+					                $("#tlid").attr("href",data[2]);
+					           		$("#acid").attr("href",data[3]);
+					           }
+					    })
+					    //获取首页商品数据
+						$.ajax({
+					           type: "post",
+					           contentType: "application/json",
+					           url: "ajaxindexgoods?lat="+latitude+"&lng="+longitude,
+					           data: "{}",
+					           success: function (result) {
+					           		var data=result.split("|");
+					                $("#goods1").html(data[0]);
+					                $("#goods2").html(data[1]);
+					                $("#goods3").html(data[2]);
+					           }
+					    })
+					}
+				});
+			});
+		}
+		);
+	</script>
+</body>
+</html>

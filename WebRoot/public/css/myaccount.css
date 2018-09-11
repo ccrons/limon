@@ -1,0 +1,177 @@
+*{
+    margin:0px;
+    padding: 0px;
+}
+a{
+    text-decoration: none;
+    color: black;
+}
+ul{
+    list-style-type: none;
+}
+body, html,input{font-family:"微软雅黑" !important;}
+
+
+.tou ul{
+    border-bottom: 2px solid #EDEDED;
+    width: 100%;
+    height: 65px;
+}
+.tou ul li{
+    float: left;
+    padding-left: 2%;
+    text-align: center;
+}
+i{
+    font-style:normal;
+}
+/*全部订单*/
+.er_daoa{
+    width: 100%;
+    border-bottom: 1px solid #DEDEDE;
+    text-align: center;
+    height: 52px;
+}
+
+.er_daoa a{
+    font-weight: bolder;
+    font-size: 15px;
+    color: black;
+    text-decoration: none;
+}
+
+.acttd{
+	background-color:#c0c0c0;
+}
+.er_daoa a:active{
+    color: #4BD0AE;
+}
+.no-order{
+    padding-top: 10%;
+    text-align: center;
+}
+
+
+/*已完成*/
+.hui_item{
+    width: 100%;
+    height: 15px;
+    background: #F2F2F2;
+}
+
+/*主编力荐*/
+.zblj-item li{
+    padding: 3% 5%;
+    float: left;
+}
+.zblj-item li span{
+    font-size: 15px;
+}
+.book-bj{
+    width: 100%;
+    padding: 3%;
+    background: #F5F5F5;
+    display: flex;
+    justify-content: flex-start;
+    border-top: 1px solid #ECECEC;
+}
+.book-bj .tu-a{
+    width: 25%;
+    text-align: center;
+}
+.book-bj .tu-a img{
+    width: 100%;
+}
+.book-bj .jies-b{
+    width: 75%;
+    padding-left: 2%;
+}
+
+.book-bj .jies-b ul{
+    display: flex;
+    justify-content: space-between;
+}
+.book-bj .jies-b .dibu{
+    margin-top: 5%;
+}
+.jage{
+    color: #84CB36;
+    font-size: 1.7rem;
+}
+
+.book-js{
+    width: 100%;
+}
+.buy{
+    float: right;
+    margin-right: 5%;
+    margin-top: 6px;
+    height:35px;
+}
+.buyno{
+    float: left;
+    margin-left:15px;
+    margin-top: 7px;
+    height:30px;
+    width:100%;
+}
+ i{
+    font-style:normal;
+}
+/*更多*/
+.more-an ul{
+    width: 100%;
+    height: 35px;
+    margin-top: 35px;
+    border-top: 1px solid #ECECEC;
+}
+
+.more-zi a{
+    color: #9A9A9A;
+    text-decoration: none;
+}
+.more-zi a:active{
+    color: #4BD0AE;
+}
+.pj{
+    border-radius: 5px;
+    width: 65px;
+    height: 30px;
+    color: black;
+    background: white;
+    outline: none;
+    border:1px solid #CFCFCF;
+}
+.qr{
+    border-radius: 5px;
+    width: 80px;
+    height: 30px;
+    color: black;
+    background: white;
+    outline: none;
+    border:1px solid #CFCFCF;
+}
+.qr:hover{
+    color: #73C517;
+    border:1px solid #73C517;
+}
+.pj:hover{
+    color: #73C517;
+    border:1px solid #73C517;
+}
+
+/*底部导航*/
+.boot-dh{
+    position: fixed;
+    width: 100%;
+    bottom: 0px;
+    padding-top: 2%;
+    background: white;
+}
+.tabled{
+    width: 100%;
+    text-align: center;
+}
+.boot-dh .boot-img{
+    width: 29%;
+}

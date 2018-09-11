@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.limon.http.dao.GetShopDao">
+	<select id="getShopByArea" parameterType="java.util.Map" resultType="com.limon.http.model.Shop">
+		select a.*,b.provname,c.cityname,d.countyname from store_info a left join area_province b on a.provincecode=b.provcode left join area_city c on a.citycode=c.citycode left join area_county d on a.countycode=d.countycode 
+		where a.isdel=0 and a.isopen=1 and a.citycode=#{city} and a.countycode=#{county} 
+    </select>
+</mapper>

@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="Expires" content="0"/>
+		<meta http-equiv="kiben" content="no-cache"/>
+	    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+	    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+        <meta name="viewport" content = "width=device-width, target-densitydpi=high-dpi, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+        <meta content="telephone=no" name="format-detection" />
+        <meta name="keywords" content="seokeywords"/>
+        <meta name="description" content="seodescription"/>
+	<title>限时抢购</title>
+	    <link rel="stylesheet" type="text/css" href="${basePath}/wap/css/api.css"/>
+	    <link rel="stylesheet" type="text/css" href="${basePath}/wap/css/common.css"/>
+        <link rel="stylesheet" type="text/css" href="${basePath}/wap/css/swiper.css">
+  <!-- xuanfu-->
+ 	<style>
+		  .swiper-container {
+                width: 100%;
+                height: 203px;
+                margin-bottom: 8px;
+            }
+            .swiper-slide {
+                text-align: center;
+                font-size: 18px;
+                background: #fff;
+
+                /* Center slide text vertically */
+                display: -webkit-box;
+                display: -webkit-flex;
+                display: flex;
+
+                -webkit-box-pack: center;
+                -webkit-justify-content: center;
+                justify-content: center;
+            }
+            .swiper-slide ul{
+                width: 100%;  
+            }
+            .swiper-slide li{
+                width: 100%;
+            }
+            .swiper-slide li .slide-nav{
+                float: left;
+                width: 25%;
+                padding: 10px 0;
+                text-align: center;
+            }
+            .swiper-slide li .slide-nav:active{
+                background-color: #e6e6e6;
+            }
+            
+            .swiper-slide li .slide-nav .slide-nav-text{
+                padding-top: 10px;
+                font-size: 12px;
+            }
+
+            /*item-list*/
+            .item-list{ background:#e7e7e7;
+
+            }
+            .item-list h2{
+                height: 48px;
+                line-height: 48px;
+                font-size: 14px;
+                font-weight: 400;
+                color: #6a6a6a;
+                padding: 0 8px;
+                border-bottom: 1px solid #dcdcdc;
+
+            }
+            .item-list li{
+                border-bottom: 1px solid #e7e7e7;
+                overflow: hidden;
+				margin-bottom:10px;
+				background:#FFF;
+				width:100%
+            }
+            .item-list li .item-list-img{
+                position: relative;
+               float: left; 
+               position: relative;
+                border-right: 1px solid #e7e7e7;
+               width: 40%;
+               height: auto;
+               overflow: hidden;
+			   padding:10px;
+            }
+            .item-list li .item-list-info{
+                display: -webkit-box;
+                display: -webkit-flex;
+                display: flex;
+
+                -webkit-box-orient: vertical;
+                -webkit-flex-direction: column;
+                flex-direction: column;
+                overflow: hidden;
+				padding:10px;
+				height:auto;
+				width:60%;
+            }
+            .item-list li .item-list-info .item-list-info-1{
+				height:24px; height:24px; overflow:hidden;
+            }
+            .item-list li .item-list-info .item-list-info-1 h3{
+                color: #333;
+                font-weight: 400;
+                font-size: 16px;
+                -webkit-box-flex: 2;
+                -webkit-flex: 2;
+                flex: 2;line-height:24px; height:24px;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; margin:0;
+            }
+            .item-list li .item-list-info .item-list-info-1 span{
+                font-size: 12px;
+                color: #999;
+            }
+            .item-list li .item-list-info .item-list-info-2{
+                line-height: 24px;
+                
+            }
+            .item-list li .item-list-info .item-list-info-2 p{
+                font-size: 16px;
+                color:#999;
+                overflow : hidden;
+            }
+            .item-list li .item-list-info .item-list-info-3{
+                display: -webkit-box;
+                display: -webkit-flex;
+                display: flex;
+                -webkit-flex-direction: row;
+                flex-direction: row;
+                -webkit-box-align: center;
+                -webkit-align-items: center;
+                align-items: center;
+
+                -webkit-box-align: baseline;
+                -webkit-align-items: baseline;
+                align-items: baseline;
+				margin-top:15px;
+            }
+            .item-list li .item-list-info .item-list-info-3 .flex{
+                font-size: 12px;
+                color: #999;
+                -webkit-box-flex: 1;
+                -webkit-flex: 1;
+                flex: 1;
+            }
+            .item-list li .item-list-info .item-list-info-3 .flex-1{
+                font-size: 12px;
+                color: #999;
+                display: inline-block;
+                margin-right: 5px;
+            }
+            .item-list li .item-list-info .item-list-info-3 .flex-1 em{
+                font-size: 22px;
+                font-weight: bold;
+                color: #dc2f1f;
+				padding-right:5px;
+                
+            }
+			.item-list li .item-list-info .item-list-info-3 .flex-2 del{ font-size:14px;}
+            .item-list li .item-list-info .item-list-info-3 .flex-2{
+                display: -webkit-box;
+                display: -webkit-flex;
+                display: flex;
+
+                -webkit-box-pack: start;
+                -webkit-justify-content: flex-start;
+                justify-content: flex-start;
+            }
+            .item-list li .item-list-info .item-list-info-3 .flex-2 span{
+                border-radius: 3px;
+                padding: 2px;
+                color: #f49d1a;
+                border: 1px solid #f49d1a;
+            }
+            .item-list li .item-list-info .item-list-info-3 .flex-3{
+                display: -webkit-box;
+                display: -webkit-flex;
+                display: flex;
+                -webkit-box-flex: 1.8;
+                -webkit-flex: 1.8;
+                flex: 1.8;
+
+                -webkit-box-pack: end;
+                -webkit-justify-content: flex-end;
+                justify-content: flex-end;
+                
+            }
+            .item-list-all{
+                font-size: 14px;
+                color: #dc2f1f;
+                text-align: center;
+                height: 40px;
+                line-height: 40px;
+				background:#fff;
+            }
+
+            /*icon*/
+            .i-nav{
+                display: inline-block;
+                padding: 20px;
+                vertical-align: middle;
+            }
+            .i-nav-0{
+                background: url(${basePath}/wap/image/ic_category_0.png) no-repeat center top;
+                -webkit-background-size: 40px;
+                background-size: 40px;
+            }
+            .i-nav-1{
+                background: url(${basePath}/wap/image/ic_category_1.png) no-repeat center top;
+                -webkit-background-size: 40px;
+                background-size: 40px;
+            }
+            .i-nav-2{
+                background: url(${basePath}/wap/image/ic_category_2.png) no-repeat center top;
+                -webkit-background-size: 40px;
+                background-size: 40px;
+            }
+            .i-nav-3{
+                background: url(${basePath}/wap/image/ic_category_3.png) no-repeat center top;
+                -webkit-background-size: 40px;
+                background-size: 40px;
+            }
+            .i-nav-4{
+                background: url(${basePath}/wap/image/ic_category_4.png) no-repeat center top;
+                -webkit-background-size: 40px;
+                background-size: 40px;
+            }
+            .i-nav-5{
+                background: url(${basePath}/wap/image/ic_category_5.png) no-repeat center top;
+                -webkit-background-size: 40px;
+                background-size: 40px;
+            }
+            .i-nav-6{
+                background: url(${basePath}/wap/image/ic_category_6.png) no-repeat center top;
+                -webkit-background-size: 40px;
+                background-size: 40px;
+            }
+            .i-nav-7{
+                background: url(${basePath}/wap/image/ic_category_7.png) no-repeat center top;
+                -webkit-background-size: 40px;
+                background-size: 40px;
+            }
+            .i-nav-8{
+                background: url(${basePath}/wap/image/ic_category_8.png) no-repeat center top;
+                -webkit-background-size: 40px;
+                background-size: 40px;
+            }
+            .i-nav-9{
+                background: url(${basePath}/wap/image/ic_category_9.png) no-repeat center top;
+                -webkit-background-size: 40px;
+                background-size: 40px;
+            }
+            .i-nav-10{
+                background: url(${basePath}/wap/image/ic_category_10.png) no-repeat center top;
+                -webkit-background-size: 40px;
+                background-size: 40px;
+            }
+            .i-nav-11{
+                background: url(${basePath}/wap/image/ic_category_11.png) no-repeat center top;
+                -webkit-background-size: 40px;
+                background-size: 40px;
+            }
+            .i-nav-12{
+                background: url(${basePath}/wap/image/ic_category_12.png) no-repeat center top;
+                -webkit-background-size: 40px;
+                background-size: 40px;
+            }
+            .i-nav-13{
+                background: url(${basePath}/wap/image/ic_category_13.png) no-repeat center top;
+                -webkit-background-size: 40px;
+                background-size: 40px;
+            }
+            .i-nav-14{
+                background: url(${basePath}/wap/image/ic_category_14.png) no-repeat center top;
+                -webkit-background-size: 40px;
+                background-size: 40px;
+            }
+            .i-nav-15{
+                background: url(${basePath}/wap/image/ic_category_15.png) no-repeat center top;
+                -webkit-background-size: 40px;
+                background-size: 40px;
+            }
+            .i-nobooking{
+                position: absolute;
+                top: 0;
+                left: 0;
+                z-index: 10;
+                display: inline-block;
+                padding: 22px;
+                background: url(${basePath}/wap/image/ic_nobooking_list.png) no-repeat center top;
+                -webkit-background-size: 45px;
+                background-size: 45px;
+                vertical-align: middle;
+            }
+            </style>
+	   </style>       	
+        <script type="text/javascript" src="${basePath}/lib/jquery.min.js"></script> 
+        <script type="text/javascript">
+        	function tolimit(gid,imgurl,spec,price,islimit,buynum,limitnum){
+				window.location.href='custom://limittime_gid-'+gid+'_imgurl-'+imgurl+'_spec-'+spec+'_price-'+price+'_islimit-'+islimit+'_buynum-'+buynum+'_limitnum-'+limitnum+'_max-';
+			}
+		    window.onload=function(){
+		        startdaojishi();
+		    }
+		    
+		    var t=0;
+			function startdaojishi(){
+				daojishi();
+				setInterval(daojishi,1000);
+			}
+		    function daojishi(){
+		    	//var now=getNow();
+		        var curr_time = new Date("${nowtime}");
+		        var end_time = new Date("${nowtime}");
+		         
+		        if("${tltime}"=="1,"){
+		        	<#if fstime1?if_exists&&fetime1?if_exists>
+		        		var stime1="${fstime1}";
+		        		var etime1="${fetime1}";
+		        		var regEx = new RegExp("\\-","gi"); 
+						stime1=stime1.replace(regEx,"/"); 
+					    etime1=etime1.replace(regEx,"/"); 
+		        		var stime=new Date(stime1);
+		        		var etime=new Date(etime1);
+		        		if(curr_time.getTime()<stime){
+		        			end_time=stime;
+		        		}else{
+		        			end_time=etime;
+		        		}
+		        	</#if>
+		        }
+		        if("${tltime}"=="2,"){
+		        	<#if fstime2?if_exists&&fetime2?if_exists>
+		        		var stime2="${fstime2}";
+		        		var etime2="${fetime2}"
+		        		var regEx = new RegExp("\\-","gi"); 
+					    stime2=stime2.replace(regEx,"/"); 
+					    etime2=etime2.replace(regEx,"/"); 
+		        		var stime=new Date(stime2);
+		        		var etime=new Date(etime2);
+		        		if(curr_time.getTime()<stime){
+		        			end_time=stime;
+		        		}else{
+		        			end_time=etime;
+		        		}
+		        	</#if>
+		        }
+		        if("${tltime}"=="3,"){
+		        	<#if fstime3?if_exists>
+		        		var stime3="${fstime3}";
+		        		var etime3="${fetime3}"
+		        		var regEx = new RegExp("\\-","gi"); 
+					    stime3=stime3.replace(regEx,"/"); 
+					    etime3=etime3.replace(regEx,"/"); 
+		        		var stime=new Date(stime3);
+		        		var etime=new Date(etime3);
+		        		if(curr_time.getTime()<stime){
+		        			end_time=stime;
+		        		}else{
+		        			end_time=etime;
+		        		}
+		        	</#if>
+		        }
+		       
+		        var left_time = parseInt((end_time-curr_time-t*1000)/1000);
+		        var day = parseInt(left_time/(60*60*24));
+		        var hour = parseInt(left_time/(60*60)%24);
+		        var min = parseInt((left_time/60%60));
+		        var sec = parseInt((left_time%60));
+				<#if isstart=='1'||isstart=='2'||isstart=='3'||isstart='0'||isstart='4'||isstart='5'>
+				document.getElementById('time').innerHTML=+hour+":"+min+":"+sec;
+				<#else>
+				document.getElementById('time').innerHTML="0:0:0";
+				</#if>
+		        
+				if(hour==0&&min==0&&sec==0){
+		   			window.location.href=window.location.href;
+		   		}
+		   		t++;
+		    }
+		
+		    // format time;
+		    function checkTime(i){
+		        if(i<10){
+		            return "0"+i;
+		        }else{
+		            return i;
+		        }
+		    }
+		    
+		    function getNow(){
+		    	var d=new Date();
+		    	var s=d+"";
+		    	$.ajax({
+		        	type: "post",
+		            	contentType: "application/json",
+		                url: "getnow",
+		                data: "{}",
+		                success: function (result) {
+		                		
+		                         s=result;
+		                }
+		        })
+		        return s;
+		    }
+    </script>
+    
+    
+    <style type="text/css">
+#d1{width:150px;height:150px;background:gold;
+	position: absolute; z-index: 99999;
+	left: 0; top: 0;}
+
+.nav {float:left; width:34%;
+color:#333; 
+text-align: center; line-height: 16px;
+background-color: #FFCD02;position: fixed; position: absolute; font-size:16px; padding:4px 0;}
+#ckhdgz_nn{ float:right; padding:0 15px; line-height:24px; background:#999;border-radius:12px; margin-top:8px; margin-right:10px; font-size:14px;}
+#ckhdgz_nn a{color:#FFF; text-decoration:none;}
+#time{}
+.nav:before {
+    content: "";
+    width: 0;
+    height: 0;
+    left: 99.5%;
+    top: 0;
+    position: absolute;
+    border-top: 20px solid transparent;
+    border-left: 20px solid #FFCD02;
+    border-bottom: 20px solid transparent;
+}
+#time_hdgz{position:relative;width: 100%; height: 40px;max-width: 100%; display: block; margin-bottom:3px; background:#e7e7e7;}
+.xsqgqg_nn{ float:left; margin-top:5px;}
+.xsqgqg_nn li{background:none; border-bottom:none; margin:0; float:left; text-align:center; color:#FFF;padding:8px 25px; background:#999; border-radius:20px; width:auto;}
+.xsqgqg_nn li.xsqgqg_nn_ljqg{background:#FFCD02;}
+#ckhdgz{background:#fff; margin-top:2px; padding-bottom:20px;}
+#ckhdgz .ckhdgz_bt{text-align:center; font-size:16px; line-height:34px; font-weight:600; padding:20px 0;}
+ol{list-style:decimal;}
+#ckhdgz ul li{width:68%; margin:0 16%; line-height:28px; margin-bottom:0; font-size:15px; color:#666; border-bottom:none;}
+#time_sjd{width:100%; height:50px;}
+#time_sjd li{width:33.333%; background:#FFCD02; height:50px; float:left; color:#FFF; text-align:center; line-height:25px; text-decoration:none;}
+#time_sjd li.qg_xian{border-right:1px solid #FFF; border-left:1px solid #FFF;}
+#time_sjd li span{width:100%;}
+#time_sjd li.qg_jieshu{background:#999;}
+#time_sjd li.qg_jijiang{background:#999;}
+.qg_img{width:100%; height:auto; overflow:hidden;}
+.qg_img a{overflow:hidden; height:auto; display:block;}
+</style>
+	</head>	
+<body>
+	    <div class="qg_img"><img  src="${basePath}/${tlpic}"  style="width: 100%; height: auto;max-width: 100%; display: block;"/></div>
+    <div id="time_sjd">
+   		<ul style="padding:0;">
+        	<li class="<#if isstart=='1'>qg_xian<#elseif isstart=='2'>qg_jieshu<#elseif isstart=='3'>qg_jieshu<#elseif isstart='0'>qg_jijiang<#elseif isstart='4'>qg_jieshu<#elseif isstart='5'>qg_jieshu<#elseif isstart='6'>qg_jieshu</#if>"><span>${stime1}-${etime1}</span>
+        		<span><#if isstart=='1'>正在抢购<#elseif isstart=='2'>已结束<#elseif isstart=='3'>已结束<#elseif isstart='0'>即将抢购<#elseif isstart='4'>已结束<#elseif isstart='5'>已结束<#elseif isstart='6'>已结束</#if></span>
+        	</li>
+        	<li class="<#if isstart=='1'>qg_jijiang<#elseif isstart=='2'>qg_xian<#elseif isstart=='3'>qg_jieshu<#elseif isstart='0'>qg_jijiang<#elseif isstart='4'>qg_jijiang<#elseif isstart='5'>qg_jieshu<#elseif isstart='6'>qg_jieshu</#if>"><span>${stime2}-${etime2}</span>
+        		<span><#if isstart=='1'>即将抢购<#elseif isstart=='2'>正在抢购<#elseif isstart=='3'>已结束<#elseif isstart='0'>即将抢购<#elseif isstart='4'>即将抢购<#elseif isstart='5'>已结束<#elseif isstart='6'>已结束</#if></span>
+        	</li>
+        	<li class="<#if isstart=='1'>qg_jijiang<#elseif isstart=='2'>qg_jijiang<#elseif isstart=='3'>qg_xian<#elseif isstart='0'>qg_jijiang<#elseif isstart='4'>qg_jijiang<#elseif isstart='5'>qg_jijiang<#elseif isstart='6'>qg_jieshu</#if>"><span>${stime3}-${etime3}</span>
+        		<span><#if isstart=='1'>即将抢购<#elseif isstart=='2'>即将抢购<#elseif isstart=='3'>正在抢购<#elseif isstart='0'>即将抢购<#elseif isstart='4'>即将抢购<#elseif isstart='5'>即将抢购<#elseif isstart='6'>已结束</#if></span>
+        	</li>
+        </ul>
+   </div>
+	<div style="position:relative;width: 100%; height: auto;max-width: 100%; display: block;">
+   <div id="time_hdgz">
+   <!-- <img src="../img/daojishi.png" alt="" />-->
+   <div class="nav"><span id="itext"><#if isstart=='1'||isstart=='2'||isstart=='3'>距本场结束<#elseif isstart='0'||isstart='4'||isstart='5'>距本场开始<#else>活动已结束</#if></span><div id="time">content</div></div>
+    <div id="ckhdgz_nn"><a href="#ckhdgz">查看活动规则</a></div>
+    </div>
+    </div>
+        <!-- 首页列表 -->
+     <!-- 首页列表 -->
+
+        <div class="box item-list">
+            <ul>
+            <#list saplist as sap>
+               <li class="tap clearfix" tapmode="tap-active">
+                    <div class="item-list-img">
+                        <a href="${basePath}/tpinfo?pid=${sap.id?c}&sid=${sid}&islimit=${islimit}&buynum=${buynum}&limitnum=${limitnum}"><img src="${basePath}/${sap.imgurl}" style="width: 100%; height: auto;max-width: 100%; display: block;">
+                        </a>
+                        <i class="i-nobooking"></i>
+                    </div>
+                    <div class="item-list-info">
+                        <div class="item-list-info-1">
+                           <h3>
+                            <#if sap.isrec==0>[推荐]</#if>
+							<#if sap.isofficial==1><!--[官方供应]--></#if>
+							<#if sap.adid?if_exists><!--[活动]--></#if>
+							<#if sap.tltime?if_exists><!--[限时]--></#if>
+							<#if sap.isfrist==1><!--[首单0元]--></#if>
+							<#if sap.isluck==1><!--[首单抽奖]--></#if>
+                           ${sap.name}</h3>
+                        </div>
+                        <div class="item-list-info-2">
+                            <p>${sap.unit}</p>
+                        </div>
+                        <div class="item-list-info-3">
+                        	<#if sap.adid?if_exists>
+								<div class="flex-1">
+	                               <span><em>¥${sap.adprice}</em></span>
+	                            </div>
+	                            <div class="flex flex-2">
+	                                <del>原价:${sap.price}</del>
+	                            </div>
+							<#elseif sap.tltime?if_exists>	
+								<div class="flex-1">
+	                               <span><em>¥${sap.tlprice}</em></span>
+	                            </div>
+	                            <div class="flex flex-2">
+	                                <del>原价:${sap.price}</del>
+	                            </div>
+							<#else>
+								<div class="flex-1">
+	                               <span><em>¥${sap.price}</em></span>
+	                            </div>
+							</#if> 
+                            
+                        </div>
+                        <div class="flex flex-3">
+                             <!--<img src="<#if sap.tlnum gt 0>${basePath}/wap/img/qgbt.png<#else>${basePath}/wap/img/qguangbt.png</#if>" style="width: 100%; height: auto;max-width: 100%; display: block;">-->
+                             <ul class="xsqgqg_nn">
+                             	<#if sap.tlnum gt 0>
+                             	<#if (isstart=='1'&&tltime=='1,')||(isstart=='2'&&tltime=='2,')||(isstart=='3'&&tltime=='3,')>
+                             		<li class="xsqgqg_nn_ljqg" onclick="addcart('${sap.id?c}','<#if sap.adid?if_exists>${sap.adprice}<#elseif sap.tltime?if_exists>${sap.tlprice}<#else>${sap.saleprice}</#if>');">立即抢购</li>
+                                <#else>
+                                	<li>即将抢购</li>
+                             	</#if>
+                             	<#else>
+                             	<li>已经抢光</li>
+                                </#if>
+                             </ul>
+                        <i class="i-nobooking"></i>
+                            </div>
+                    </div>
+                </li>
+		</#list>
+            </ul>
+            <div id="ckhdgz">
+                	<div class="ckhdgz_bt">活动规则</div>
+                    <ul type="1">
+                    <li>1.本次活动购买的实物商品，请先选择送货地址，再进行购买；</li>
+                    <li>2.活动时间：每日10点、12点、14点、16点、20点；</li>
+                    <li>3.活动单品每个商品每人每天抢购一次（限配送区域内用户参加）；</li>
+                    <li>4.商品数量有限，售完即止。需及时在线支付，请以订单支付成功时间为准；</li>
+                    <li>5.此活动可以和其他商品同时购买，订单金额在30元（含）以上免运费，不满30元需支付5元运费；</li>
+                    <li>6.若发现用户恶意刷单，爱鲜蜂有权拒绝送货.</li>
+                    </ul>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="${basePath}/wap/script/api.js"></script>
+	<script type="text/javascript" src="${basePath}/wap/script/swiper.min.js"></script>
+	<script type="text/javascript">
+		function addcart(pid,price){
+			window.location.href="/wx/addcartpage?pid="+pid+"&price="+price;
+		}
+	
+        var swiper = new Swiper('.swiper-container', {
+            pagination: '.swiper-pagination',
+            paginationClickable: true,
+        });
+
+        function openItemDetail(){
+            api.openWin({
+                name: 'win_detailItem',
+                url: 'win_detailItem.html',
+                animation:{
+                    type:"movein",                //动画类型（详见动画类型常量）
+                    subType:"from_right",       //动画子类型（详见动画子类型常量）
+                    duration:300                //动画过渡时间，默认300毫秒
+                }
+            })
+        }
+
+        function openItemList(param) {
+            api.openWin({
+                name: 'win_detail',
+                url: 'win_detail.html',
+                pageParam: {"name": param},
+                animation:{
+                    type:"movein",                //动画类型（详见动画类型常量）
+                    subType:"from_right",       //动画子类型（详见动画子类型常量）
+                    duration:300                //动画过渡时间，默认300毫秒
+                }
+            })
+        }
+
+		apiready = function(){
+            api.setRefreshHeaderInfo({
+                visible: true,
+                bgColor: '#ccc',
+                textColor: '#fff',
+                textDown: '下拉刷新...',
+                textLoadin:'载入中',
+                textUp: '松手刷新...',
+                showTime: true
+            }, function (ret, err) {
+                alert('ajax拉取数据并拼装完毕！');
+                api.refreshHeaderLoadDone();
+            });
+		}
+	</script> 
+
+	</body>
+
+</html>

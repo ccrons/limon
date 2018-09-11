@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.limon.http.dao.GetProvinceDao">
+	<select id="getAllProvince" parameterType="java.lang.Integer" resultType="com.limon.http.model.Province">
+		select provcode as id,provname as name from area_province
+    </select>
+</mapper>

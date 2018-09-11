@@ -1,0 +1,131 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<!--[if lt IE 9]>
+<script type="text/javascript" src="${basePath}/lib/html5.js"></script>
+<script type="text/javascript" src="${basePath}/lib/respond.min.js"></script>
+<script type="text/javascript" src="${basePath}/lib/PIE_IE678.js"></script>
+<![endif]-->
+<link href="${basePath}/css/H-ui.min.css" rel="stylesheet" type="text/css" />
+<link href="${basePath}/css/H-ui.admin.css" rel="stylesheet" type="text/css" />
+<link href="${basePath}/lib/font-awesome/font-awesome.min.css" rel="stylesheet" type="text/css" />
+<!--[if IE 7]>
+<link href="${basePath}/lib/font-awesome/font-awesome-ie7.min.css" rel="stylesheet" type="text/css" />
+<![endif]-->
+<link href="${basePath}/lib/iconfont/iconfont.css" rel="stylesheet" type="text/css" />
+<!--[if IE 6]>
+<script type="text/javascript" src="${basePath}/lib/DD_belatedPNG_0.0.8a-min.js" ></script>
+<script>DD_belatedPNG.fix('*');</script>
+<![endif]-->
+<style type="text/css">
+.btn-upload{position: relative; display:inline-block;height:36px; *display:inline;overflow:hidden;vertical-align:middle;cursor:pointer}
+.upload-url{cursor: pointer}
+.input-file{position:absolute; right:0; top:0; cursor: pointer; z-index:1; font-size:30em; *font-size:30px;opacity:0;filter: alpha(opacity=0)}
+.btn-upload .input-text{ width:auto;}5..form-group .upload-btn{ margin-left:-1px}
+</style>
+<title>${pageTitle}</title>
+</head>
+<body>
+	<div class="pd-20">
+		<form class="Huiform" action="saveversion" method="post" id="versionform" enctype="multipart/form-data">
+		<table class="table table-border table-bordered table-bg">
+					<tbody>
+						<tr>
+							<th class="text-r" width="100px">版本号：</th>
+							<td>
+							<div class="formControls col-4">
+								<input class="input-text" style="width:170px" type="text" value="" placeholder="输入版本号" name="version" id="version" datatype="price" nullmsg="版本号不能为空" errormsg="版本号点后最多两位">
+							</div>
+							<div class="col-3"></div>
+							</td>
+						</tr>
+						<tr>
+							<th class="text-r" width="100px">更新内容：</th>
+							<td>
+								<div class="formControls col-6" >
+              						<textarea class="textarea" name="description" id="description" onkeyup="textarealength(this,500)" placeholder="更新内容...最少输入5个字符" rows="2" cols="20" nullmsg="更新内容不能为空！" datatype="*5-500"></textarea>
+              						<p class="textarea-numberbar"><em class="textarea-length">0</em>/500</p>
+            					</div>
+            					<div class="col-3"></div>
+							</td>
+						</tr>
+						<tr>
+							<th class="text-r" width="100px">操作系统：</th>
+							<td>
+								<span class="select-box" style="width:150px"> 
+									<select class="select" name="os" size="1">
+										<option value="android">android</option>
+										<option value="ios">ios</option>
+									</select>
+								</span>
+							</td>
+						</tr>
+						<tr>
+							<th class="text-r" width="100px">更新类型：</th>
+							<td>
+								<span class="select-box" style="width:150px"> 
+									<select class="select" name="type" size="1">
+										<option value="0">强制</option>
+										<option value="1">可跳过</option>
+										<option value="2">无升级版本</option>
+									</select>
+								</span>
+							</td>
+						</tr>
+						<tr>
+							<th class="text-r" width="100px">上传安装包：</th>
+							<td>
+							<div class="formControls col-7">
+								<span class="btn-upload form-group">
+									<input class="input-text upload-url radius" type="text" name="uploadfile-1" id="uploadfile-1" readonly datatype="*" nullmsg="请选择文件!">
+									<a href="javascript:void();" class="btn btn-primary radius">
+									<i class="iconfont">&#xf0020;</i> 浏览文件</a>
+									<input type="file" multiple name="app_path" class="input-file">
+								</span>
+							</div>
+							<div class="col-3"></div>
+							</td>
+						</tr>
+						<tr>
+							<th></th>
+							<td><button type="submit" class="btn btn-success radius"
+									id="" name="">
+									<i class="icon-save"></i> 保存
+								</button></td>
+						</tr>
+					</tbody>
+				</table>
+		</form>
+	</div>
+<script type="text/javascript" src="${basePath}/lib/jquery.min.js"></script> 
+<script type="text/javascript" src="${basePath}/lib/Validform_v5.3.2.js"></script> 
+<script type="text/javascript" src="${basePath}/lib/layer1.8/layer.min.js"></script> 
+<script type="text/javascript" src="${basePath}/lib/laypage/laypage.js"></script> 
+<script type="text/javascript" src="${basePath}/js/H-ui.js"></script> 
+<script type="text/javascript" src="${basePath}/js/H-ui.admin.js"></script> 
+<script type="text/javascript" src="${basePath}/js/H-ui.admin.doc.js"></script> 
+<script type="text/javascript" src="${basePath}/lib/passwordStrength-min.js"></script> 
+<script type="text/javascript">
+	$("#versionform").Validform({
+		tiptype:2
+	});
+	<#if rs?if_exists>
+		function parentSubmit(){
+			parent.document.getElementById('searchform').submit();
+		}
+		<#if rs == "1">
+			parent.layer.msg('添加成功',2,9);
+			setInterval(parentSubmit, 2000);
+		<#else>
+			parent.layer.msg('添加失败',2,9);
+			setInterval(parentSubmit, 2000);
+		</#if>
+	</#if>
+</script>
+</body>
+</html>

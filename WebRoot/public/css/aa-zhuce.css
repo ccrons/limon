@@ -1,0 +1,80 @@
+body, html,input{font-family:"微软雅黑" !important;}
+
+p{
+    margin-bottom: 0;
+}
+.shouji{
+    width: 90%;
+    margin-left: 5%;
+    background: white;
+    border-radius: 5px;
+    padding: 3%;
+    border: 1px solid #ECECEC;
+    outline: none;
+    margin-top: 5%;
+}
+.mimaq{
+    width: 90%;
+    margin-left: 5%;
+    margin-right: 5%;
+
+}
+.mimaq li{
+    margin-top: 4%;
+    float: left;
+}
+
+.lia{
+    width: 65%;
+}
+.mima{
+    width: 100%;
+    background: white;
+    border-radius: 5px;
+    padding: 5%;
+    border: 1px solid #ECECEC;
+    outline: none;
+}
+.lib{
+    width: 30%;
+    float: right;
+}
+.xsmm{
+    width: 100%;
+    background: #F5F5F5;
+    border-radius: 5px;
+    padding:10% ;
+    border: 1px solid #E9E9E9;
+    outline: none;
+    color: #A4A3A4;
+}
+
+.ljzc-an{
+    width: 90%;
+    margin-left: 5%;
+    background: #5FCC25;
+    border-radius: 5px;
+    padding: 3%;
+    border: none;
+    margin-top: 5%;
+    color: white;
+}
+.xieyi{
+    margin-left: 5%;
+    margin-top: 3%;
+}
+.xieyi span a{
+    color: #5FCC25;
+}
+
+/*登录*/
+.zcwj{
+    width: 90%;
+    margin-left: 5%;
+    margin-top: 3%;
+}
+.zcwj td a{
+    text-decoration: underline;
+    color: #62BF38;
+    font-size: 1em;
+}

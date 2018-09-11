@@ -1,0 +1,109 @@
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>地址管理</title>
+    <!-- BOOTSTRAP CORE STYLE CSS -->
+
+    <link href="${basePath}/public/css/bootstrap.min.css" rel="stylesheet">
+    <link href="${basePath}/public/css/bootstrap-theme.min.css" rel="stylesheet">
+
+    <link href="${basePath}/public/css/bootstrap.css" rel="stylesheet" />
+
+
+    <!-- BOOTSTRAP CORE STYLE CSS -->
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <!-- CUSTOM STYLE CSS -->
+    <link href="${basePath}/public/css/head.css" rel="stylesheet" />
+
+    <link href="${basePath}/public/css/setting.css" rel="stylesheet" />
+    <link href="${basePath}/public/css/xzshdz.css" rel="stylesheet" />
+
+    <!-- Google	Fonts -->
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,300' rel='stylesheet' type='text/css' />
+</head>
+<body>
+<!--地址选择-->
+<!--add detail-->
+<#list alist as addr>
+<div class="take_add"  onclick="usethis(${addr.id});">
+    <ul class="ul_dd">
+        <li style="font-size: 16px;margin-right: 2%;">
+            <span><#if addr.isdefault==1><font color="orange">[默认]</font></#if>${addr.contact}</span>
+            <span style="float: right;">${addr.mobile}</span>
+        </li>
+
+        <li>
+            <span><i class="mr"></i> ${addr.province} ${addr.city} ${addr.county} ${addr.address}</span>
+        </li>
+    </ul>
+    <div style="padding-bottom:10px;padding-left:33%">
+   		<a href="javascript:defaultaddr(${addr.id});"><span class="mbutton">设为默认地址</span></a>&nbsp;&nbsp;
+        <a href="javascript:editaddr(${addr.id});"><span class="mbutton">编辑</span></a>&nbsp;&nbsp;
+        <a href="javascript:deladdr(${addr.id});"><span class="mbutton">删除</span></a>
+    </div>
+    <div class="hui_box"></div>
+</div>
+</#list>
+<!--add detail end-->
+
+
+
+<!--add adress-->
+<div class="address-an">
+    <input type="button" value="添加新地址" class="dzan" id="" onclick="addaddr();">
+</div>
+<!--add adress end-->
+
+
+
+
+<!--  Jquery Core Script -->
+<script src="${basePath}/public/js/jquery-1.10.2.js"></script>
+<!--  Core Bootstrap Script -->
+<script src="${basePath}/public/js/bootstrap.js"></script>
+<!--  Flexslider Scripts -->
+<script src="${basePath}/public/js/jquery.flexslider.js"></script>
+<!--  Scrolling Reveal Script -->
+<script src="${basePath}/public/js/scrollReveal.js"></script>
+<!--  Scroll Scripts -->
+<script src="${basePath}/public/js/jquery.easing.min.js"></script>
+<!--  Custom Scripts -->
+<script src="${basePath}/public/js/custom.js"></script>
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="${basePath}/public/js/jquery-1.12.4.min.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="${basePath}/public/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="${basePath}/lib/layer1.9/layer.js"></script>
+<script type="text/javascript">
+function usethis(aid){
+	$("#dz_"+aid).attr("checked",true);
+	window.location.href="makeorder?pinfo=${pinfo}&aid="+aid;
+}
+function addaddr(){
+	window.location.href="addaddrm";
+}
+
+function editaddr(aid){
+	window.location.href="editaddr?aid="+aid;
+}
+
+function deladdr(aid){
+	if (confirm("确认要删除吗？")==true){ 
+		window.location.href="deladdr?aid="+aid;
+	}else{ 
+		return; 
+	} 
+}
+
+function defaultaddr(aid){
+	window.location.href="defaultaddr?aid="+aid;
+}
+</script>
+</body>
+</html>

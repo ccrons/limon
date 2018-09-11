@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>订单列表</title>
+    <!-- BOOTSTRAP CORE STYLE CSS -->
+
+    <link href="${basePath}/public/css/bootstrap.min.css" rel="stylesheet">
+    <link href="${basePath}/public/css/bootstrap-theme.min.css" rel="stylesheet">
+
+    <link href="${basePath}/public/css/bootstrap.css" rel="stylesheet" />
+    <!-- FONT AWESOME CSS -->
+    <link href="${basePath}/public/css/font-awesome.min.css" rel="stylesheet" />
+    <!-- FLEXSLIDER CSS -->
+    <link href="${basePath}/public/css/flexslider.css" rel="stylesheet" />
+    <!-- CUSTOM STYLE CSS -->
+    <link href="${basePath}/public/css/myaccount.css" rel="stylesheet" />
+
+    <link href="${basePath}/public/css/head.css" rel="stylesheet" />
+    <!-- Google	Fonts -->
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,300' rel='stylesheet' type='text/css' />
+    <!-- BOOTSTRAP CORE STYLE CSS -->
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+</head>
+<body >
+
+
+<!--二次导航-->
+<table class="er_daoa">
+    <tr>
+        <td <#if ostatus==9>class="acttd"</#if>>
+            <a  href="orderlist?ostatus=9">全 部</a>
+        </td>
+        <td <#if ostatus==0>class="acttd"</#if>>
+            <a  href="orderlist?ostatus=0">待付款</a>
+        </td>
+        <td <#if ostatus==1>class="acttd"</#if>>
+            <a  href="orderlist?ostatus=1">待发货</a>
+        </td>
+        <td <#if ostatus==2>class="acttd"</#if>>
+            <a  href="orderlist?ostatus=2">待收货</a>
+        </td>
+        <td <#if ostatus==3>class="acttd"</#if>>
+            <a  href="orderlist?ostatus=3">已完成</a>
+        </td>
+    </tr>
+</table>
+
+
+<!-- 全部订单 -->
+<div class="tab-content">
+    <!--全部-->
+    <div role="tabpanel" class="tab-pane active bg_hui" id="qb_all">
+    	<#if olist?size==0>
+    		<div style="font-size:15px;text-align:center;margin-top:30px;">
+				没有查询到订单
+			</div>
+    	<#else>
+		<#list olist as order>
+			<div class="hui_item"></div>
+			<span class="buyno">订单号：${order.orderno}
+			<span style="margin-left:17%;">
+			<#if order.status==0>
+				<font style="color:	#32CD32">待付款</font>
+			<#elseif order.status==1>
+				<font style="color:	#32CD32">待发货</font>
+			<#elseif order.status==2>
+				<font style="color:	#32CD32">待收货</font>
+			<#elseif order.status==3>
+				<font style="color:	#32CD32">已完成</font>
+			<#elseif order.status==4>
+				<font style="color:	#32CD32">已取消</font>
+			<#elseif order.status==5>
+				<font style="color:	#32CD32">退款中</font>
+			<#elseif order.status==6>
+				<font style="color:	#32CD32">已退款</font>			
+			</#if>
+			</span>
+			</span>
+			<#assign totalcount=0>
+	        <#list order.list as product>
+	        <div class="book-bj">
+	            <div class="tu-a">
+	                <a href=""><img src="/${product.imgurl}" alt="" class="book-img"></a>
+	            </div>
+	            <div class="jies-b">
+	                <ul>
+	                    <li>
+	                        <span>${product.name}</span>
+	                    </li>
+	                    <li>
+	                        
+	                        <#assign totalcount=totalcount+product.count>
+	                    </li>
+	                </ul>
+	                <ul class="dibu">
+	                    <li>
+	                        <span class=" jage"><i>￥</i>${product.opprice}</span>
+	                        <i style="padding-left:140px;">x <i>${product.count}</i></i>
+	                    </li>
+	                </ul>
+	            </div>
+	        </div>
+			</#list>
+			<span class="buy">共 <i>${totalcount}</i> 件商品&nbsp;&nbsp;&nbsp;合计：<i id="">${order.sprice}</i> 元（含运费 <i>10元</i>）</span>
+	
+	        <!--按钮-->
+	        <div class="more-an">
+	            <ul>
+	            	<#if order.status==0>
+						<li style="float:right;margin-right:-100px;margin-top:7px;"><a href="orderdetail?oid=${order.id?c}"><input type="button" value="订单详情" class="qr"></a></li>
+						<li style="float:right;margin-right:-190px;margin-top:7px;"><a href="javascript:cancelorder(${order.id?c},${ostatus})"><input type="button" value="取消订单" class="qr"></a></li>
+						<li style="float:right;margin-right:-280px;margin-top:7px;"><a href="getPayOrder?orderno=${order.orderno}&total_fee=${order.sprice}"><input type="button" value="去付款" class="qr"></a></li>
+					<#elseif order.status==1>
+	                	<li style="float:right;margin-right:-190px;margin-top:7px;"><a href="orderdetail?oid=${order.id?c}"><input type="button" value="订单详情" class="qr"></a></li>
+						<li style="float:right;margin-right:-280px;margin-top:7px;"><a href="toreturn?oid=${order.id?c}&ostatus=${ostatus}"><input type="button" value="申请退款" class="qr"></a></li>
+					<#elseif order.status==2>
+						<li style="float:right;margin-right:-190px;margin-top:7px;"><a href="orderdetail?oid=${order.id?c}"><input type="button" value="订单详情" class="qr"></a></li>
+						<li style="float:right;margin-right:-280px;margin-top:7px;"><a href="javascript:okorder(${order.id?c},${ostatus})"><input type="button" value="确认收货" class="qr"></a></li>
+					<#elseif order.status==3>
+						<li style="float:right;margin-right:-280px;margin-top:7px;"><a href="orderdetail?oid=${order.id?c}"><input type="button" value="订单详情" class="qr"></a></li>
+					<#elseif order.status==4>
+						<li style="float:right;margin-right:-280px;margin-top:7px;"><a href="orderdetail?oid=${order.id?c}"><input type="button" value="订单详情" class="qr"></a></li>
+					<#elseif order.status==5>
+						<li style="float:right;margin-right:-280px;margin-top:7px;"><a href="orderdetail?oid=${order.id?c}"><input type="button" value="订单详情" class="qr"></a></li>
+					<#elseif order.status==6>
+						<li style="float:right;margin-right:-280px;margin-top:7px;"><a href="orderdetail?oid=${order.id?c}"><input type="button" value="订单详情" class="qr"></a></li>			
+					</#if>
+	                
+	            </ul>
+	        </div>
+	        
+			</#list>
+		</#if>
+
+    </div>
+	
+
+</div>
+
+
+
+<!--  Jquery Core Script -->
+<script src="${basePath}/public/js/jquery-1.10.2.js"></script>
+<!--  Core Bootstrap Script -->
+<script src="${basePath}/public/js/bootstrap.js"></script>
+<!--  Flexslider Scripts -->
+<script src="${basePath}/public/js/jquery.flexslider.js"></script>
+<!--  Scrolling Reveal Script -->
+<script src="${basePath}/public/js/scrollReveal.js"></script>
+<!--  Scroll Scripts -->
+<script src="${basePath}/public/js/jquery.easing.min.js"></script>
+<!--  Custom Scripts -->
+<script src="${basePath}/public/js/custom.js"></script>
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="${basePath}/public/js/jquery-1.12.4.min.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="${basePath}/public/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="${basePath}/lib/layer1.9/layer.js"></script>
+<script type="text/javascript">
+function cancelorder(oid,ostatus){
+	if (confirm("确认要取消吗？")==true){ 
+		window.location.href="cancelorder?oid="+oid+"&ostatus="+ostatus;
+	}else{ 
+		return; 
+	} 
+}
+function okorder(oid,ostatus){
+	if (confirm("确认要收货吗？")==true){ 
+		window.location.href="okorder?oid="+oid+"&ostatus="+ostatus;
+	}else{ 
+		return; 
+	} 
+}
+function opendetail(oid){
+	window.location.href="orderdetail?oid="+oid;
+}
+</script>
+</body>
+</html>

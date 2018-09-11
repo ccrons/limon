@@ -1,0 +1,138 @@
+i{
+    font-style:normal;
+}
+
+body, html,input{font-family:"微软雅黑" !important;}
+
+/*我的账户*/
+.p-shop{
+    padding: 3% 5%;
+    font-size: 18px;
+    color: #A4A3A4;
+}
+.table-gl{
+    width: 100%;
+    text-align: center;
+}
+
+.table-gl td{
+    padding-top: 6%;
+    padding-bottom: 6%;
+}
+
+.table-gl td p{
+    font-size: 15px;
+    font-weight: bolder;
+    padding-top: 3%;
+    color: #5C6068;
+}
+
+/*购买记录*/
+.table-jl{
+    margin-top: -3%;
+    width: 100%;
+}
+.table-jl tr{
+    border-bottom: 1px solid #F4F4F4;
+}
+.p-book{
+    font-size: 15px;
+    font-weight: bold;
+    margin-left: 3%;
+    margin-top: 2%;
+}
+.p-time{
+    color: #BAB9BA;
+    margin-left: 4%;
+    margin-bottom: 3%;
+    font-size: 13px;
+}
+.sl-i{
+    font-size: 16px;
+    color: #4CD0AF;
+}
+
+
+/*我的-帮助中心*/
+.helpcen-aa{
+    width: 100%;
+    background: #F2F2F2;
+    font-size: 16px;
+    color: #999999;
+    padding: 3% 6%;
+}
+.helpcen-taba{
+    width: 100%;
+}
+.helpcen-taba p{
+    font-size: 15px;
+    font-weight: bolder;
+    padding-left: 5%;
+}
+.helpcen-taba img{
+    width: 30%;
+}
+.helpcen-taba td{
+    border-top: 1px solid #EEEEEE;
+    border-bottom: 1px solid #EEEEEE;
+    padding-top: 3%;
+    padding-bottom: 1%;
+}
+
+.help-ul{
+    width: 100%;
+}
+.help-ul li{
+    border-bottom: 1px solid #EEEEEE;
+}
+.help-wenti{
+    width: 100%;
+    padding: 3%;
+    font-size: 15px;
+    font-weight: bolder;
+    border: none;
+    outline: none;
+}
+
+
+/*我的-意见反馈*/
+.helpcen-bb{
+    width: 100%;
+    background: #A1E5D3;
+    font-size: 15px;
+    color: #10AFA2;
+    padding: 4% 6%;
+}
+.idea-bb{
+    margin-top: 5%;
+    width: 100%;
+}
+.idea-bb p{
+    font-size: 16px;
+    font-weight: bolder;
+}
+.idea-inpt{
+    width: 90%;
+    margin-left: 5%;
+    padding: 3%;
+    font-size: 14px;
+    border: 2px solid #50D1B1;
+    outline: none;
+    border-radius: 5px;
+}
+
+.idea-lv{
+    padding:0.5% 0.5%;
+    background: #48CFAD;
+    margin-right: 4%;
+}
+
+.idea-tj{
+    width: 86%;
+    margin: 7%;
+    background: #48CFAD;
+    color: white;
+    padding: 2% 0;
+    border-radius: 5px;
+    border: 1px solid #48CFAD;
+}

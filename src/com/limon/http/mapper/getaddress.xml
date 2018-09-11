@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.limon.http.dao.GetAddressDao">
+	<select id="getAddressByAid" parameterType="java.lang.Integer" resultType="com.limon.http.model.Address">
+		select * from app_useraddr where id=#{aid}
+    </select>
+    <select id="getDefaultAddress" parameterType="java.lang.Integer" resultType="com.limon.http.model.Address">
+		select a.id,a.userid,a.address,a.contact,a.mobile,a.createtime,a.isdefault,a.isdel,b.provname as province,c.cityname as city,d.countyname as county from 
+		app_useraddr a left join area_province b on a.province=b.provcode left join area_city c on a.city=c.citycode
+ 		left join area_county d on a.county=d.countycode where a.isdel=0 and userid=#{uid} order by a.createtime desc
+    </select>
+    <select id="getAddressNameByAid" parameterType="java.lang.Integer" resultType="com.limon.http.model.Address">
+		select a.id,a.userid,a.address,a.contact,a.mobile,a.createtime,a.isdefault,a.isdel,b.provname as province,c.cityname as city,d.countyname as county from 
+		app_useraddr a left join area_province b on a.province=b.provcode left join area_city c on a.city=c.citycode
+ 		left join area_county d on a.county=d.countycode where a.id=#{aid}
+    </select>
+</mapper>

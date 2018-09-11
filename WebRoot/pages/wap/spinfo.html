@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>商品详情</title>
+
+    <!-- BOOTSTRAP CORE STYLE CSS -->
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+
+    <link href="${basePath}/public/css/bootstrap.min.css" rel="stylesheet">
+    <link href="${basePath}/public/css/bootstrap-theme.min.css" rel="stylesheet">
+
+    <link href="${basePath}/public/css/bootstrap.css" rel="stylesheet" />
+
+    <!-- CUSTOM STYLE CSS -->
+    <link href="${basePath}/public/css/index.css" rel="stylesheet" />
+    <link href="${basePath}/public/css/head.css" rel="stylesheet" />
+
+    <link href="${basePath}/public/css/aa-spxqing.css" rel="stylesheet" />
+
+    <!-- Google	Fonts -->
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,300' rel='stylesheet' type='text/css' />
+</head>
+<body >
+
+<!--轮播-->
+<div id="carousel-example-generic" style="position: relative;width:100%;height: 251px;text-align:center;border-bottom: 1px solid #e7e7e7;">
+
+    <img src="${basePath}/${sapi.imgurl}" alt="..." style="width:100%;height:100%;margin:0,0">
+</div>
+<!--轮播 end-->
+
+
+<!--商品信息-->
+<div class="xq-xx">
+    <p>
+    <#if sapi.isrec==0><!--[推荐]--></#if>
+	<#if sapi.isofficial==1><!--[官方供应]--></#if>
+	<#if sapi.adid?if_exists><!--[活动]--></#if>
+	<#if sapi.tltime?if_exists><!--[限时]--></#if>
+	<#if sapi.isfrist==1><!--[首单0元]--></#if>
+	<#if sapi.isluck==1><!--[首单抽奖]--></#if>
+    ${sapi.name}</p>
+    <ul>
+        <li>
+            <span class="lv">￥
+            <#if sapi.adid?if_exists>
+				${sapi.adprice}
+			<#elseif sapi.tltime?if_exists>	
+				¥${sapi.tlprice}
+			<#else>
+				${sapi.price}
+			</#if> 
+			</span>
+        </li>
+        <li>
+            <span>规格：${sapi.unit}</span>
+        </li>
+    </ul>
+    <ul>
+        <li>
+            <span>配送方式：快递</span>
+        </li>
+        <li>
+            <span>&nbsp;&nbsp;</span>
+        </li>
+        <li>
+            <span>产地：${sapi.paddress}</span>
+        </li>
+    </ul>
+</div>
+
+<!--承诺-->
+<ul class="xq-cn">
+    <li>
+        <img src="${basePath}/public/img/grzx/xq-a21.png" alt="" class="duih">
+        <span>平台承诺48小时内发货</span>
+    </li>
+    <li>
+        <img src="${basePath}/public/img/grzx/xq-a21.png" alt="" class="duih1">
+        <span>7天无理由</span>
+    </li>
+    <li>
+        <img src="${basePath}/public/img/grzx/xq-a21.png" alt="" class="duih2">
+        <span>保真</span>
+    </li>
+    <!-- 
+    <li style="text-align: right;">
+        <a href=""><span class="glyphicon glyphicon-menu-right jthui"></span></a>
+    </li>
+     -->
+</ul>
+
+<div class="xq-hui"></div>
+
+<!--选择
+<div class="xq-xz">
+    <span>已选：“榴莲味”</span>
+    <a href="aa-spxqing.html"><span class="glyphicon glyphicon-menu-right jthui"></span></a>
+</div>
+-->
+
+<div class="xq-hui"></div>
+
+<!--图片详情-->
+<div class="xq-tpxq">
+	<#if sapi.pic1?if_exists>
+    	<img src="${basePath}/${sapi.pic1}" alt="">
+    </#if>
+    <#if sapi.pic2?if_exists>
+    	<img src="${basePath}/${sapi.pic2}" alt="">
+    </#if>
+    <#if sapi.pic3?if_exists>
+    	<img src="${basePath}/${sapi.pic3}" alt="">
+    </#if>
+    <#if sapi.pic4?if_exists>
+    	<img src="${basePath}/${sapi.pic4}" alt="">
+    </#if>
+    <#if sapi.pic5?if_exists>
+    	<img src="${basePath}/${sapi.pic5}" alt="">
+    </#if>
+</div>
+<!--底部导航-->
+<table class="table-fivedh">
+    <tr>
+        <td>
+            <a href="wx/index"><img src="${basePath}/public/img/index/sy_a15n.jpg" alt=""></a>
+            <p style="font-size: 10pt;">首页</p>
+        </td>
+        <td>
+            <a href="wx/goodslist"><img src="${basePath}/public/img/index/sy_a16n.jpg" alt=""></a>
+            <p style="font-size: 10pt;">分类</p>
+        </td>
+        <td>
+            <a href="javascript:favgoods(${sapi.id?c});"><img id="scimg" src="${basePath}/public/img/index/sy_a17n<#if sapi.isfav==1>h</#if>.jpg" alt=""></a>
+            <p style="font-size: 10pt;" id="sctext"><#if sapi.isfav==1>已</#if>收藏</p>
+        </td>
+        <td>
+            <input type="button" value="加入购物车" class="addgwc" onclick="addcart(${sapi.id?c},<#if sapi.adid?if_exists>${sapi.adprice}<#elseif sapi.tltime?if_exists>¥${sapi.tlprice}<#else>${sapi.price}</#if>);">
+        </td>
+        <td>
+            <input type="button" value="立即购买" class="ljgm" onclick="tomakeorder();">
+        </td>
+    </tr>
+</table>
+
+
+
+<!--  Jquery Core Script -->
+<script src="${basePath}/public/js/jquery-1.10.2.js"></script>
+<!--  Core Bootstrap Script -->
+<script src="${basePath}/public/js/bootstrap.js"></script>
+<!--  Flexslider Scripts -->
+<script src="${basePath}/public/js/jquery.flexslider.js"></script>
+<!--  Scrolling Reveal Script -->
+<script src="${basePath}/public/js/scrollReveal.js"></script>
+<!--  Scroll Scripts -->
+<script src="${basePath}/public/js/jquery.easing.min.js"></script>
+<!--  Custom Scripts -->
+<script src="${basePath}/public/js/custom.js"></script>
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="${basePath}/public/js/jquery-1.12.4.min.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="${basePath}/public/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="${basePath}/lib/layer1.9/layer.js"></script>
+<script type="text/javascript" src="${basePath}/lib/laypage/laypage.js"></script>
+<script type="text/javascript">
+function favgoods(pid){
+	$.ajax({
+           type: "post",
+           contentType: "application/json",
+           url: "wx/favgoods?pid=" + pid,
+           data: "{}",
+           success: function (result) {
+           	   if(result=="0"){
+           	   		$("#scimg").attr("src", "${basePath}/public/img/index/sy_a17n.jpg");
+               		$("#sctext").text("收藏");
+           	   }else{
+           	   		$("#scimg").attr("src", "${basePath}/public/img/index/sy_a17nh.jpg");
+               		$("#sctext").text("已收藏");
+           	   }
+           }
+       })
+}
+
+function addcart(pid,price){
+	$.ajax({
+           type: "post",
+           contentType: "application/json",
+           url: "wx/addcart?pid=" + pid+"&price="+price,
+           data: "{}",
+           success: function (result) {
+           	   layer.msg('加入购物车成功', {
+				  time: 1500 //2秒关闭（如果不配置，默认是3秒）
+			   }); 
+           }
+       })
+}
+
+function tomakeorder(){
+	var pinfo="${sapi.id?c};1;<#if sapi.adid?if_exists>${sapi.adprice}<#elseif sapi.tltime?if_exists>¥${sapi.tlprice}<#else>${sapi.price}</#if>";
+	window.location.href="wx/makeorder?pinfo="+pinfo;
+}
+</script>
+</body>
+</html>

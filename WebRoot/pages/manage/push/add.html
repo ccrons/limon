@@ -1,0 +1,186 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<!--[if lt IE 9]>
+<script type="text/javascript" src="${basePath}/lib/html5.js"></script>
+<script type="text/javascript" src="${basePath}/lib/respond.min.js"></script>
+<script type="text/javascript" src="${basePath}/lib/PIE_IE678.js"></script>
+<![endif]-->
+<link href="${basePath}/css/H-ui.min.css" rel="stylesheet" type="text/css" />
+<link href="${basePath}/css/H-ui.admin.css" rel="stylesheet" type="text/css" />
+<link href="${basePath}/lib/font-awesome/font-awesome.min.css" rel="stylesheet" type="text/css" />
+<!--[if IE 7]>
+<link href="${basePath}/lib/font-awesome/font-awesome-ie7.min.css" rel="stylesheet" type="text/css" />
+<![endif]-->
+<link href="${basePath}/lib/iconfont/iconfont.css" rel="stylesheet" type="text/css" />
+<!--[if IE 6]>
+<script type="text/javascript" src="${basePath}/lib/DD_belatedPNG_0.0.8a-min.js" ></script>
+<script>DD_belatedPNG.fix('*');</script>
+<![endif]-->
+<style type="text/css">
+.btn-upload{position: relative; display:inline-block;height:36px; *display:inline;overflow:hidden;vertical-align:middle;cursor:pointer}
+.upload-url{cursor: pointer}
+.input-file{position:absolute; right:0; top:0; cursor: pointer; z-index:1; font-size:30em; *font-size:30px;opacity:0;filter: alpha(opacity=0)}
+.btn-upload .input-text{ width:auto;}5..form-group .upload-btn{ margin-left:-1px}
+</style>
+<title>${pageTitle}</title>
+</head>
+<body>
+	<div class="pd-20">
+		<form class="Huiform" action="savepush" method="post" id="messageform" enctype="multipart/form-data">
+		<table class="table table-border table-bordered table-bg">
+					<tbody>
+						<tr>
+							<th class="text-r" width="100px">省市区：</th>
+							<td>
+							
+							
+							<span class="select-box" style="width:160px"> 
+								<select class="select" name="provincecode" id="provincecode" size="1">
+									<option value="">请选择</option>
+									<#list provlist as prov>
+										<option value="${prov.provcode?c}">${prov.provname}</option>
+									</#list>
+								</select>
+							</span>
+							
+							<span class="select-box" style="width:200px"> 
+								<select class="select" name="citycode" id="citycode" size="1">
+									<option value="">请选择</option>
+								</select>
+							</span>
+							<br>
+							<br>
+							<span class="select-box" style="width:200px"> 
+								<select class="select" name="countycode" id="countycode" size="1">
+									<option value="">请选择</option>
+								</select>
+							</span>
+							<span class="select-box" style="width:200px"> 
+								<select class="select" name="storeid" id="storeid" size="1">
+									<option value="">请选择</option>
+								</select>
+							</span>
+							
+							</td>
+						</tr>
+						<tr>
+							<th class="text-r" width="100px">推送内容：</th>
+							<td>
+								<div class="formControls col-6" >
+              						<textarea class="textarea" name="content" id="content" onkeyup="textarealength(this,500)" placeholder="推送内容...最少输入5个字符" rows="2" cols="30" nullmsg="推送内容不能为空！" datatype="*5-500"></textarea>
+              						<p class="textarea-numberbar"><em class="textarea-length">0</em>/500</p>
+            					</div>
+            					<div class="col-3"></div>
+							</td>
+						</tr>
+						
+						<tr>
+							<th></th>
+							<td><button type="submit" class="btn btn-success radius" id="" name="">
+									<i class="icon-save"></i> 推送
+								</button></td>
+						</tr>
+					</tbody>
+				</table>
+		</form>
+	</div>
+<script type="text/javascript" src="${basePath}/lib/jquery.min.js"></script> 
+<script type="text/javascript" src="${basePath}/lib/Validform_v5.3.2.js"></script> 
+<script type="text/javascript" src="${basePath}/lib/layer1.8/layer.min.js"></script> 
+<script type="text/javascript" src="${basePath}/lib/laypage/laypage.js"></script> 
+<script type="text/javascript" src="${basePath}/js/H-ui.js"></script> 
+<script type="text/javascript" src="${basePath}/js/H-ui.admin.js"></script> 
+<script type="text/javascript" src="${basePath}/js/H-ui.admin.doc.js"></script> 
+<script type="text/javascript" src="${basePath}/lib/passwordStrength-min.js"></script> 
+<script type="text/javascript">
+	$("#messageform").Validform({
+		tiptype:2
+	});
+	<#if rs?if_exists>
+		function parentSubmit(){
+			parent.document.getElementById('searchform').submit();
+		}
+		<#if rs == "1">
+			parent.layer.msg('消息推送成功',2,9);
+			setInterval(parentSubmit, 2000);
+		<#elseif rs == "2">
+			parent.layer.msg('没有可推送用户',2,9);
+			setInterval(parentSubmit, 2000);		
+		<#else>
+			parent.layer.msg('消息推送失败',2,9);
+			setInterval(parentSubmit, 2000);
+		</#if>
+	</#if>
+</script>
+<script type="text/javascript">
+         $(function () {
+			 //当省份发生改变时，城市改变
+             $('#provincecode').change(function () {
+                 $.ajax({
+                     type: "post",
+                     contentType: "application/json",
+                     url: "getCity?provcode=" + $(this).val(),
+                     data: "{}",
+                     success: function (result) {
+                         var strocity = '';
+                         strocity += '<option value="">请选择</option>';
+                         for (var i = 0; i < result.length; i++) {
+                             strocity += '<option value=' + result[i].citycode + '>';
+                             strocity += result[i].cityname;
+                             strocity += '</option>';
+                         }
+                         $('#citycode').html(strocity);
+                         $('#countycode').html('<option value="">请选择</option>');
+                     }
+                 })
+             })
+ 
+			 //当城市改变时，区改变
+             $('#citycode').change(function () {
+              $.ajax({
+                     type: "post",
+                     contentType: "application/json",
+                     url: "getCoty?citycode="+$(this).val(),
+                     data: "{}",
+                     success: function (result) {
+                         var stroarea = '';
+                         stroarea += '<option value="">请选择</option>';
+                         for (var i = 0; i < result.length; i++) {
+                             stroarea += '<option value=' + result[i].countycode + '>';
+                             stroarea += result[i].countyname;
+                             stroarea += '</option>';
+                         }
+                         $('#countycode').html(stroarea);
+                     }
+                   })
+              })
+              
+              //当区改变时，店铺改变
+             $('#countycode').change(function () {
+              $.ajax({
+                     type: "post",
+                     contentType: "application/json",
+                     url: "getStore?countycode="+$(this).val(),
+                     data: "{}",
+                     success: function (result) {
+                         var stroarea = '';
+                         stroarea += '<option value="">请选择</option>';
+                         for (var i = 0; i < result.length; i++) {
+                             stroarea += '<option value=' + result[i].id + '>';
+                             stroarea += result[i].storename;
+                             stroarea += '</option>';
+                         }
+                         $('#storeid').html(stroarea);
+                     }
+                   })
+              })
+         })
+     </script>
+</body>
+</html>

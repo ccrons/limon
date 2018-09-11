@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.limon.http.dao.GetMyGoodsByShopDao">
+	<select id="getMyGoodsByShop" parameterType="java.util.Map" resultType="com.limon.http.model.ShopMyGoods">
+		select a.id,a.name,a.imgurl,a.unit as specifications,b.typename,c.brandname,sp.id as spid,sp.storeid,sp.salenum as num,sp.saleprice as price,sd.id as saleid,sa.id as adid,a.isofficial from product_info a ,store_product sp  left join store_discount sd on sp.productid=sd.productid and sp.storeid=sd.storeid left join store_adinfo sa on sp.productid=sa.productid and sa.storeid=sa.storeid,product_type b,product_brand c where a.type=b.id and a.brand=c.id and a.isdel=0  and a.isonline=1 and sp.productid = a.id and sp.isdel=0 and sp.storeid=#{sid}
+		order by a.id desc
+		limit #{pageStart} , #{pageSize}
+    </select>
+    <select id="getMyGoodsByShopCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+		select count(*) from product_info a ,store_product sp,product_type b,product_brand c where a.type=b.id and a.brand=c.id and a.isdel=0 and a.isonline=1 and sp.productid = a.id and sp.isdel=0 and sp.storeid=#{sid}
+    </select>
+    <select id="getMyGoodsSearchByShop" parameterType="java.util.Map" resultType="com.limon.http.model.ShopMyGoodsIndex">
+		select a.id,a.isrec,a.isfrist,a.isluck,a.name,a.imgurl,a.unit as specifications,b.typename,c.brandname,sp.id as spid,sp.storeid,sp.salenum as num,sp.saleprice as price,sd.id as saleid,sa.id as adid,a.isofficial from product_info a ,store_product sp  left join store_discount sd on sp.productid=sd.productid and sp.storeid=sd.storeid left join store_adinfo sa on sp.productid=sa.productid and sa.storeid=sa.storeid,product_type b,product_brand c where a.type=b.id and a.brand=c.id and a.isdel=0  and a.isonline=1 and sp.productid = a.id and sp.isdel=0 and sp.storeid=#{sid}
+		and a.isrec=0 and a.name like CONCAT('%',#{searchkey},'%')  order by a.id desc
+    </select>
+    <select id="getMyGoodsRecByShop" parameterType="java.util.Map" resultType="com.limon.http.model.ShopMyGoodsIndex">
+		select a.id,a.isrec,a.isfrist,a.isluck,a.name,a.imgurl,a.unit as specifications,b.typename,c.brandname,sp.id as spid,sp.storeid,sp.salenum as num,sp.saleprice as price,sd.id as saleid,sa.id as adid,a.isofficial from product_info a ,store_product sp  left join store_discount sd on sp.productid=sd.productid and sp.storeid=sd.storeid left join store_adinfo sa on sp.productid=sa.productid and sa.storeid=sa.storeid,product_type b,product_brand c where a.type=b.id and a.brand=c.id and a.isdel=0  and a.isonline=1 and sp.productid = a.id and sp.isdel=0 and sp.storeid=#{sid}
+		and a.isrec=0 order by a.id desc
+    </select>
+    <select id="getMyGoodsFirstByShop" parameterType="java.util.Map" resultType="com.limon.http.model.ShopMyGoodsIndex">
+		select a.id,a.isrec,a.isfrist,a.isluck,a.name,a.imgurl,a.unit as specifications,b.typename,c.brandname,sp.id as spid,sp.storeid,sp.salenum as num,sp.saleprice as price,sd.id as saleid,sa.id as adid,a.isofficial from product_info a ,store_product sp  left join store_discount sd on sp.productid=sd.productid and sp.storeid=sd.storeid left join store_adinfo sa on sp.productid=sa.productid and sa.storeid=sa.storeid,product_type b,product_brand c where a.type=b.id and a.brand=c.id and a.isdel=0  and a.isonline=1 and sp.productid = a.id and sp.isdel=0 and sp.storeid=#{sid}
+		and a.isfrist=1 order by a.id desc
+    </select>
+    <select id="getMyGoodsLuckByShop" parameterType="java.util.Map" resultType="com.limon.http.model.ShopMyGoodsIndex">
+		select a.id,a.isrec,a.isfrist,a.isluck,a.name,a.imgurl,a.unit as specifications,b.typename,c.brandname,sp.id as spid,sp.storeid,sp.salenum as num,sp.saleprice as price,sd.id as saleid,sa.id as adid,a.isofficial from product_info a ,store_product sp  left join store_discount sd on sp.productid=sd.productid and sp.storeid=sd.storeid left join store_adinfo sa on sp.productid=sa.productid and sa.storeid=sa.storeid,product_type b,product_brand c where a.type=b.id and a.brand=c.id and a.isdel=0  and a.isonline=1 and sp.productid = a.id and sp.isdel=0 and sp.storeid=#{sid}
+		and a.isluck=1 order by a.id desc
+    </select>
+</mapper>

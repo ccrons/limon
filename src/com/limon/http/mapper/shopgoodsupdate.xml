@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.limon.http.dao.ShopGoodsUpdateDao">
+	 <update id="storeProductUpdate" parameterType="java.util.Map">
+		update store_product set saleprice=#{saleprice},salenum=#{salenum} where id=#{spid}
+    </update>
+    <update id="storeProductUpdatePrice" parameterType="java.util.Map">
+		update store_product set saleprice=#{saleprice} where id=#{spid}
+    </update>
+    <update id="storeProductUpdateNum" parameterType="java.util.Map">
+		update store_product set salenum=#{salenum} where id=#{spid}
+    </update>
+</mapper>

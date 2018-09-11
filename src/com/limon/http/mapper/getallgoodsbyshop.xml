@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.limon.http.dao.GetAllGoodsByShopDao">
+	<select id="getGoodsByShop" parameterType="java.util.Map" resultType="com.limon.http.model.ShopAllGoods">
+		select d.*,d.unit as specifications,d.upnum as num,b.typename,c.brandname,sp.id as spid,sp.storeid,sp.salenum,sp.saleprice from (
+		select a.* from product_info a  where a.id not in(select productid from store_product where storeid=#{sid} and isdel=0) 
+		and a.isdel=0 and a.isonline=1 and a.isself = 0 
+		order by a.id desc limit #{pageStart} , #{pageSize}
+		) d 
+		left join product_type b on d.type=b.id 
+		left join product_brand c on d.brand=c.id
+		left join store_product sp on d.id=sp.productid and sp.storeid=#{sid} and sp.isdel=0	
+    </select>
+    <select id="getGoodsByShopCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+		select count(*) from product_info a where a.isdel=0 and a.isonline=1 and a.id not in(select productid from store_product where storeid=#{sid} and isdel=0)
+    </select>
+</mapper>

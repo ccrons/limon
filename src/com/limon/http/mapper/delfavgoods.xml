@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.limon.http.dao.DelFavGoodsDao">
+	<delete id="delFavGoods" parameterType="java.util.Map">
+		delete from  app_favourite where appuserid=#{userid} and storeid=#{storeid} and productid=#{productid}
+    </delete>
+</mapper>

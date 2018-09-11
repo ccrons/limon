@@ -1,0 +1,88 @@
+*{
+    margin:0;
+    padding: 0;
+}
+a{
+    text-decoration: none;
+    color: black;
+}
+i{
+    font-style:normal;
+}
+ul{
+    list-style-type: none;
+}
+body, html,input{font-family:"微软雅黑" !important;}
+
+.head-eidt{
+    width: 100%;
+    border-bottom: 1px solid #EFF0EF;
+}
+.head-eidt img{
+    width: 27%;
+}
+.head-eidt td{
+    padding: 3% 5%;
+    vertical-align: text-top;
+}
+.head-bb{
+    text-align: center;
+    font-size: 15pt;
+
+}
+
+.head-cc{
+    text-align: right;
+    color: #5C5C5C;
+    font-size: 15pt;
+}
+
+/*启动页跳过*/
+.qidong-tg{
+    border-radius: 20px;
+    background: rgba(0,0,0,0.6);
+    padding: 2% 4%;
+    position: absolute;
+    top: 3%;
+    left: 5%;
+    color: white;
+    font-size: 26pt;
+}
+
+.tou{
+    width: 100%;
+    color: white;
+    font-size: 1.1em;
+}
+.tou td{
+    padding: 2% 4%;
+}
+
+/*我的订单页导航*/
+.wddd-hd{
+    width: 100%;
+    background: black;
+    color: white;
+    text-align: center;
+}
+.wddd-hd .dd-jt{
+    color: white;
+    font-size: 16pt;
+
+}
+.wddd-hd td{
+    padding: 3% 0;
+}
+.wddd-hd td:nth-child(1){
+    width: 15%;
+}
+.wddd-hd td:nth-child(2){
+    width: 60%;
+}
+.wddd-hd td:nth-child(2){
+    width: 65%;
+    font-size: 1.7rem;
+}
+.wddd-hd td:nth-child(3){
+    width: 20%;
+}
